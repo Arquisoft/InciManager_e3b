@@ -1,7 +1,7 @@
-package com.uniovi.InciManager.inciManagerGest.web_service.request;
+package com.uniovi.inciManager.inciManagerGest.web_service.request;
 
-import com.uniovi.InciManager.db_management.model.Incidence;
-import com.uniovi.InciManager.util.Estado;
+
+import com.uniovi.inciManager.util.Estado;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -9,15 +9,15 @@ import java.util.List;
 
 public class IncidenceREST {
 
-    String username;                    // nombre de usuario del agente
-    String password;                    // para autenticación en la petición REST
-    String incidenceName;
-    String description;
-    String location;                    // formato de la localización: "45.67, 32.86"
-    List<String> labels;                // etiquetas de la incidencia
-    HashMap<String, String> campos;     // campos con propiedad valor
-    Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
-    Date expiration;                    // fecha de caducidad, ej: en caso de los sensores de temperatura
+    private String username;                    // nombre de usuario del agente
+    private String password;                    // para autenticación en la petición REST
+    private String incidenceName;
+    private String description;
+    private String location;                    // formato de la localización: "45.67, 32.86"
+    private List<String> labels;                // etiquetas de la incidencia
+    private HashMap<String, String> campos;     // campos con propiedad valor
+    private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
+    private Date expiration;                    // fecha de caducidad, ej: en caso de los sensores de temperatura
 
     public IncidenceREST() {
     }
