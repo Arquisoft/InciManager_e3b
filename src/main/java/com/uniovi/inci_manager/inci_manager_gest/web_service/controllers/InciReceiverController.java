@@ -1,10 +1,10 @@
-package com.uniovi.inciManager.inciManagerGest.web_service.controllers;
+package com.uniovi.inci_manager.inci_manager_gest.web_service.controllers;
 
 
-import com.uniovi.inciManager.inciManagerGest.web_service.InciReceiver;
-import com.uniovi.inciManager.inciManagerGest.web_service.request.IncidenceREST;
-import com.uniovi.inciManager.inciManagerGest.web_service.responses.RespuestaAddIncidenceREST;
-import com.uniovi.inciManager.inciManagerGest.web_service.services.InciReceiverService;
+import com.uniovi.inci_manager.inci_manager_gest.web_service.InciReceiver;
+import com.uniovi.inci_manager.inci_manager_gest.web_service.request.IncidenceREST;
+import com.uniovi.inci_manager.inci_manager_gest.web_service.responses.RespuestaAddIncidenceREST;
+import com.uniovi.inci_manager.inci_manager_gest.web_service.services.InciReceiverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class inciReceiverController implements InciReceiver {
+public class InciReceiverController implements InciReceiver {
 
     @Autowired
     InciReceiverService inciReceiverService;

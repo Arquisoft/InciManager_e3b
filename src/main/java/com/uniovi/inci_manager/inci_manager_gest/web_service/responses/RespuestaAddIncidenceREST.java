@@ -1,4 +1,4 @@
-package com.uniovi.inciManager.inciManagerGest.web_service.responses;
+package com.uniovi.inci_manager.inci_manager_gest.web_service.responses;
 
 public class RespuestaAddIncidenceREST {
 

@@ -1,4 +1,4 @@
-package com.uniovi.inciManager.util;
+package com.uniovi.inci_manager.util;
 
 public enum Estado {
     ABIERTA, EN_PROCESO, CERRADA, ANULADA

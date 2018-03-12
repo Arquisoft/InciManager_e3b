@@ -1,49 +1,30 @@
-package com.uniovi.inciManager.db_management.model;
+package com.uniovi.inci_manager.inci_manager_gest.web_service.request;
 
-import com.uniovi.inciManager.util.Estado;
 
-import javax.persistence.*;
+import com.uniovi.inci_manager.util.Estado;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-@Entity
-@Table(name = "Incidences")
-public class Incidence {
-
-    // Id generado automáticamente para diferenciar cada uno (para mapear)
-    @Id
-    @GeneratedValue
-    private Long id;
+public class IncidenceREST {
 
     private String username;                    // nombre de usuario del agente
+    private String password;                    // para autenticación en la petición REST
     private String incidenceName;
     private String description;
     private String location;                    // formato de la localización: "45.67, 32.86"
-
-    @ElementCollection(targetClass=String.class)
     private List<String> labels;                // etiquetas de la incidencia
-
     private HashMap<String, String> campos;     // campos con propiedad valor
     private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
     private Date expiration;                    // fecha de caducidad, ej: en caso de los sensores de temperatura
 
-    public Incidence() {
+    public IncidenceREST() {
     }
-    /**
-     * Constructor con todos los parametros
-     *
-     * @param username
-     * @param incidenceName
-     * @param description
-     * @param location
-     * @param labels
-     * @param campos
-     * @param status
-     * @param expiration
-     */
-    public Incidence(String username, String incidenceName, String description, String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
+
+    public IncidenceREST(String username, String password, String incidenceName, String description, String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
         this.username = username;
+        this.password = password;
         this.incidenceName = incidenceName;
         this.description = description;
         this.location = location;
@@ -53,25 +34,12 @@ public class Incidence {
         this.expiration = expiration;
     }
 
-    /**
-     * Constructor con los parámetros obligatorios
-     *
-     * @param username
-     * @param incidenceName
-     * @param description
-     * @param location
-     * @param labels
-     */
-    public Incidence(String username, String incidenceName, String description, String location, List<String> labels) {
-        this.username = username;
-        this.incidenceName = incidenceName;
-        this.description = description;
-        this.location = location;
-        this.labels = labels;
+    public String getPassword() {
+        return password;
     }
 
-    public Long getId() {
-        return id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUsername() {
