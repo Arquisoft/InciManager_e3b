@@ -1,3 +1,5 @@
+[![Gitter](https://badges.gitter.im/Arquisoft/InciManager_e3b.svg)](https://gitter.im/Arquisoft/InciManager_e3b?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 # InciManager_e3b
 Módulo InciManager, equipo e3b
 
