@@ -1,4 +1,4 @@
-package com.uniovi.InciManager.inciManagerGest.web_service.services;
+package com.uniovi.inciManager.inciManagerGest.web_service.services;
 
 import org.springframework.stereotype.Service;
 

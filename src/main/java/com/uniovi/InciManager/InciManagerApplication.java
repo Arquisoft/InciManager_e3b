@@ -1,4 +1,4 @@
-package com.uniovi.InciManager;
+package com.uniovi.inciManager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

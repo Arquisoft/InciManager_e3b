@@ -1,4 +1,4 @@
-package com.uniovi.InciManager;
+package com.uniovi.inciManager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
