@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 @Controller
 public class ChangeInfoHTMLController {
 	@Autowired
@@ -22,7 +24,7 @@ public class ChangeInfoHTMLController {
 		return "changeInfo";
 	}
 
-	@RequestMapping(value = "/confirmPassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/confirmPassword", method = POST)
 	public String changePassword(HttpSession session, @RequestParam String password,
 			@RequestParam String newPassword, Model model) {
 		Assert.isPasswordEmpty(password);

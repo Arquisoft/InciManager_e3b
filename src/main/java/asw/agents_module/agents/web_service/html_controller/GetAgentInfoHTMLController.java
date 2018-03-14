@@ -18,14 +18,14 @@ public class GetAgentInfoHTMLController {
 	@Autowired
 	private GetAgent getAgent;
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String inicalicerLogin(Model model) {
 		return "login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String getLogin(HttpSession session, @RequestParam String email, @RequestParam String password,
-			Model model) {
+						   Model model) {
 
 		Assert.isEmailEmpty(email);
 		Assert.isEmailValid(email);
