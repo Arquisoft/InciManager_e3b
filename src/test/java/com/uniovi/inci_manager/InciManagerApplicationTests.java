@@ -1,6 +1,7 @@
 package com.uniovi.inci_manager;
 
 
+import asw.InciManagerApplication;
 import asw.inci_manager.db_management.model.Incidence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = InciManagerApplication.class)
 public class InciManagerApplicationTests {
 
     @Test

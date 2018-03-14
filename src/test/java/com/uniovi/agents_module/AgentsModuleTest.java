@@ -5,6 +5,7 @@ import asw.agents_module.agents.web_service.request.PeticionChangePasswordREST;
 import asw.agents_module.agents.web_service.request.PeticionInfoREST;
 import asw.agents_module.db_management.GetAgent;
 import asw.agents_module.db_management.model.Agent;
+import com.uniovi.inci_manager.InciManagerApplicationTests;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -36,7 +38,7 @@ import static org.junit.Assert.*;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = InciManagerApplicationTests.class)
+@SpringApplicationConfiguration()
 @WebAppConfiguration
 @IntegrationTest({ "server.port=0" })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
