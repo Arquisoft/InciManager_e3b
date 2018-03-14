@@ -1,10 +1,10 @@
 package com.uniovi.agents_module;
 
-import agents_module.agents.web_service.request.PeticionChangeEmailREST;
-import agents_module.agents.web_service.request.PeticionChangePasswordREST;
-import agents_module.agents.web_service.request.PeticionInfoREST;
-import agents_module.db_management.GetAgent;
-import agents_module.db_management.model.Agent;
+import asw.agents_module.agents.web_service.request.PeticionChangeEmailREST;
+import asw.agents_module.agents.web_service.request.PeticionChangePasswordREST;
+import asw.agents_module.agents.web_service.request.PeticionInfoREST;
+import asw.agents_module.db_management.GetAgent;
+import asw.agents_module.db_management.model.Agent;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
