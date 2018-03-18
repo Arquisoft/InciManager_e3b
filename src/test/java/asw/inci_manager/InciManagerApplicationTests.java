@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = InciManagerApplication.class)
+@SpringBootTest(classes = InciManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class InciManagerApplicationTests {
 
     @Test
@@ -16,7 +16,6 @@ public class InciManagerApplicationTests {
 
     @Test
     public void test1Prueba() {
-
 
     }
 
