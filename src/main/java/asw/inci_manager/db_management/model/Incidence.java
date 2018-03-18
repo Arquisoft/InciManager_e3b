@@ -1,6 +1,6 @@
-package com.uniovi.inci_manager.db_management.model;
+package asw.inci_manager.db_management.model;
 
-import com.uniovi.inci_manager.util.Estado;
+import asw.inci_manager.util.Estado;
 
 import javax.persistence.*;
 import java.util.Date;
