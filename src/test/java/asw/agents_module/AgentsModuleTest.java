@@ -1,4 +1,4 @@
-package com.uniovi.agents_module;
+package asw.agents_module;
 
 import asw.InciManagerApplication;
 import asw.agents_module.agents.web_service.request.PeticionChangeEmailREST;
