@@ -1,7 +1,8 @@
 package asw;
 
-import asw.agents_module.db_management.model.Agent;
-import asw.agents_module.db_management.repository.AgentRepository;
+
+import asw.inci_manager.inci_manager_gest.entities.Agent;
+import asw.inci_manager.inci_manager_gest.repositories.AgentRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

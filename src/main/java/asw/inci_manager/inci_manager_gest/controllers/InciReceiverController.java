@@ -1,9 +1,9 @@
-package asw.inci_manager.inci_manager_gest.web_service.controllers;
+package asw.inci_manager.inci_manager_gest.controllers;
 
-import asw.inci_manager.inci_manager_gest.web_service.InciReceiver;
-import asw.inci_manager.inci_manager_gest.web_service.request.IncidenceREST;
-import asw.inci_manager.inci_manager_gest.web_service.responses.RespuestaAddIncidenceREST;
-import asw.inci_manager.inci_manager_gest.web_service.services.InciReceiverService;
+import asw.inci_manager.inci_manager_gest.InciReceiver;
+import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
+import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
+import asw.inci_manager.inci_manager_gest.services.InciReceiverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

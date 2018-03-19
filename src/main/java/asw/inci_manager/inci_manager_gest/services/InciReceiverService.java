@@ -1,4 +1,4 @@
-package asw.inci_manager.inci_manager_gest.web_service.services;
+package asw.inci_manager.inci_manager_gest.services;
 
 import org.springframework.stereotype.Service;
 

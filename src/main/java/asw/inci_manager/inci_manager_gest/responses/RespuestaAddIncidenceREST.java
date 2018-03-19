@@ -1,4 +1,4 @@
-package asw.inci_manager.inci_manager_gest.web_service.responses;
+package asw.inci_manager.inci_manager_gest.responses;
 
 public class RespuestaAddIncidenceREST {
 
