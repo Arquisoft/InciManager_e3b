@@ -14,8 +14,11 @@ public class InciManagerWebSecurity extends WebSecurityConfigurerAdapter {
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable().authorizeRequests()
 					.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll()
-					.antMatchers("/incidences/**").authenticated().and().formLogin()
-					.loginPage("/login").permitAll().defaultSuccessUrl("/home").and().logout().permitAll();
+					.antMatchers("/incidences/**").authenticated()
+					.antMatchers("/home").authenticated()
+					.and().formLogin()
+					.loginPage("/login").permitAll().defaultSuccessUrl("/home")
+					.and().logout().permitAll();
 		}
 
 
