@@ -1,6 +1,9 @@
 package asw.inci_manager.db_management.model;
 
+<<<<<<< HEAD:src/main/java/asw/inci_manager/db_management/model/Incidence.java
 
+=======
+>>>>>>> f137d71c2b7c484f6130656072a86ebed0546e12:src/main/java/asw/inci_manager/db_management/model/Incidence.java
 import asw.inci_manager.util.Estado;
 
 import javax.persistence.*;

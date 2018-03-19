@@ -1,6 +1,9 @@
 package asw.inci_manager.inci_manager_gest.web_service.request;
 
+<<<<<<< HEAD:src/main/java/asw/inci_manager/inci_manager_gest/web_service/request/IncidenceREST.java
 
+=======
+>>>>>>> f137d71c2b7c484f6130656072a86ebed0546e12:src/main/java/asw/inci_manager/inci_manager_gest/web_service/request/IncidenceREST.java
 import asw.inci_manager.util.Estado;
 
 import java.util.Date;
