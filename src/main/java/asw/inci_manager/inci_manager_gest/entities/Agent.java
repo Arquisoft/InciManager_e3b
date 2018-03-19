@@ -1,6 +1,4 @@
-package asw.agents_module.db_management.model;
-
-import asw.agents_module.agents.util.Utilidades;
+package asw.inci_manager.inci_manager_gest.entities;
 
 import javax.persistence.*;
 
@@ -67,8 +65,8 @@ public class Agent {
     }
 
     public int getKindCode(){
-        return Utilidades.getKindCode(getKind());
-    }
+        return -1;
+    } // reescrito, aquí el modulo agents llama a una utilidad para obtener el kindcode
 
     public void setPassword(String password) {
         this.password = password;

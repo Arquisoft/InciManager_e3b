@@ -1,7 +1,7 @@
 package asw.inci_manager;
 
 import asw.InciManagerApplication;
-import asw.inci_manager.db_management.model.Incidence;
+import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
