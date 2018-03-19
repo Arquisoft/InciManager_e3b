@@ -1,22 +1,15 @@
 package asw.inci_manager;
 
-<<<<<<< HEAD:src/test/java/com/uniovi/inci_manager/InciManagerApplicationTests.java
 
 import asw.InciManagerApplication;
 import asw.inci_manager.db_management.model.Incidence;
-=======
->>>>>>> f137d71c2b7c484f6130656072a86ebed0546e12:src/test/java/asw/inci_manager/InciManagerApplicationTests.java
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-<<<<<<< HEAD:src/test/java/com/uniovi/inci_manager/InciManagerApplicationTests.java
-@SpringBootTest(classes = InciManagerApplication.class)
-=======
 @SpringBootTest(classes = InciManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
->>>>>>> f137d71c2b7c484f6130656072a86ebed0546e12:src/test/java/asw/inci_manager/InciManagerApplicationTests.java
 public class InciManagerApplicationTests {
 
     @Test
@@ -25,8 +18,16 @@ public class InciManagerApplicationTests {
     }
 
     @Test
-    public void test1Prueba() {
+    public void testIncidenciaModel() {
+        Incidence i = new Incidence("agente1", "incidencia 1", "descripción de la incidencia", "45.678, 12.896", null);
 
+        assert i.getUsername().equals("agente1");
+        assert i.getIncidenceName().equals("incidencia 1");
+        assert i.getDescription().equals("descripción de la incidencia");
+        assert i.getLocation().equals("45.678, 12.896");
+        assert i.getLabels() == null;
+        assert i.getCampos() == null;
+        assert i.getExpiration() == null;
     }
 
 }

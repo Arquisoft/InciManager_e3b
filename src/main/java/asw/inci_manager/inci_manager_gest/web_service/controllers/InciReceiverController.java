@@ -1,9 +1,5 @@
 package asw.inci_manager.inci_manager_gest.web_service.controllers;
 
-<<<<<<< HEAD:src/main/java/asw/inci_manager/inci_manager_gest/web_service/controllers/InciReceiverController.java
-=======
-
->>>>>>> f137d71c2b7c484f6130656072a86ebed0546e12:src/main/java/asw/inci_manager/inci_manager_gest/web_service/controllers/InciReceiverController.java
 import asw.inci_manager.inci_manager_gest.web_service.InciReceiver;
 import asw.inci_manager.inci_manager_gest.web_service.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.web_service.responses.RespuestaAddIncidenceREST;
