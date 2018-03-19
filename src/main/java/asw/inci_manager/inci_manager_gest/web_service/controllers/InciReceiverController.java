@@ -1,6 +1,5 @@
 package asw.inci_manager.inci_manager_gest.web_service.controllers;
 
-
 import asw.inci_manager.inci_manager_gest.web_service.InciReceiver;
 import asw.inci_manager.inci_manager_gest.web_service.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.web_service.responses.RespuestaAddIncidenceREST;

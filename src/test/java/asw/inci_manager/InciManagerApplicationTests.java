@@ -1,5 +1,6 @@
 package asw.inci_manager;
 
+import asw.InciManagerApplication;
 import asw.inci_manager.db_management.model.Incidence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
