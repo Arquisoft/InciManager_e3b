@@ -1,7 +1,6 @@
-package com.uniovi.inciManager.inciManagerGest.web_service.request;
+package asw.inci_manager.inci_manager_gest.request;
 
-
-import com.uniovi.inciManager.util.Estado;
+import asw.inci_manager.util.Estado;
 
 import java.util.Date;
 import java.util.HashMap;
