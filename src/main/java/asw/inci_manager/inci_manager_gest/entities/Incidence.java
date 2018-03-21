@@ -2,10 +2,7 @@ package asw.inci_manager.inci_manager_gest.entities;
 
 import asw.inci_manager.util.Estado;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -18,6 +15,7 @@ public class Incidence {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
     private Agent agent;                    // nombre de usuario del agente
     private String incidenceName;
     private String description;
