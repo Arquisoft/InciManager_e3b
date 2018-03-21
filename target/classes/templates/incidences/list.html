@@ -9,7 +9,7 @@
             <div class="illustration">
                 <h1> <i class="fa fa-list-ul"></i> Mis incidencias</h1>
             </div>
-            <p>Agente: nombre_de_agente</p>
+            <p>Agente: <span sec:authorize="isAuthenticated()" th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></p>
             <div class="row">
                 <table class="table table-responsive table-hover">
                     <thead>
