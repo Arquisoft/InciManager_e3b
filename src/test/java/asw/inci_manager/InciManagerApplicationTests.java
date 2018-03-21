@@ -1,6 +1,7 @@
 package asw.inci_manager;
 
 import asw.InciManagerApplication;
+import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +19,15 @@ public class InciManagerApplicationTests {
 
     @Test
     public void testIncidenciaModel() {
-        Incidence i = new Incidence("agente1", "incidencia 1", "descripción de la incidencia", "45.678, 12.896", null);
+        Agent paco =new Agent("Paco","123456","","paco@gmail.com","paco","Person");
 
-        assert i.getUsername().equals("agente1");
+        Incidence i = new Incidence(paco, "incidencia 1", "descripción de la incidencia", "45.678, 12.896", "");
+
+        assert i.getAgent().getNombre().equals("Paco");
         assert i.getIncidenceName().equals("incidencia 1");
         assert i.getDescription().equals("descripción de la incidencia");
         assert i.getLocation().equals("45.678, 12.896");
-        assert i.getLabels() == null;
+        assert i.getLabels() == "";
         assert i.getCampos() == null;
         assert i.getExpiration() == null;
     }
