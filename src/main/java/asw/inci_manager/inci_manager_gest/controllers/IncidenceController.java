@@ -18,8 +18,13 @@ public class IncidenceController {
     IncidenceService incidenceService;
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.GET)
-    public String add(){
+    public String addForm(){
         return "incidences/add";
+    }
+    
+    @RequestMapping(value = "/incidences/add", method = RequestMethod.POST)
+    public String addIncidence(){
+        return "incidences/list";
     }
 
     @RequestMapping(value = "/incidences/list", method = RequestMethod.GET)
