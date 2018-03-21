@@ -2,10 +2,12 @@ package asw.inci_manager.inci_manager_gest.entities;
 
 import asw.inci_manager.util.Estado;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 @Entity
 @Table(name = "Incidences")
@@ -16,13 +18,12 @@ public class Incidence {
     @GeneratedValue
     private Long id;
 
-    private String username;                    // nombre de usuario del agente
+    private Agent agent;                    // nombre de usuario del agente
     private String incidenceName;
     private String description;
     private String location;                    // formato de la localización: "45.67, 32.86"
 
-    @ElementCollection(targetClass=String.class)
-    private List<String> labels;                // etiquetas de la incidencia
+    private String labels;                // etiquetas de la incidencia
 
     private HashMap<String, String> campos;     // campos con propiedad valor
     private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
@@ -30,10 +31,11 @@ public class Incidence {
 
     public Incidence() {
     }
+
     /**
      * Constructor con todos los parametros
      *
-     * @param username
+     * @param agent
      * @param incidenceName
      * @param description
      * @param location
@@ -42,8 +44,8 @@ public class Incidence {
      * @param status
      * @param expiration
      */
-    public Incidence(String username, String incidenceName, String description, String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
-        this.username = username;
+    public Incidence(Agent agent, String incidenceName, String description, String location, String labels, HashMap<String, String> campos, Estado status, Date expiration) {
+        this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
         this.location = location;
@@ -53,33 +55,26 @@ public class Incidence {
         this.expiration = expiration;
     }
 
-    /**
-     * Constructor con los parámetros obligatorios
-     *
-     * @param username
-     * @param incidenceName
-     * @param description
-     * @param location
-     * @param labels
-     */
-    public Incidence(String username, String incidenceName, String description, String location, List<String> labels) {
-        this.username = username;
+
+    public Incidence(Agent agent, String incidenceName, String description, String location, String labels) {
+        this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
         this.location = location;
         this.labels = labels;
+        this.status = Estado.ABIERTA;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public Agent getAgent() {
+        return agent;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 
     public String getIncidenceName() {
@@ -106,11 +101,11 @@ public class Incidence {
         this.location = location;
     }
 
-    public List<String> getLabels() {
+    public String getLabels() {
         return labels;
     }
 
-    public void setLabels(List<String> labels) {
+    public void setLabels(String labels) {
         this.labels = labels;
     }
 
