@@ -1,4 +1,4 @@
-package aws.inci_manager.kafka_manager.producers;
+package asw.inci_manager.kafka_manager.producers;
 
 
 import org.apache.log4j.Logger;
