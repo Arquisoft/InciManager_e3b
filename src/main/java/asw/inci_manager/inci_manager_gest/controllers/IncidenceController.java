@@ -1,5 +1,6 @@
 package asw.inci_manager.inci_manager_gest.controllers;
 
+import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
 import asw.inci_manager.inci_manager_gest.services.IncidenceService;
@@ -23,7 +24,8 @@ public class IncidenceController {
     }
     
     @RequestMapping(value = "/incidences/add", method = RequestMethod.POST)
-    public String addIncidence(){
+    public String addIncidence(@ModelAttribute Incidence incidence){
+    	incidenceService.send(incidence);
         return "incidences/list";
     }
 
