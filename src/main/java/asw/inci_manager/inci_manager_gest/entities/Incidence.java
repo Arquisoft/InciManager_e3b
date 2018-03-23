@@ -25,7 +25,7 @@ public class Incidence {
     @ElementCollection(targetClass = String.class)
     private Set<String> labels;                // etiquetas de la incidencia
 
-    private HashMap<String, String> campos;     // campos con propiedad valor
+    private HashMap<String, String> fields;     // campos con propiedad valor
     private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
     private Date expiration;                    // fecha de caducidad, ej: en caso de los sensores de temperatura
 
@@ -40,17 +40,17 @@ public class Incidence {
      * @param description
      * @param location
      * @param labels
-     * @param campos
+     * @param fields
      * @param status
      * @param expiration
      */
-    public Incidence(Agent agent, String incidenceName, String description, String location, Set<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
+    public Incidence(Agent agent, String incidenceName, String description, String location, Set<String> labels, HashMap<String, String> fields, Estado status, Date expiration) {
         this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
         this.location = location;
         this.labels = labels;
-        this.campos = campos;
+        this.fields = fields;
         this.status = status;
         this.expiration = expiration;
     }
@@ -109,12 +109,12 @@ public class Incidence {
         this.labels = labels;
     }
 
-    public HashMap<String, String> getCampos() {
-        return campos;
+    public HashMap<String, String> getFields() {
+        return fields;
     }
 
-    public void setCampos(HashMap<String, String> campos) {
-        this.campos = campos;
+    public void setFields(HashMap<String, String> fields) {
+        this.fields = fields;
     }
 
     public Estado getStatus() {
