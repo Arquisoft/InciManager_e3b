@@ -32,9 +32,14 @@ public class IncidenceController {
     }
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.POST)
-    public String addIncidence(@ModelAttribute Incidence incidence) {
+    public String addIncidenceFormulario(@ModelAttribute Incidence incidence) {
+        // TODO: Aquí pedir los parametros por RequestParam <- más viable
+        // TODO: completar el formulario html con los parámetros que faltan de incidencia.
+        // TODO: hacer un parser de la lista de etiquetas, porque la de comentarios y "otros" deberían rellarla los operarios
+
         incidenceService.send(incidence);
-        return "incidences/list";
+
+        return "redirect:/incidences/list";
     }
 
     @RequestMapping(value = "/incidences/list", method = RequestMethod.GET)
@@ -59,7 +64,7 @@ public class IncidenceController {
 
     /**
      * Método para añadir una incidencia que un agente envía.
-     * <p>
+     *
      * Permito get (al no especificar el método del requestmapping),
      * para asi poder comprobar visualmente la respuesta accediendo a localhost:8080/addIncidence
      *
