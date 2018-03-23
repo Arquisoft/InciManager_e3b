@@ -16,9 +16,11 @@ public class InciManagerWebSecurity extends WebSecurityConfigurerAdapter {
 					.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll()
 					.antMatchers("/incidences/**").authenticated()
 					.antMatchers("/home").authenticated()
-					.and().formLogin()
-					.loginPage("/login").permitAll().defaultSuccessUrl("/home")
-					.and().logout().permitAll();
+						.and()
+					.formLogin().loginPage("/login").permitAll()
+					.defaultSuccessUrl("/home")
+						.and()
+					.logout().permitAll();
 		}
 
 
