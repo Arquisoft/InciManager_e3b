@@ -51,3 +51,5 @@ Una vez corriendo Zookeeper y Kafka, ya se puede ejecutar la aplicación, que se
 - Kilian Pérez González (UO21504)
 
 ## Licencia del proyecto
+
+El contenido completo de este proyecto esta licenciado bajo los terminos de la licencia: _[Unlicense](http://unlicense.org)_. Los detalles completos de la licencia pueden consultarse en el fichero: [LICENSE.md](LICENSE.md).
