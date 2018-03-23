@@ -17,11 +17,11 @@ Este proyecto ha sido desarrollado como práctica de la asignatura _[Arquitectur
 ## Tabla de Contenidos
 
 1. [Descripción del proyecto](#incimanager_e3b)
-- [Como instalar el proyecto](#como-instalar-el-proyecto)
-- [Como ejecutar el proyecto](#como-ejecutar-el-proyecto)
-- [Como contribuir al proyecto](#como-contribuir-al-proyecto)
-- [Creditos del proyecto](#creditos-del-proyecto)
-- [Licencia del proyecto](#licencia-del-proyecto)
+2. [Como instalar el proyecto](#como-instalar-el-proyecto)
+3. [Como ejecutar el proyecto](#como-ejecutar-el-proyecto)
+4. [Como contribuir al proyecto](#como-contribuir-al-proyecto)
+5. [Creditos del proyecto](#creditos-del-proyecto)
+6. [Licencia del proyecto](#licencia-del-proyecto)
 
 ## Como instalar el proyecto
 
