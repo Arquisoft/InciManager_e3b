@@ -3,14 +3,25 @@ package asw.inci_manager;
 import asw.InciManagerApplication;
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
+import asw.inci_manager.inci_manager_gest.services.AgentService;
+import asw.inci_manager.inci_manager_gest.services.IncidenceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = InciManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class InciManagerApplicationTests {
+
+    @Autowired
+    IncidenceService incidenceService;
+
+    @Autowired
+    AgentService agentService;
 
     @Test
     public void testAgentModel() {
@@ -44,7 +55,7 @@ public class InciManagerApplicationTests {
         i.getAgent().setPassword("pass");
         i.getAgent().setEmail("paco@gmail.com");
 
-        // Test agente
+        // Test agente dentro de la incidencia
         assert i.getAgent().getNombre().equals("Paco");
         assert i.getAgent().getPassword().equals("pass");
         assert i.getAgent().getLocation().equals("");
@@ -58,6 +69,16 @@ public class InciManagerApplicationTests {
         assert i.getLabels().equals("");
         assert i.getCampos() == null;
         assert i.getExpiration() == null;
+    }
+
+    @Test
+    public void testListaIncidencias(){
+        Agent pepe = agentService.getAgentByEmailFlexible("pepe@gmail.com");
+
+        Set<Incidence> incidenceSet = incidenceService.getIncidencesFromAgent(pepe);
+        assert !incidenceSet.isEmpty(); // Tiene incidencias porque InsertDataSample las carga.
+
+
     }
 
 }
