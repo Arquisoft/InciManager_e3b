@@ -31,7 +31,7 @@ public class Operario {
 
     @Override
     public String toString() {
-        return "Operador [email=" + email + "]";
+        return email;
     }
 
     @Override
