@@ -27,7 +27,10 @@
                             <td th:text="${incidence.incidenceName}">Gotera en el techo</td>
                             <td th:text="${incidence.description}">Debido a una rotura de cañería</td>
                             <td th:text="${incidence.location}">43.6735, 58.2452</td>
-                            <td th:text="${incidence.labels}">gotera, agua</td>
+                            <td><span th:each="label : ${incidence.labels}">
+                                    <span th:text="${label}">gotera</span>,
+                                </span>
+                            </td>
                         </tr>
                         <!--<tr>
                             <td>CERRADA</td>

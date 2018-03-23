@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -50,7 +51,7 @@ public class InciManagerApplicationTests {
     public void testIncidenciaModel() {
         Agent paco = new Agent("Paco", "123456", "", "paco@gmail.com", "paco", "Person");
 
-        Incidence i = new Incidence(paco, "incidencia 1", "descripción de la incidencia", "45.678, 12.896", "");
+        Incidence i = new Incidence(paco, "incidencia 1", "descripción de la incidencia", "45.678, 12.896", new HashSet<String>());
 
         i.getAgent().setPassword("pass");
         i.getAgent().setEmail("paco@gmail.com");

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
 
 @Service
 public class InsertDataSample {
@@ -32,10 +33,10 @@ public class InsertDataSample {
         agentRepository.save(medioambiente);
         agentRepository.save(spacex);
 
-        Incidence inci1 = new Incidence(paco, "Gotera en el techo", "Debido a una rotura de cañería","43.6735, 58.2452","gotera, agua");
-        Incidence inci2 = new Incidence(paco, "Rotura de cañería", "Se ha roto totalmente una cañería de plomo","43.6735, 58.2452","rotura, agua, cañería");
-        Incidence inci3 = new Incidence(pepe, "Rotura de pared", "La que saliao pollito","43.789, 59.146","rotura, pared");
-        Incidence inci4 = new Incidence(pepe, "Fuego en papelera", "Una colilla ha prendido fuego una papelera","44.731, 39.125","fuego, calle");
+        Incidence inci1 = new Incidence(paco, "Gotera en el techo", "Debido a una rotura de cañería","43.6735, 58.2452",new HashSet<String>(){{add("gotera");add("agua");}});
+        Incidence inci2 = new Incidence(paco, "Rotura de cañería", "Se ha roto totalmente una cañería de plomo","43.6735, 58.2452",new HashSet<String>(){{add("rotura");add("agua");add("cañería");}});
+        Incidence inci3 = new Incidence(pepe, "Rotura de pared", "La que saliao pollito","43.789, 59.146",new HashSet<String>(){{add("rotura");add("pared");}});
+        Incidence inci4 = new Incidence(pepe, "Fuego en papelera", "Una colilla ha prendido fuego una papelera","44.731, 39.125",new HashSet<String>(){{add("fuego");add("calle");}});
 
         incidenceRepository.save(inci1);
         incidenceRepository.save(inci2);
