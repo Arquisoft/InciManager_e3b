@@ -13,9 +13,16 @@ Primero -> Zookeeper:
 	`bin\windows\zookeeper-server-start.bat config\zookeeper.properties`
 
 Segundo -> Apache Kafka:
-	`bin\windows\kafka-server-start.sh config\server.properties`
+	`bin\windows\kafka-server-start.bat config\server.properties`
 
 Una vez corriendo Zookeeper y Kafka, ya se puede ejecutar la aplicación, que se sirve en el puerto http://localhost:8091
+___
+
+En el directorio donde está instalado kafka se puede crear un archivo `start_services.bat` con las siguientes lineas, para automatizar la ejecución de Zookeeper y Kafka:
+```
+start cmd /k bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+start cmd /k bin\windows\kafka-server-start.bat config\server.properties
+```
 
 # Authors (2017/2018)
 

@@ -2,6 +2,7 @@ package asw;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,9 +14,10 @@ public class InciManagerWebSecurity extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable().authorizeRequests()
+					.antMatchers(HttpMethod.POST,"/addIncidence").permitAll()
 					.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll()
 					.antMatchers("/incidences/**").authenticated()
-					.antMatchers("/home").authenticated()
+					.anyRequest().authenticated()
 						.and()
 					.formLogin().loginPage("/login").permitAll()
 					.defaultSuccessUrl("/home")
