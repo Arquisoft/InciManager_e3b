@@ -38,4 +38,13 @@ public class IncidenceService {
 	public Set<Incidence> getIncidencesFromAgent(Agent agent){
 		return incidenceRepository.findIncidenceByAgent(agent);
 	}
+
+	/**
+	 * Retorna una incidencia buscando el id por parámetro
+	 * @param id, incidencia a buscar
+	 * @return la incidencia buscada
+	 */
+	public Incidence getIncidenceById(Long id){
+		return incidenceRepository.findIncidenceById(id);
+	}
 }

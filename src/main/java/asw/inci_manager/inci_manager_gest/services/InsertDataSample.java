@@ -2,8 +2,10 @@ package asw.inci_manager.inci_manager_gest.services;
 
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
+import asw.inci_manager.inci_manager_gest.entities.Operario;
 import asw.inci_manager.inci_manager_gest.repositories.AgentRepository;
 import asw.inci_manager.inci_manager_gest.repositories.IncidenceRepository;
+import asw.inci_manager.inci_manager_gest.repositories.OperarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class InsertDataSample {
     @Autowired
     IncidenceRepository incidenceRepository;
 
+    @Autowired
+    OperarioRepository operarioRepository;
+
     @PostConstruct
     public void init(){
         Agent paco =new Agent("Paco González","123456","","paco@gmail.com","paco","Person");
@@ -33,10 +38,24 @@ public class InsertDataSample {
         agentRepository.save(medioambiente);
         agentRepository.save(spacex);
 
-        Incidence inci1 = new Incidence(paco, "Gotera en el techo", "Debido a una rotura de cañería","43.6735, 58.2452",new HashSet<String>(){{add("gotera");add("agua");}});
-        Incidence inci2 = new Incidence(paco, "Rotura de cañería", "Se ha roto totalmente una cañería de plomo","43.6735, 58.2452",new HashSet<String>(){{add("rotura");add("agua");add("cañería");}});
-        Incidence inci3 = new Incidence(pepe, "Rotura de pared", "La que saliao pollito","43.789, 59.146",new HashSet<String>(){{add("rotura");add("pared");}});
-        Incidence inci4 = new Incidence(pepe, "Fuego en papelera", "Una colilla ha prendido fuego una papelera","44.731, 39.125",new HashSet<String>(){{add("fuego");add("calle");}});
+        Operario operario = new Operario("operario1@gmail.com","123456","rol",null);
+        operarioRepository.save(operario);
+
+        Incidence inci1 = new Incidence(pepe, "Gotera en el techo", "Debido a una rotura de cañería por la parte superior. Todo destrozado. Algún objeto grande","43.6735, 58.2452",new HashSet<String>(){{add("gotera");add("agua");}});
+        inci1.setOperario(operario);
+        inci1.setComments(new HashSet<String>(){{add("Esta incidencia es muy complicada");add("Se avanza poco a poco en la gotera");add("hay que comprar yeso");}});
+        inci1.setOthers(new HashSet<String>(){{add("Su teléfono: 683 09 74 23");}});
+
+        Incidence inci2 = new Incidence(pepe, "Rotura de cañería", "Se ha roto totalmente una cañería de plomo, se ha liado parda!","43.6735, 58.2452",new HashSet<String>(){{add("rotura");add("agua");add("cañería");}});
+        inci2.setOperario(operario);
+        inci2.setComments(new HashSet<String>(){{add("Se ha liado pollito");add("Se avanza mucho en la restauración");add("hay que comprar pintura");}});
+        inci2.setOthers(new HashSet<String>(){{add("A ver quien es el majo que arregla este sarao...");add("email del paisano: semestropeótodo@gmail.com");}});
+
+        Incidence inci3 = new Incidence(paco, "Rotura de pared", "La que saliao pollito","43.789, 59.146",new HashSet<String>(){{add("rotura");add("pared");}});
+        inci3.setOperario(operario);
+
+        Incidence inci4 = new Incidence(paco, "Fuego en papelera", "Una colilla ha prendido fuego una papelera","44.731, 39.125",new HashSet<String>(){{add("fuego");add("calle");}});
+        inci4.setOperario(operario);
 
         incidenceRepository.save(inci1);
         incidenceRepository.save(inci2);
