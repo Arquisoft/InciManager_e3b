@@ -4,7 +4,18 @@
 [![Gitter](https://badges.gitter.im/Arquisoft/InciManager_e3b.svg)](https://gitter.im/Arquisoft/InciManager_e3b?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # InciManager_e3b
-Módulo InciManager, equipo e3b
+Módulo InciManager, equipo e3b.
+
+# Para ejecutar
+Lo primero que se necesita es descargar [Apache Kafka](https://kafka.apache.org/downloads). Ejecutar los siguientes comandos desde el menú raiz de la carpeta descomprimida de kafka. En caso de utilizar Linux, omitir la carpeta `windows` de la ruta del comando.
+
+Primero -> Zookeeper:
+	`bin\windows\zookeeper-server-start.bat config\zookeeper.properties`
+
+Segundo -> Apache Kafka:
+	`bin\windows\kafka-server-start.sh config\server.properties`
+
+Una vez corriendo Zookeeper y Kafka, ya se puede ejecutar la aplicación, que se sirve en el puerto http://localhost:8091
 
 # Authors (2017/2018)
 
