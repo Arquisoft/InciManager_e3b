@@ -22,10 +22,16 @@ public class Operario {
     private Set<Incidence> incidencias = new HashSet<>();
 
 
+    public Operario(String email, String password, String role, Set<Incidence> incidencias) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.incidencias = incidencias;
+    }
+
     @Override
     public String toString() {
-        return "Operador [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + ", partes="
-                + incidencias + "]";
+        return "Operador [email=" + email + "]";
     }
 
     @Override

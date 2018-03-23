@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IncidenceController {
@@ -45,6 +46,12 @@ public class IncidenceController {
         return "incidences/list";
     }
 
+    @RequestMapping(value = "/incidences/view")
+    public String viewIncidence(Model model,@RequestParam() Long id){
+        Incidence incidence = incidenceService.getIncidenceById(id);
+        model.addAttribute("incidence",incidence);
+        return "/incidences/view";
+    }
     /**
      * Método para añadir una incidencia que un agente envía.
      *
