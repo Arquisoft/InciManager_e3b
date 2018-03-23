@@ -5,6 +5,7 @@ import asw.inci_manager.util.Estado;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 @Entity
 @Table(name = "Incidences")
@@ -21,7 +22,8 @@ public class Incidence {
     private String description;
     private String location;                    // formato de la localización: "45.67, 32.86"
 
-    private String labels;                // etiquetas de la incidencia
+    @ElementCollection(targetClass = String.class)
+    private Set<String> labels;                // etiquetas de la incidencia
 
     private HashMap<String, String> campos;     // campos con propiedad valor
     private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
@@ -42,7 +44,7 @@ public class Incidence {
      * @param status
      * @param expiration
      */
-    public Incidence(Agent agent, String incidenceName, String description, String location, String labels, HashMap<String, String> campos, Estado status, Date expiration) {
+    public Incidence(Agent agent, String incidenceName, String description, String location, Set<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
         this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
@@ -54,7 +56,7 @@ public class Incidence {
     }
 
 
-    public Incidence(Agent agent, String incidenceName, String description, String location, String labels) {
+    public Incidence(Agent agent, String incidenceName, String description, String location, Set<String> labels) {
         this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
@@ -99,11 +101,11 @@ public class Incidence {
         this.location = location;
     }
 
-    public String getLabels() {
+    public Set<String> getLabels() {
         return labels;
     }
 
-    public void setLabels(String labels) {
+    public void setLabels(Set<String> labels) {
         this.labels = labels;
     }
 
