@@ -24,6 +24,7 @@ public class IncidenceController {
 
     @Autowired
     private IncidenceService incidenceService;
+    
     @Autowired
     private AgentService agentService;
 
@@ -52,7 +53,6 @@ public class IncidenceController {
 		//incidenceService.addIncidence(i);
 		
         incidenceService.send(i);
-        System.out.println(i);
         return "redirect:/incidences/list";
     }
 
