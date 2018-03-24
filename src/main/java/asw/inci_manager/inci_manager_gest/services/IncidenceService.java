@@ -19,10 +19,10 @@ public class IncidenceService {
 	private static final Logger logger = Logger.getLogger(IncidenceService.class);
 	
 	@Autowired
-    KafkaProducer kafkaProducer;
+    private KafkaProducer kafkaProducer;
 
 	@Autowired
-	IncidenceRepository incidenceRepository;
+	private IncidenceRepository incidenceRepository;
 	
 	public void send(Incidence incidence)
 	{

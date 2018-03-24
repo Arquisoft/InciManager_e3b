@@ -32,10 +32,10 @@ import static org.junit.Assert.assertThat;
 public class InciManagerApplicationTests {
 
     @Autowired
-    IncidenceService incidenceService;
+    private IncidenceService incidenceService;
 
     @Autowired
-    AgentService agentService;
+    private AgentService agentService;
 
     @Value("${local.server.port}")
     private int port;
