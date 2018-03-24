@@ -1,12 +1,10 @@
 ﻿package asw.inci_manager.inci_manager_gest.services;
-
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import asw.inci_manager.inci_manager_gest.repositories.IncidenceRepository;
 import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.kafka_manager.producers.KafkaProducer;
 import asw.inci_manager.util.Estado;
-
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
