@@ -6,7 +6,6 @@ import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
 import asw.inci_manager.inci_manager_gest.services.AgentService;
 import asw.inci_manager.inci_manager_gest.services.IncidenceService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IncidenceController {
 
     @Autowired
-    private IncidenceService incidenceService;
+    IncidenceService incidenceService;
     @Autowired
-    private AgentService agentService;
+    AgentService agentService;
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.GET)
     public String addForm() {
@@ -33,26 +33,13 @@ public class IncidenceController {
     }
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.POST)
-    public String addIncidenceFormulario(@RequestParam(value = "incidenceName") String incidenceName,
-            @RequestParam(value = "description") String description,
-            @RequestParam(value = "location") String location,
-            @RequestParam(value = "labels") String labels,
-            @RequestParam(value = "others") String others,
-            @RequestParam(value = "fields") String fields) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		Agent activeAgent = agentService.getAgentByEmailFlexible(email);
-		
-		Incidence i = new Incidence(activeAgent, incidenceName, description, location, incidenceService.labelsParser(labels));
-		i.setCacheable(true);
-		i.setOthers(incidenceService.labelsParser(others));
-		i.setFields(incidenceService.fielsParser(fields));
-		
-		//Descomentar en caso de querer insertar en la base de datos.
-		//incidenceService.addIncidence(i);
-		
-        incidenceService.send(i);
-        System.out.println(i);
+    public String addIncidenceFormulario(@ModelAttribute Incidence incidence) {
+        // TODO: Aquí pedir los parametros por RequestParam <- más viable
+        // TODO: completar el formulario html con los parámetros que faltan de incidencia.
+        // TODO: hacer un parser de la lista de etiquetas, porque la de comentarios y "otros" deberían rellarla los operarios
+
+        incidenceService.send(incidence);
+
         return "redirect:/incidences/list";
     }
 
@@ -75,7 +62,8 @@ public class IncidenceController {
             return "/incidences/view";
         }
     }
-
+    
+    
     /**
      * Método para añadir una incidencia que un agente envía.
      *
@@ -86,9 +74,18 @@ public class IncidenceController {
      * @return respuesta, con fomato "id",
      */
     @RequestMapping(value = "/addIncidence")
-    public ResponseEntity<RespuestaAddIncidenceREST> addIncidence(@ModelAttribute IncidenceREST incidenceREST) {
+    public ResponseEntity<RespuestaAddIncidenceREST> addIncidence(@RequestBody IncidenceREST incidenceREST) {
         // TODO: procesar la incidencia que se recibe
-        RespuestaAddIncidenceREST res = new RespuestaAddIncidenceREST("id", incidenceREST.getIncidenceName(), "no añadida.");
+    	Agent agent = agentService.getAgentByEmailFlexible(incidenceREST.getUsername());
+		RespuestaAddIncidenceREST res;
+		incidenceREST = incidenceService.send(incidenceREST, agent);
+		res = new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(),
+				incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
+				incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),
+				incidenceREST.getExpiration(), incidenceREST.isCacheable());
+
         return new ResponseEntity<RespuestaAddIncidenceREST>(res, HttpStatus.OK);
     }
+
+    
 }
