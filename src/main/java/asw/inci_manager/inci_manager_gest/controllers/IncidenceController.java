@@ -6,6 +6,10 @@ import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
 import asw.inci_manager.inci_manager_gest.services.AgentService;
 import asw.inci_manager.inci_manager_gest.services.IncidenceService;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +36,26 @@ public class IncidenceController {
     }
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.POST)
-    public String addIncidenceFormulario(@ModelAttribute Incidence incidence) {
+    public String addIncidenceFormulario(@RequestParam(value = "incidenceName") String incidenceName,
+            @RequestParam(value = "description") String description,
+            @RequestParam(value = "location") String location,
+            @RequestParam(value = "labels") String label) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Agent activeAgent = agentService.getAgentByEmailFlexible(email);
         // TODO: Aquí pedir los parametros por RequestParam <- más viable
         // TODO: completar el formulario html con los parámetros que faltan de incidencia.
         // TODO: hacer un parser de la lista de etiquetas, porque la de comentarios y "otros" deberían rellarla los operarios
-
-        incidenceService.send(incidence);
-
+		String[] etiquetas = label.split(",");
+		Set<String> labels = new HashSet<String>();
+		for (String string : etiquetas) {
+			labels.add(string);
+		}
+		
+		Incidence i = new Incidence(activeAgent, incidenceName, description, location, labels);
+		//incidenceService.addIncidence(i);
+        incidenceService.send(i);
+        System.out.println(i);
         return "redirect:/incidences/list";
     }
 

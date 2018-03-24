@@ -38,6 +38,14 @@ public class IncidenceService {
 	public Set<Incidence> getIncidencesFromAgent(Agent agent){
 		return incidenceRepository.findIncidenceByAgent(agent);
 	}
+	
+	/**
+	 * Recibe una incidencia y la almacena en la base de datos
+	 * @param incidence incidencia a guardar en la base de datos
+	 */
+	public void addIncidence(Incidence incidence) {
+		incidenceRepository.save(incidence);
+	}
 
 	/**
 	 * Retorna una incidencia buscando el id por parámetro
