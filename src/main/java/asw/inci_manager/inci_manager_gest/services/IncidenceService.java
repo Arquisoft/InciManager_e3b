@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -54,5 +55,19 @@ public class IncidenceService {
 	 */
 	public Incidence getIncidenceById(Long id){
 		return incidenceRepository.findIncidenceById(id);
+	}
+	
+	/**
+	 * Recibe del formulario un String de incidencias separadas por comas y lo devuelve como un hashset de strings
+	 * @param label String de incidencias separadas por comas
+	 * @return HashSet de Strings
+	 */
+	public Set<String> labelsParser(String label) {
+		String[] etiquetas = label.split(",");
+		Set<String> labels = new HashSet<String>();
+		for (String string : etiquetas) {
+			labels.add(string);
+		}
+		return labels;
 	}
 }

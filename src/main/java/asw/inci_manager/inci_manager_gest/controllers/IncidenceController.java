@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IncidenceController {
 
     @Autowired
-    IncidenceService incidenceService;
+    private IncidenceService incidenceService;
     @Autowired
     AgentService agentService;
 
@@ -46,14 +46,13 @@ public class IncidenceController {
         // TODO: Aquí pedir los parametros por RequestParam <- más viable
         // TODO: completar el formulario html con los parámetros que faltan de incidencia.
         // TODO: hacer un parser de la lista de etiquetas, porque la de comentarios y "otros" deberían rellarla los operarios
-		String[] etiquetas = label.split(",");
-		Set<String> labels = new HashSet<String>();
-		for (String string : etiquetas) {
-			labels.add(string);
-		}
 		
-		Incidence i = new Incidence(activeAgent, incidenceName, description, location, labels);
+		Incidence i = new Incidence(activeAgent, incidenceName, description, location, incidenceService.labelsParser(label));
+		i.setCacheable(true);
+		
+		//Descomentar en caso de querer insertar en la base de datos.
 		//incidenceService.addIncidence(i);
+		
         incidenceService.send(i);
         System.out.println(i);
         return "redirect:/incidences/list";
