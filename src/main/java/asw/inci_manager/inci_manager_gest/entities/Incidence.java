@@ -5,7 +5,7 @@ import asw.inci_manager.util.Estado;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Incidences")
@@ -16,70 +16,85 @@ public class Incidence {
     @GeneratedValue
     private Long id;
 
-    private String username;                    // nombre de usuario del agente
-    private String incidenceName;
-    private String description;
+    @ManyToOne
+    private Agent agent;                        // agente que envía la incidencia
+    private String incidenceName;               // titulo de la incidencia
+    private String description;                 // descripcion de la incidencia
     private String location;                    // formato de la localización: "45.67, 32.86"
 
-    @ElementCollection(targetClass=String.class)
-    private List<String> labels;                // etiquetas de la incidencia
+    @ElementCollection(targetClass = String.class)
+    private Set<String> labels;                // etiquetas de la incidencia
 
-    private HashMap<String, String> campos;     // campos con propiedad valor
+    @ElementCollection(targetClass = String.class)
+    private Set<String> comments;               // comentarios del operario
+
+    private HashMap<String, String> fields;     // campos con propiedad valor que pueden ser necesarios.
+
     private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
     private Date expiration;                    // fecha de caducidad, ej: en caso de los sensores de temperatura
+    private boolean cacheable;                  // Si esta incidencia se va a guardar o no. true | false
+
+    @ElementCollection(targetClass = String.class)
+    private Set<String> others;                 // otros valores que los agentes quieran.
+
+    @ManyToOne
+    private Operario operario;                  // operario encargado de la incidencia
 
     public Incidence() {
     }
+
     /**
      * Constructor con todos los parametros
      *
-     * @param username
+     * @param agent
      * @param incidenceName
      * @param description
      * @param location
      * @param labels
-     * @param campos
+     * @param comments
+     * @param fields
      * @param status
      * @param expiration
+     * @param cacheable
+     * @param others
      */
-    public Incidence(String username, String incidenceName, String description, String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
-        this.username = username;
+    public Incidence(Agent agent, String incidenceName, String description, String location, Set<String> labels,
+                     Set<String> comments, HashMap<String, String> fields, Estado status, Date expiration,
+                     boolean cacheable, Set<String> others, Operario operario) {
+        this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
         this.location = location;
         this.labels = labels;
-        this.campos = campos;
+        this.comments = comments;
+        this.fields = fields;
         this.status = status;
         this.expiration = expiration;
+        this.cacheable = cacheable;
+        this.others = others;
+        this.operario = operario;
     }
 
-    /**
-     * Constructor con los parámetros obligatorios
-     *
-     * @param username
-     * @param incidenceName
-     * @param description
-     * @param location
-     * @param labels
-     */
-    public Incidence(String username, String incidenceName, String description, String location, List<String> labels) {
-        this.username = username;
+
+    public Incidence(Agent agent, String incidenceName, String description, String location, Set<String> labels) {
+        this.agent = agent;
         this.incidenceName = incidenceName;
         this.description = description;
         this.location = location;
         this.labels = labels;
+        this.status = Estado.ABIERTA;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public Agent getAgent() {
+        return agent;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 
     public String getIncidenceName() {
@@ -106,20 +121,28 @@ public class Incidence {
         this.location = location;
     }
 
-    public List<String> getLabels() {
+    public Set<String> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<String> labels) {
+    public void setLabels(Set<String> labels) {
         this.labels = labels;
     }
 
-    public HashMap<String, String> getCampos() {
-        return campos;
+    public Set<String> getComments() {
+        return comments;
     }
 
-    public void setCampos(HashMap<String, String> campos) {
-        this.campos = campos;
+    public void setComments(Set<String> comments) {
+        this.comments = comments;
+    }
+
+    public HashMap<String, String> getFields() {
+        return fields;
+    }
+
+    public void setFields(HashMap<String, String> fields) {
+        this.fields = fields;
     }
 
     public Estado getStatus() {
@@ -137,4 +160,36 @@ public class Incidence {
     public void setExpiration(Date expiration) {
         this.expiration = expiration;
     }
+
+    public boolean isCacheable() {
+        return cacheable;
+    }
+
+    public void setCacheable(boolean cacheable) {
+        this.cacheable = cacheable;
+    }
+
+    public Set<String> getOthers() {
+        return others;
+    }
+
+    public void setOthers(Set<String> others) {
+        this.others = others;
+    }
+
+    public Operario getOperario() {
+        return operario;
+    }
+
+    public void setOperario(Operario operario) {
+        this.operario = operario;
+    }
+
+	@Override
+	public String toString() {
+		return "Incidence [id=" + id + ", agent=" + agent + ", incidenceName=" + incidenceName + ", description="
+				+ description + ", location=" + location + ", labels=" + labels + ", comments=" + comments + ", fields="
+				+ fields + ", status=" + status + ", expiration=" + expiration + ", cacheable=" + cacheable
+				+ ", others=" + others + ", operario=" + operario + "]";
+	}
 }
