@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 
@@ -30,12 +31,6 @@ import static org.junit.Assert.assertThat;
 @IntegrationTest({"server.port=0"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class InciManagerApplicationTests {
-
-    @Autowired
-    IncidenceService incidenceService;
-
-    @Autowired
-    AgentService agentService;
 
     @Value("${local.server.port}")
     private int port;
@@ -55,7 +50,7 @@ public class InciManagerApplicationTests {
         Agent pepe = new Agent("pepe", "213456", "", "pepe@gmail.com", "pepe", "Person");
 
         assert paco.equals(paco);
-        assert !paco.equals(null);
+        assertFalse(paco == null);
         assert !paco.equals(new Integer(1));
         assert paco.hashCode() == paco.hashCode();
 
