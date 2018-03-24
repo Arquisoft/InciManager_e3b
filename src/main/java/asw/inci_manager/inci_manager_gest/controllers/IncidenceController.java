@@ -36,16 +36,17 @@ public class IncidenceController {
     public String addIncidenceFormulario(@RequestParam(value = "incidenceName") String incidenceName,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "location") String location,
-            @RequestParam(value = "labels") String label) {
+            @RequestParam(value = "labels") String labels,
+            @RequestParam(value = "others") String others,
+            @RequestParam(value = "fields") String fields) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Agent activeAgent = agentService.getAgentByEmailFlexible(email);
-        // TODO: Aquí pedir los parametros por RequestParam <- más viable
-        // TODO: completar el formulario html con los parámetros que faltan de incidencia.
-        // TODO: hacer un parser de la lista de etiquetas, porque la de comentarios y "otros" deberían rellarla los operarios
 		
-		Incidence i = new Incidence(activeAgent, incidenceName, description, location, incidenceService.labelsParser(label));
+		Incidence i = new Incidence(activeAgent, incidenceName, description, location, incidenceService.labelsParser(labels));
 		i.setCacheable(true);
+		i.setOthers(incidenceService.labelsParser(others));
+		i.setFields(incidenceService.fielsParser(fields));
 		
 		//Descomentar en caso de querer insertar en la base de datos.
 		//incidenceService.addIncidence(i);
