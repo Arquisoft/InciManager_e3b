@@ -184,4 +184,12 @@ public class Incidence {
     public void setOperario(Operario operario) {
         this.operario = operario;
     }
+    
+    @Override
+    	public String toString() {
+    		return "Incidence [id=" + id + ", agent=" + agent + ", incidenceName=" + incidenceName + ", description="
+    				+ description + ", location=" + location + ", labels=" + labels + ", comments=" + comments + ", fields="
+    				+ fields + ", status=" + status + ", expiration=" + expiration + ", cacheable=" + cacheable
+    				+ ", others=" + others + ", operario=" + operario + "]";
+    	}
 }
