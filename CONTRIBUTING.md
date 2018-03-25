@@ -2,12 +2,12 @@
 
 ## Tabla de Contenidos
 
-* [Código de Conducta](#c-digo-de-conducta-para-los-contribuyentes)
+* [Código de Conducta](#c-digo-de-conducta)
 * [Gestión colaborativa del proyecto](#gesti-n-colaborativa-del-proyecto)
-* [Flujo de trabajo para los contribuyentes](flujo-de-trabajo-para-los-contribuyentes)
+* [Flujo de trabajo para los contribuyentes](#flujo-de-trabajo-para-los-contribuyentes)
 * [Formato mensajes de confirmación](#formato-mensajes-de-confirmaci-n)
 
-##Código de conducta para los contribuyentes
+## Código de conducta
 
 El _"Código de Conducta Convenido Para Contribuyentes"_ es una adaptación del *"[Contributor Covenant](http://wwww.contributor-covenant.org)"*, versión 1.4, su contenido completo puede consultarse en el fichero: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
@@ -20,24 +20,24 @@ El _"Código de Conducta Convenido Para Contribuyentes"_ es una adaptación del 
 
 ## Flujo de trabajo para los contribuyentes
 
-1. [Asignarse](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users) alguno de los *[issues](https://github.com/Arquisoft/InciManager_e3b/issues)* abiertos del proyecto o [generar uno nuevo](https://help.github.com/articles/creating-an-issue/) y subscribirse.
-2. Obtener una versión actualizada del código del proyecto clonando (*[clone](https://git-scm.com/book/es/v2/Fundamentos-de-Git-Obteniendo-un-repositorio-Git)*) el repositorio principal: 
+- [Asignarse](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users) alguno de los *[issues](https://github.com/Arquisoft/InciManager_e3b/issues)* abiertos del proyecto o [generar uno nuevo](https://help.github.com/articles/creating-an-issue/) y subscribirse.
+- Obtener una versión actualizada del código del proyecto clonando (*[clone](https://git-scm.com/book/es/v2/Fundamentos-de-Git-Obteniendo-un-repositorio-Git)*) el repositorio principal: 
   ~~~
   git clone https://github.com/Arquisoft/InciManager_e3b.git
   ~~~
    
-3. Activar (*[checkout](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar#_basic_branching)*) y crear una rama puntual (*[topic branch](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Flujos-de-Trabajo-Ramificados#_topic_branch)*) utilizando por ejemplo el nombre del desarrollador o del _issue_ correspondiente:
+- Activar (*[checkout](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar#_basic_branching)*) y crear una rama puntual (*[topic branch](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Flujos-de-Trabajo-Ramificados#_topic_branch)*) utilizando por ejemplo el nombre del desarrollador o del _issue_ correspondiente:
   ~~~
   git checkout -b topic-branch master
   ~~~
-4. Hacer la modificaciones necesarias (crear, editar, renombrar, mover o borrar ficheros) dentro del directorio de trabajo de la rama local.
+- Hacer la modificaciones necesarias (crear, editar, renombrar, mover o borrar ficheros) dentro del directorio de trabajo de la rama local.
 
-5. Confirmar (*[commit](https://git-scm.com/book/es/v2/Fundamentos-de-Git-Guardando-cambios-en-el-Repositorio)*) cuantos cambios sean necesarios utilizando el [formato de mensajes](#formato-mensajes-de-confirmaci-n) acordado.
+- Confirmar (*[commit](https://git-scm.com/book/es/v2/Fundamentos-de-Git-Guardando-cambios-en-el-Repositorio)*) cuantos cambios sean necesarios utilizando el [formato de mensajes](#formato-mensajes-de-confirmaci-n) acordado.
   ~~~
   git commit -a -m 'Añade fichero README.md'
   ~~~
 
-6. Regularmente hacer el seguimiento (*[pull](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_tracking_branches)*) de la rama principal (_master_) fusionando (*[merge](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar#_basic_merging)*) cualquier novedad en la rama puntual y resolviendo cualquier [conflicto](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar#_basic_merge_conflicts) que pueda surgir en el proceso:
+- Regularmente hacer el seguimiento (*[pull](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_tracking_branches)*) de la rama principal (_master_) fusionando (*[merge](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar#_basic_merging)*) cualquier novedad en la rama puntual y resolviendo cualquier [conflicto](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Procedimientos-B%C3%A1sicos-para-Ramificar-y-Fusionar#_basic_merge_conflicts) que pueda surgir en el proceso:
   ~~~
   git checkout master
   git pull 
@@ -46,24 +46,24 @@ El _"Código de Conducta Convenido Para Contribuyentes"_ es una adaptación del 
   git status
   ~~~
 
-7. Completadas las modificaciones necesarias, publicar (*[push](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_pushing_branches)*) el contenido de la rama local como rama remota (*[remote branch](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_remote_branches)*) en el repositorio principal.  
+- Completadas las modificaciones necesarias, publicar (*[push](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_pushing_branches)*) el contenido de la rama local como rama remota (*[remote branch](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_remote_branches)*) en el repositorio principal.  
   ~~~  
   git checkout topic-branch
   git push --set-upstream origin topic-branch
   ~~~
   
-8. Una vez resueltos todos los conflictos, realizar una solicitud de incorporación (*[Pull Request](https://help.github.com/articles/creating-a-pull-request)*) del contenido de la rama puntual en la rama principal.
+- Una vez resueltos todos los conflictos, realizar una solicitud de incorporación (*[Pull Request](https://help.github.com/articles/creating-a-pull-request)*) del contenido de la rama puntual en la rama principal.
 
-9. En ausencia de objeciones por parte de otros contribuidores, [resolver la solicitud de incorporación](https://help.github.com/articles/merging-a-pull-request) uno mismo, fusionandolas directamente o reorganizando (*[rebase](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Reorganizar-el-Trabajo-Realizado)*) la secuencia de actualizaciones como considere oportuno.
+- En ausencia de objeciones por parte de otros contribuidores, [resolver la solicitud de incorporación](https://help.github.com/articles/merging-a-pull-request) uno mismo, fusionandolas directamente o reorganizando (*[rebase](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Reorganizar-el-Trabajo-Realizado)*) la secuencia de actualizaciones como considere oportuno.
 
-10. De forma opcional y una vez fusionada en la rama principal, es posible borrar (*[delete](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_delete_branches)*) la rama puntual.
+- De forma opcional y una vez fusionada en la rama principal, es posible borrar (*[delete](https://git-scm.com/book/es/v2/Ramificaciones-en-Git-Ramas-Remotas#_delete_branches)*) la rama puntual.
   ~~~
   git push origin --delete topic-branch
   ~~~
 
-11. Añadir un nuevo comentario en el _issue_ correspondiente o cerrarlo definitivamente.
+- Añadir un nuevo comentario en el _issue_ correspondiente o cerrarlo definitivamente.
 
-12. Durante el proceso notificar cualquier novedad a través del [canal Gitter del proyecto](https://gitter.im/Arquisoft/InciManager_e3b).
+- Durante el proceso notificar cualquier novedad a través del [canal Gitter del proyecto](https://gitter.im/Arquisoft/InciManager_e3b).
 
 ## Formato mensajes de confirmación
 
