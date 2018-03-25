@@ -64,5 +64,13 @@ public class InciManagerapplicationTestLogueado {
         mvc.perform(get("/login"));
     }
 
+    // TODO: hacer login con el mockup y así navegará correctamente por las urls de incidence
+
+    @Test
+    public void testIncidenceList() throws Exception {
+
+        mvc.perform(get("/incidences/list"));
+    }
+
 }
 
