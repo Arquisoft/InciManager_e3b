@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
     @Autowired
-    AgentRepository agentRepository;
+    private AgentRepository agentRepository;
 
     @RequestMapping("/")
     public String home(){

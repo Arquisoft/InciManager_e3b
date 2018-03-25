@@ -16,13 +16,13 @@ import java.util.HashSet;
 public class InsertDataSample {
 
     @Autowired
-    AgentRepository agentRepository;
+    private AgentRepository agentRepository;
 
     @Autowired
-    IncidenceRepository incidenceRepository;
+    private IncidenceRepository incidenceRepository;
 
     @Autowired
-    OperarioRepository operarioRepository;
+    private OperarioRepository operarioRepository;
 
     @PostConstruct
     public void init(){
