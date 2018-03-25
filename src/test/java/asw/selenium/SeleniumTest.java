@@ -1,7 +1,6 @@
 package asw.selenium;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,20 +19,20 @@ public class SeleniumTest {
 	private int timeout = 9;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		driver.navigate().to(URL);
 	}
 
 	 //Inicio de sesión con datos válidos.
-	@Test
-	public void testUnioviTest3() throws Exception {
-		login("paco@gmail.com", "123456");
-		try {
-			assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
-	}
+//	@Test
+//	public void testUnioviTest3() throws Exception {
+//		login("paco@gmail.com", "123456");
+//		try {
+//			assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
+//		} catch (Error e) {
+//			verificationErrors.append(e.toString());
+//		}
+//	}
 
 	/**
 	 * Método auxiliar para loguearse
