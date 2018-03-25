@@ -24,6 +24,12 @@ Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectur
     - [Instalación de las dependencias](#instalaci-n-de-las-dependencias)	  
     - [Reinstalación de las dependencias](#reinstalaci-n-de-las-dependencias)	
 - [Como ejecutar el proyecto](#como-ejecutar-el-proyecto)
+    - [Requisitos para ejecutar el proyecto](#requisitos-para-ejecutar-el-proyecto)
+    - [Configuración del servicio InciManager](#configuraci-n-del-servicio-incimanager)
+    - [Inicio del servicio Apache Kafka](#inicio-del-servicio-apache-kafka)
+         - [Inicio de Apache Kafka en MS-Windows](#inicio-de-apache-kafka-en-ms-windows)
+         - [Inicio de Apache Kafka en GNU/LiNUX](#inicio-de-apache-kafka-en-gnu-linux)
+    - [Inicio del servicio InciManager](#inicio-del-servicio-incimanager)
 - [Como contribuir al proyecto](#como-contribuir-al-proyecto)
 - [Creditos del proyecto](#creditos-del-proyecto)
      - [Contribuidores](#contribuidores)
@@ -34,9 +40,9 @@ Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectur
 
 ### Requisitos de instalación
 
-- Máquina virtual de Java: [OpenJDK](http://openjdk.java.net) (=< 1.6)
-- Sistema de control de versiones: [GIT](https://git-scm.com) (=< 2.16)
-- Herramienta de construcción de proyectos: [Apache Maven](https://maven.apache.org) (=< 3.5)
+- Máquina virtual de Java: [OpenJDK](http://openjdk.java.net) (versión: >= 1.6).
+- Sistema de control de versiones: [GIT](https://git-scm.com) (versión: >= 2.16).
+- Herramienta de construcción de proyectos: [Apache Maven](https://maven.apache.org) (versión: >= 3.5).
 
 ### Obtención del código fuente
 
@@ -64,16 +70,55 @@ mvn dependency:purge-local-repository clean install -U
 
 ## Como ejecutar el proyecto
 
-### Para ejecutar
-Lo primero que se necesita es descargar [Apache Kafka](https://kafka.apache.org/downloads). Ejecutar los siguientes comandos desde el menú raiz de la carpeta descomprimida de kafka. En caso de utilizar Linux, omitir la carpeta `windows` de la ruta del comando.
+### Requisitos para ejecutar el proyecto
 
-Primero -> Zookeeper:
-	`bin\windows\zookeeper-server-start.bat config\zookeeper.properties`
+- [Apache Maven](https://maven.apache.org) (versión: >= 3.5).
+- [Apache Kafka](https://kafka.apache.org) (versión: >= 1.0).
+- [Módulo Agents](https://github.com/Arquisoft/Agents_e3b) (versión: = e3b). 
 
-Segundo -> Apache Kafka:
-	`bin\windows\kafka-server-start.sh config\server.properties`
+### Configuración del servicio InciManager
 
-Una vez corriendo Zookeeper y Kafka, ya se puede ejecutar la aplicación, que se sirve en el puerto http://localhost:8091
+Configurar el puerto del servicio en el fichero `[resources/application.properties](src/main/resources/application.properties)`
+
+~~~properties
+server.port = 8091
+~~~
+
+### Inicio del servicio Apache Kafka
+
+Si no se dispone de una instancia de Apache Kafka en ejecución, es posible descargar una versión ya compilada para Java desde su [página oficial](https://kafka.apache.org/quickstart) y lanzar el servicio manualmente (la distribución binaria de Apache Kafka requiere a su vez iniciar su propia instancia de Apache Zookeeper).
+
+#### Inicio de Apache Kafka en MS-Windows
+
+~~~batchfile
+REM Start Apache Zookeeper server:
+start "ZooKeeper" /D ".\bin\windows\" "zookeeper-server-start.bat" "..\..\config\zookeeper.properties"
+REM Wait 10 seconds:
+timeout 10
+REM Start Apache Kafka server:
+start "Kafka" /D ".\bin\windows\" "kafka-server-start.bat" "..\..\config\server.properties"
+~~~
+
+#### Inicio de Apache Kafka en GNU/LiNUX
+
+~~~bash
+# Start Apache Zookeeper server:
+nohup bash -c "bin/zookeeper-server-start.sh config/zookeeper.properties &"
+# Wait 10 seconds:
+sleep 10
+# Start Apache Kafka server:
+nohup bash -c "bin/kafka-server-start.sh config/server.properties &"
+~~~
+
+### Inicio del servicio InciManager
+
+Situarse en el directorio de instalación y ejecutar:
+
+~~~
+mvn spring-boot:run
+~~~
+
+Una vez iniciado el servicio ya es posible acceder a través del navegador en la dirección: `http://localhost:8091`
 
 ## Como contribuir al proyecto
 
