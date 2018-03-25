@@ -1,11 +1,15 @@
 package asw.inci_manager;
 
-import asw.InciManagerApplication;
-import asw.inci_manager.inci_manager_gest.entities.Agent;
-import asw.inci_manager.inci_manager_gest.entities.Incidence;
-import asw.inci_manager.inci_manager_gest.services.AgentService;
-import asw.inci_manager.inci_manager_gest.services.IncidenceService;
-import org.junit.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+
+import java.net.URL;
+import java.util.HashSet;
+
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +21,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URL;
-import java.util.HashSet;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import asw.InciManagerApplication;
+import asw.inci_manager.inci_manager_gest.entities.Agent;
+import asw.inci_manager.inci_manager_gest.entities.Incidence;
+import asw.inci_manager.inci_manager_gest.services.AgentService;
+import asw.inci_manager.inci_manager_gest.services.IncidenceService;
 
 
 @SuppressWarnings("deprecation")

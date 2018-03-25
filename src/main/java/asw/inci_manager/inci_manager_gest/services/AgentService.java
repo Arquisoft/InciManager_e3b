@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class AgentService {
 
     @Autowired
-    private AgentRepository agentRepository;
+    AgentRepository agentRepository;
 
     public Agent getAgentByEmailFlexible(String email){
         return agentRepository.findByEmailFlexible(email);
