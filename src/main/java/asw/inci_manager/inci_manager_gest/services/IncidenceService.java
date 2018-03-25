@@ -6,12 +6,12 @@ import asw.inci_manager.inci_manager_gest.repositories.IncidenceRepository;
 import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.kafka_manager.producers.KafkaProducer;
 import asw.inci_manager.util.Estado;
-
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
