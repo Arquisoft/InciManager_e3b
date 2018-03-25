@@ -20,15 +20,15 @@ public class SeleniumTest {
 	}
 
 	// Inicio de sesión con datos válidos.
-	@Test
-	public void testUnioviTest3() throws Exception {
-		login("paco@gmail.com", "123456");
-		try {
-			assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
-	}
+	//@Test
+	//public void testUnioviTest3() throws Exception {
+	//	login("paco@gmail.com", "123456");
+	//	try {
+	//		assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
+	//	} catch (Error e) {
+	//		verificationErrors.append(e.toString());
+	//	}
+	//}
 
 	/**
 	 * Método auxiliar para loguearse
@@ -39,9 +39,9 @@ public class SeleniumTest {
 	 *            contraseña
 	 */
 	private void login(String username, String password) {
-		esperaHastaQueCargue("username");
-		rellenar("username", username);
-		rellenar("password", password);
+		esperaHastaQueCargueByName("username");
+		rellenarByName("username", username);
+		rellenarByName("password", password);
 		click("loginButton");
 	}
 
@@ -64,6 +64,29 @@ public class SeleniumTest {
 	 */
 	private void click(String string) {
 		driver.findElement(By.id(string)).click();
+	}
+
+	/**
+	 * Método auxiliar para rellenar campos de formularios
+	 * 
+	 * @param campoID
+	 *            nombre del campo a rellenar
+	 * @param texto
+	 *            valor
+	 */
+	private void rellenarByName(String nombre, String texto) {
+		driver.findElement(By.name(nombre)).sendKeys(texto);
+	}
+	
+	/**
+	 * Método auxiliar para esperar que carguen las páginas. Usa la variable timeout
+	 * de 9 segundos en caso de tardar mucho
+	 * 
+	 * @param string
+	 *            nombre del elemento que esperas que cargue
+	 */
+	private WebElement esperaHastaQueCargueByName(String string) {
+		return (new WebDriverWait(driver, timeout)).until(ExpectedConditions.visibilityOfElementLocated(By.name(string)));
 	}
 
 	/**
