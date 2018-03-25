@@ -1,12 +1,9 @@
 package asw.inci_manager;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-
-import java.net.URL;
-import java.util.HashSet;
-
+import asw.InciManagerApplication;
+import asw.inci_manager.inci_manager_gest.entities.Agent;
+import asw.inci_manager.inci_manager_gest.entities.Incidence;
+import asw.inci_manager.inci_manager_gest.entities.Operario;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,16 +13,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
-import asw.InciManagerApplication;
-import asw.inci_manager.inci_manager_gest.entities.Agent;
-import asw.inci_manager.inci_manager_gest.entities.Incidence;
+
+import java.net.URL;
+import java.util.HashSet;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
 
 @SuppressWarnings("deprecation")
@@ -41,10 +38,13 @@ public class InciManagerApplicationTests {
     private URL base;
     private RestTemplate template;
 
+//    private TestRestTemplate template2;
+
     @Before
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/");
         template = new TestRestTemplate();
+//        template2 = new TestRestTemplate();
     }
 
     @Test
@@ -195,7 +195,7 @@ public class InciManagerApplicationTests {
 //        ResponseEntity<String> response;
 //        String userURI = base.toString() + "/home";
 //        String str_final = "<!DOCTYPEhtml><html><head><metacharset=\"utf-8\"/><metaname=\"viewport\"content=\"width=device-width,initial-scale=1.0\"/><title>InciManager</title><linkrel=\"stylesheet\"href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.min.css\"/><linkrel=\"stylesheet\"href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\"/><linkrel=\"stylesheet\"href=\"https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css\"/><linkrel=\"stylesheet\"href=\"/css/Login-Form-Clean.css\"/><linkrel=\"stylesheet\"href=\"/css/Navigation-Clean.css\"/><linkrel=\"stylesheet\"href=\"/css/styles.css\"/></head><body><div><navclass=\"navbarnavbar-lightnavbar-expand-mdnavigation-clean\"><divclass=\"container\"><aclass=\"navbar-brand\"href=\"/home\"><iclass=\"fafa-gears\"></i>InciManager</a><buttonclass=\"navbar-toggler\"data-toggle=\"collapse\"data-target=\"#navcol-1\"><spanclass=\"sr-only\">Togglenavigation</span><spanclass=\"navbar-toggler-icon\"></span></button><divclass=\"collapsenavbar-collapse\"id=\"navcol-1\"><ulclass=\"navnavbar-navml-auto\"><liclass=\"nav-item\"role=\"presentation\"><aclass=\"nav-link\"href=\"/login\"><iclass=\"iconion-log-in\"></i>Iniciarsesión</a></li></ul></div></div></nav></div><divclass=\"login-clean\"><formmethod=\"post\"action=\"/login\"><h2class=\"sr-only\">LoginForm</h2><divclass=\"illustration\"><iclass=\"fafa-cogs\"></i></div><divclass=\"form-group\"><inputclass=\"form-control\"type=\"text\"name=\"username\"placeholder=\"Email\"/></div><divclass=\"form-group\"><inputclass=\"form-control\"type=\"password\"name=\"password\"placeholder=\"Password\"/></div><divclass=\"form-group\"><buttonclass=\"btnbtn-primarybtn-block\"id=\"loginButton\"type=\"submit\">LogIn</button></div><inputtype=\"hidden\"name=\"${_csrf.parameterName}\"value=\"${_csrf.token}\"/></form></div><scriptsrc=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script><scriptsrc=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js\"></script></body></html>";
-//        response = template.getForEntity(userURI, String.class);
+//        response = template2.getForEntity(userURI, String.class);
 //        assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", ""),
 //                equalTo((str_final).replace(" ", "")));
 //    }
@@ -219,6 +219,30 @@ public class InciManagerApplicationTests {
 //        assertThat(response.getBody().replace(" ", "").replace("\n", "").replace("\t", ""),
 //                equalTo((str_final).replace(" ", "")));
 //    }
+
+
+    /**
+     * Test modelo Operario.
+     */
+    @Test
+    public void testModeloOperario(){
+        Operario op = new Operario("email@gmail.com","123456","",null);
+
+        assert  op.hashCode() > 0;
+
+        assert op.toString().equals("email@gmail.com");
+        assert op.equals(op) == true;
+        assert op.equals(null) == false;
+        assert op.equals(new Integer(1)) == false;
+
+        op.setId((long) 123);
+        op.setEmail("email2@gmail.com");
+        assert op.getEmail().equals("email2@gmail.com");
+        op.setPassword("123");
+        assert op.getPassword().equals("123");
+        op.setRole("operario");
+        assert op.getRole().equals("operario");
+    }
 
     /**
      * Pongo 'z' para que se ejecute el último (va por orden alfabético)
