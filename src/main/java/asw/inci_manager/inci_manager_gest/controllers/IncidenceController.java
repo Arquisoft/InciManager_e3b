@@ -6,6 +6,7 @@ import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
 import asw.inci_manager.inci_manager_gest.services.AgentService;
 import asw.inci_manager.inci_manager_gest.services.IncidenceService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +24,8 @@ public class IncidenceController {
 
     @Autowired
     private IncidenceService incidenceService;
-    
     @Autowired
-    AgentService agentService;
+    private AgentService agentService;
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.GET)
     public String addForm() {
@@ -53,6 +52,7 @@ public class IncidenceController {
 		//incidenceService.addIncidence(i);
 		
         incidenceService.send(i);
+        System.out.println(i);
         return "redirect:/incidences/list";
     }
 
@@ -75,8 +75,7 @@ public class IncidenceController {
             return "/incidences/view";
         }
     }
-    
-    
+
     /**
      * Método para añadir una incidencia que un agente envía.
      *
@@ -86,19 +85,16 @@ public class IncidenceController {
      * @param incidenceREST
      * @return respuesta, con fomato "id",
      */
-    @RequestMapping(value = "/addIncidence")
-    public ResponseEntity<RespuestaAddIncidenceREST> addIncidence(@RequestBody IncidenceREST incidenceREST) {
-        // TODO: procesar la incidencia que se recibe
-    	Agent agent = agentService.getAgentByEmailFlexible(incidenceREST.getUsername());
+	@RequestMapping(value = "/addIncidence")
+	public ResponseEntity<RespuestaAddIncidenceREST> addIncidence(@RequestBody IncidenceREST incidenceREST) {
+		// TODO: procesar la incidencia que se recibe
+		Agent agent = agentService.getAgentByEmailFlexible(incidenceREST.getUsername());
 		RespuestaAddIncidenceREST res;
 		incidenceREST = incidenceService.send(incidenceREST, agent);
 		res = new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(),
 				incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
 				incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),
 				incidenceREST.getExpiration(), incidenceREST.isCacheable());
-
-        return new ResponseEntity<RespuestaAddIncidenceREST>(res, HttpStatus.OK);
-    }
-
-    
+		return new ResponseEntity<RespuestaAddIncidenceREST>(res, HttpStatus.OK);
+	}
 }
