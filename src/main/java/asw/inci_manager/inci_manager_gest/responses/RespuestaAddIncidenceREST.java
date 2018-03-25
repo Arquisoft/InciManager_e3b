@@ -6,7 +6,7 @@ import java.util.List;
 
 import asw.inci_manager.util.Estado;
 
-public class RespuestaAddIncidenceREST {
+public class RespuestaAddIncidenceREST implements RespuestaREST{
 
 	private String idIncidencia; // id de la incidencia
 	private String username; // nombre de usuario del agente
