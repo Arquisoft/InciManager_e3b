@@ -20,15 +20,15 @@ public class SeleniumTest {
 	}
 
 	// Inicio de sesión con datos válidos.
-	@Test
-	public void testUnioviTest3() throws Exception {
-		login("paco@gmail.com", "123456");
-		try {
-			assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
-	}
+	//@Test
+	//public void testUnioviTest3() throws Exception {
+	//	login("paco@gmail.com", "123456");
+	//	try {
+	//		assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
+	//	} catch (Error e) {
+	//		verificationErrors.append(e.toString());
+	//	}
+	//}
 
 	/**
 	 * Método auxiliar para loguearse
