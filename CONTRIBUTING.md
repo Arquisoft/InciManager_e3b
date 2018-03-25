@@ -9,7 +9,7 @@
 
 ## Código de conducta
 
-El _"Código de Conducta Convenido Para Contribuyentes"_ es una adaptación del *"[Contributor Covenant](http://wwww.contributor-covenant.org)"*, versión 1.4, su contenido completo puede consultarse en el fichero: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+El *"[Código de Conducta Convenido Para Contribuyentes](CODE_OF_CONDUCT.md)"* es una adaptación del *"[Contributor Covenant](http://wwww.contributor-covenant.org)"*, versión 1.4, su contenido completo puede consultarse en el fichero: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 
 ## Gestión colaborativa del proyecto
@@ -94,7 +94,7 @@ See also: #456, #789
 - Tiene como objeto resumir en una única linea el motivo de la actualización.
 - Debe comenzar con letra mayúscula y terminar sin punto.
 - No debe exceder de los 50 caracteres.
-- Debe estar escrito en tiempo verbal imperativo, ej: _"Merge branch 'topic-branch'"_. Como truco deberia poder concatenarse una frase antes del asunto y mantener el sentido original: _"If applied, this commit will_ ***Merge branch 'topic-branch'***".
+- Debe estar escrito en tiempo verbal imperativo, ej: _"Merge branch 'topic-branch'"_. Como truco deberia poder concatenarse una frase antes del asunto y mantener el sentido original: _"If applied, this commit will_ **Merge branch 'topic-branch'**".
 
 ### Cuerpo
 

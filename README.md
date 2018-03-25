@@ -43,6 +43,8 @@ Una vez corriendo Zookeeper y Kafka, ya se puede ejecutar la aplicación, que se
 
 ## Como contribuir al proyecto
 
+La información completa sobre como contribuir al proyecto: código de conducta, flujo de trabajo, etc, puede consultarse en el fichero [CONTRIBUTING.md](CONTRIBUTING.md). 
+
 ## Creditos del proyecto
 
 ### Contribuidores
