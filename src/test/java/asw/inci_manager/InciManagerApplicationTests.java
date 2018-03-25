@@ -4,6 +4,7 @@ import asw.InciManagerApplication;
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import asw.inci_manager.inci_manager_gest.entities.Operario;
+import asw.inci_manager.util.Estado;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -93,6 +95,22 @@ public class InciManagerApplicationTests {
         assert i.getLabels().size() == 0;
         assert i.getFields() == null;
         assert i.getExpiration() == null;
+
+        Incidence i2 = new Incidence(paco, "incidencia 1", "descripción de la incidencia", "45.678, 12.896", new HashSet<String>(),null,null, Estado.ABIERTA,new Date(),true,null,null);
+        i2.setAgent(null);
+        i2.setIncidenceName("incidencia2");
+        i2.setDescription("descripcion 2");
+        i2.setLocation("45.678, 34.1234");
+        i2.setLabels(null);
+        assert i2.getComments() == null;
+        i2.setFields(null);
+        assert i2.getStatus().equals(Estado.ABIERTA);
+        assert i2.getExpiration() != null;
+        i2.setCacheable(false);
+        assertFalse(i2.isCacheable());
+        assert i2.getOperario() == null;
+        System.out.println(i2.toString());
+
     }
     
     @Test
@@ -227,12 +245,13 @@ public class InciManagerApplicationTests {
     @Test
     public void testModeloOperario(){
         Operario op = new Operario("email@gmail.com","123456","",null);
+        Operario op2 = null;
 
         assert  op.hashCode() > 0;
 
         assert op.toString().equals("email@gmail.com");
         assert op.equals(op) == true;
-        assert op.equals(null) == false;
+        assertFalse(op.equals(op2));
         assert op.equals(new Integer(1)) == false;
 
         op.setId((long) 123);
