@@ -23,9 +23,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
-
-import com.google.gson.Gson;
-
 import asw.InciManagerApplication;
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
@@ -130,7 +127,7 @@ public class InciManagerApplicationTests {
     }
     
     @Test
-    public void testRESTAddIncideceFailing() {
+    public void testRESTAddIncideceFailingAuth() {
     	String url = base.toString() + "/addIncidence";
     	HttpHeaders headers = new HttpHeaders();
     	headers.setContentType(MediaType.APPLICATION_JSON);
@@ -144,17 +141,28 @@ public class InciManagerApplicationTests {
     			+ "\"status\":\"ABIERTA\","
     			+ "\"expiration\":\"123\","
     			+ "\"cacheable\":\"true\"}";
-    	String restResponse = "{\"idIncidencia\":null,"
-    			+ "\"username\":\"paco@gmail.com\","
-    			+ "\"password\":\"1256\","
+    	String restResponse = "{\"mensaje\":\"Wrong authentication, incidence not sending\"}";
+    	HttpEntity<String> entity = new HttpEntity<String>(jsonText, headers);
+    	ResponseEntity<String> response = template.exchange(url, HttpMethod.POST, entity, String.class);
+    	assertThat(response.getBody(),equalTo(restResponse));
+    }
+    
+    @Test
+    public void testRESTAddIncideceNoCacheable() {
+    	String url = base.toString() + "/addIncidence";
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(MediaType.APPLICATION_JSON);
+    	String jsonText = "{\"username\":\"paco@gmail.com\","
+    			+ "\"password\":\"123456\","
     			+ "\"incidenceName\":\"name\","
     			+ "\"description\":\"description\","
     			+ "\"location\":\"location\","
     			+ "\"labels\":[],"
     			+ "\"campos\":{},"
-    			+ "\"status\":\"ANULADA\","
-    			+ "\"expiration\":123,"
-    			+ "\"cacheable\":true}";
+    			+ "\"status\":\"ABIERTA\","
+    			+ "\"expiration\":\"123\","
+    			+ "\"cacheable\":\"false\"}";
+    	String restResponse = "{\"mensaje\":\"Not cacheable, incidence not sending\"}";
     	HttpEntity<String> entity = new HttpEntity<String>(jsonText, headers);
     	ResponseEntity<String> response = template.exchange(url, HttpMethod.POST, entity, String.class);
     	assertThat(response.getBody(),equalTo(restResponse));
