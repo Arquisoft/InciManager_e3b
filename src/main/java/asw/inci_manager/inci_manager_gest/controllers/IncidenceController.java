@@ -25,7 +25,7 @@ public class IncidenceController {
     @Autowired
     private IncidenceService incidenceService;
     @Autowired
-    AgentService agentService;
+    private AgentService agentService;
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.GET)
     public String addForm() {
