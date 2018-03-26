@@ -31,7 +31,7 @@ Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectur
     - [Inicio del servicio InciManager](#inicio-del-servicio-incimanager)
 - [Como probar el proyecto](#como-probar-el-proyecto)
      - [Ejecución de las pruebas unitarias](#ejecuci-n-de-las-pruebas-unitarias)
-     - [Usuarios de prueba](#usuarios-de-prueba)
+     - [Datos usuarios de prueba](#datos-usuarios-de-prueba)
      - [Ejemplo de incidencia en formato JSON](#ejemplo-de-incidencia-en-formato-json)
      - [Ejemplo de envio de incidencia utilizando el servicio REST](#ejemplo-de-envio-de-incidencia-utilizando-el-servicio-rest)
      - [Como consultar las incidencias enviadas a través de Apache Kafka](#como-consultar-las-incidencias-enviadas-a-trav-s-de-apache-kafka)
@@ -145,12 +145,15 @@ Para ejecutar una única prueba:
 mvn -Dtest=InciManagerApplicationTests#testAgentModel test
 ~~~
 
-### Usuarios de prueba
+### Datos usuarios de prueba
 
-|Nombre | Password | Email          | Ident | Kind  |
---------|----------|----------------|-------|-------|
-|Paco   | 123456   | paco@gmail.com | paco  | Person|
-|pepe   | 213456   | pepe@gmail.com | pepe  | Person|
+|-------------------------|----------|------------------------|--------------------------|---------------|--------|
+|Name                     | Password | Location               | Email                    | Ident         | Kind   |
+|Paco González            | 123456   |                        | paco@gmail.com           | paco          | Person |
+|Pepe Fernandez           | 123456   |                        | pepe@gmail.com           | pepe          | Person |
+|Sensor\_123 2018         | 123456   | 43.361368, -5.853591   | admin@sensores.com       | sensor_123    | Sensor |
+|Ministerio medioambiente | 123456   | 43.359486, -5.846986   | ambiente@ministerio.com  | medioambiente | Entity |
+|Space X sensor model A   | 123456   | 33.921209, -118.327940 | musk@spacex.com          | spacex        | Sensor |
 
 ### Ejemplo de incidencia en formato JSON
 
