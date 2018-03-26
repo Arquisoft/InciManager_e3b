@@ -9,10 +9,10 @@ Módulo de gestión y carga de incidencias (equipo de prácticas *[@Arquisoft/co
 
 Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectura del Software](http://sies.uniovi.es/ofe-pod-jsf/ofertaFormativaServlet?asignatura=3011)* perteneciente al tercer curso del *[Grado en Ingeniería Informática del Software](https://ingenieriainformatica.uniovi.es/web/ingenieriainformatica/infoacademica/grado)* impartido en la *[Escuela de Ingenieria Informática (EII)](https://ingenieriainformatica.uniovi.es)* de la *[Universidad de Oviedo](http://www.uniovi.es)* durante el **curso 2017/2018**. La práctica consiste en la implementación de un sistema informático de análisis de incidencias ([Incidence System_e3b](https://github.com/Arquisoft/Inci_e3b)) cuya estructura ha sido dividida en los siguientes módulos:
 
-- Módulo de carga de usuarios: [Loader_e3a](https://github.com/Arquisoft/Loader_e3a).
+- Módulo de carga de usuarios: [Loader_e3b](https://github.com/Arquisoft/Loader_e3b).
 - Módulo de consulta y gestión de agentes: [Agents_e3b](https://github.com/Arquisoft/Agents_e3b).
 - Módulo de gestión y carga de incidencias: [InciManager_e3b](https://github.com/Arquisoft/InciManager_e3b).
-- Módulo de análisis y cuadro de mandos: [InciDashboard_e3a](https://github.com/Arquisoft/InciDashboard_e3a).
+- Módulo de análisis y cuadro de mandos: [InciDashboard_e3b](https://github.com/Arquisoft/InciDashboard_e3b).
 
 ## Tabla de Contenidos
 
