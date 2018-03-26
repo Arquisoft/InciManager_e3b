@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/Arquisoft/InciManager_e3b/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/InciManager_e3b)
 [![Gitter](https://badges.gitter.im/Arquisoft/InciManager_e3b.svg)](https://gitter.im/Arquisoft/InciManager_e3b?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-Módulo de gestión y carga de incidencias (equipo de prácticas *Course1718_e3b2*).
+Módulo de gestión y carga de incidencias (equipo de prácticas *[@Arquisoft/course1718_e3b2](https://github.com/orgs/Arquisoft/teams/course1718_e3b2)*).
 
 Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectura del Software](http://sies.uniovi.es/ofe-pod-jsf/ofertaFormativaServlet?asignatura=3011)* perteneciente al tercer curso del *[Grado en Ingeniería Informática del Software](https://ingenieriainformatica.uniovi.es/web/ingenieriainformatica/infoacademica/grado)* impartido en la *[Escuela de Ingenieria Informática (EII)](https://ingenieriainformatica.uniovi.es)* de la *[Universidad de Oviedo](http://www.uniovi.es)* durante el **curso 2017/2018**. La práctica consiste en la implementación de un sistema informático de análisis de incidencias ([Incidence System_e3b](https://github.com/Arquisoft/Inci_e3b)) cuya estructura ha sido dividida en los siguientes módulos:
 
@@ -148,12 +148,10 @@ mvn -Dtest=InciManagerApplicationTests#testAgentModel test
 
 ### Usuarios de prueba
 
------------------------------------------------------
 |Nombre | Password | Email          | Ident | Kind  |
 --------|----------|----------------|-------|-------|
 |Paco   | 123456   | paco@gmail.com | paco  | Person|
 |pepe   | 213456   | pepe@gmail.com | pepe  | Person|
------------------------------------------------------
 
 ### Ejemplo de incidencia en formato JSON
 
@@ -191,7 +189,6 @@ La incidencias enviadas mediante Kafka pueden ser consultadas utilizando la cons
 REM Start Apache Kafka Consumer:
 start "Kafka Consumer" /D ".\bin\windows\" "kafka-console-consumer.bat" "--bootstrap-server" "localhost:9092" "--topic" "topic" "--from-beginning"
 ~~~
-
 
 ## Como contribuir al proyecto
 
