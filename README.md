@@ -30,6 +30,12 @@ Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectur
          - [Inicio de Apache Kafka en MS-Windows](#inicio-de-apache-kafka-en-ms-windows)
          - [Inicio de Apache Kafka en GNU/LiNUX](#inicio-de-apache-kafka-en-gnu-linux)
     - [Inicio del servicio InciManager](#inicio-del-servicio-incimanager)
+- [Como probar el proyecto](#como-probar-el-proyecto)
+     - [Ejecución de las pruebas unitarias](#ejecuci-n-de-las-pruebas-unitarias)
+     - [Usuarios de prueba](#usuarios-de-prueba)
+     - [Ejemplo de incidencia en formato JSON](#ejemplo-de-incidencia-en-formato-json)
+     - [Ejemplo de envio de incidencia utilizando el servicio REST](#ejemplo-de-envio-de-incidencia-utilizando-el-servicio-rest)
+     - [Como consultar las incidencias enviadas a través de Apache Kafka](#como-consultar-las-incidencias-enviadas-a-trav-s-de-apache-kafka)
 - [Como contribuir al proyecto](#como-contribuir-al-proyecto)
 - [Creditos del proyecto](#creditos-del-proyecto)
      - [Contribuidores](#contribuidores)
@@ -123,6 +129,69 @@ mvn spring-boot:run
 ~~~
 
 Una vez iniciado el servicio ya es posible acceder a través del navegador en la dirección: `http://localhost:8091`
+
+## Como probar el proyecto
+
+### Ejecución de las pruebas unitarias
+
+Para ejecutar toda la bateria de pruebas:
+
+~~~
+mvn test
+~~~
+
+Para ejecutar una única prueba:
+
+~~~
+mvn -Dtest=InciManagerApplicationTests#testAgentModel test
+~~~
+
+### Usuarios de prueba
+
+-----------------------------------------------------
+|Nombre | Password | Email          | Ident | Kind  |
+--------|----------|----------------|-------|-------|
+|Paco   | 123456   | paco@gmail.com | paco  | Person|
+|pepe   | 213456   | pepe@gmail.com | pepe  | Person|
+-----------------------------------------------------
+
+### Ejemplo de incidencia en formato JSON
+
+Disponible en el fichero: '[doc/examples/example-incidence.json](doc/examples/example-incidence.json)'
+
+~~~JSON
+{
+  "username": "paco@gmail.com",
+  "password": "123456",
+  "kind": "Person", 
+  "incidenceName": "Incidencia de prueba",
+  "description": "Descripción de la incidencia de prueba",
+  "location": "43.3582617,-5.8531647,16",
+  "labels": [ "prueba", "sensor" ],
+  "others": [ "file:///image.png", "file:///video.mkv"],
+  "fields": { "temperatura": "21", "humedad": "75" },
+  "status": "ABIERTA",
+  "comments": [ "Primer comentario", "Segundo Comentario" ],
+  "expiration": "2018-03-25T00:00:00+01:00",
+  "cacheable": "true"
+}
+~~~
+
+### Ejemplo de envio de incidencia utilizando el servicio REST
+
+~~~bash
+curl -i -X POST -H "Content-type: application/json;charset=UTF-8" http://localhost:8091/addIncidence -d @example-incidence.json
+~~~
+
+### Como consultar las incidencias enviadas a través de Apache Kafka
+
+La incidencias enviadas mediante Kafka pueden ser consultadas utilizando la consola del consumidor por defecto que viene incluido en la instalación de Apache Kafka:
+
+~~~batchfile
+REM Start Apache Kafka Consumer:
+start "Kafka Consumer" /D ".\bin\windows\" "kafka-console-consumer.bat" "--bootstrap-server" "localhost:9092" "--topic" "topic" "--from-beginning"
+~~~
+
 
 ## Como contribuir al proyecto
 
