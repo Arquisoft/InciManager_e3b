@@ -78,7 +78,7 @@ mvn dependency:purge-local-repository clean install -U
 
 ### Configuración del servicio InciManager
 
-Configurar el puerto del servicio en el fichero `[resources/application.properties](src/main/resources/application.properties)`
+Configurar el puerto del servicio en el fichero: [resources/application.properties](src/main/resources/application.properties)
 
 ~~~properties
 server.port = 8091
@@ -90,6 +90,8 @@ Si no se dispone de una instancia de Apache Kafka en ejecución, es posible desc
 
 #### Inicio de Apache Kafka en MS-Windows
 
+Ejecutar el fichero: '[doc/examples/incimanager-kafka-server-start.bat](doc/examples/incimanager-kafka-server-start.bat)'
+
 ~~~batchfile
 REM Start Apache Zookeeper server:
 start "ZooKeeper" /D ".\bin\windows\" "zookeeper-server-start.bat" "..\..\config\zookeeper.properties"
@@ -100,6 +102,8 @@ start "Kafka" /D ".\bin\windows\" "kafka-server-start.bat" "..\..\config\server.
 ~~~
 
 #### Inicio de Apache Kafka en GNU/LiNUX
+
+Ejecutar el fichero: '[doc/examples/incimanager-kafka-server-start.sh](doc/examples/incimanager-kafka-server-start.sh)'
 
 ~~~bash
 # Start Apache Zookeeper server:
