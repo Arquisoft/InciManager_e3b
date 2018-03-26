@@ -3,7 +3,7 @@
   "password": "123456",
   "kind": "Person", 
   "incidenceName": "Incidencia de prueba",
-  "description": "Descripción de la incidencia de prueba",
+  "description": "DescripciÃ³n de la incidencia de prueba",
   "location": "43.3582617,-5.8531647,16",
   "labels": [ "prueba", "sensor" ],
   "others": [ "file:///image.png", "file:///video.mkv"],
