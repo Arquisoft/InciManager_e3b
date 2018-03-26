@@ -147,11 +147,11 @@ mvn -Dtest=InciManagerApplicationTests#testAgentModel test
 
 ### Datos usuarios de prueba
 
-|-------------------------|----------|------------------------|--------------------------|---------------|--------|
 |Name                     | Password | Location               | Email                    | Ident         | Kind   |
+|-------------------------|----------|------------------------|--------------------------|---------------|--------|
 |Paco González            | 123456   |                        | paco@gmail.com           | paco          | Person |
 |Pepe Fernandez           | 123456   |                        | pepe@gmail.com           | pepe          | Person |
-|Sensor\_123 2018         | 123456   | 43.361368, -5.853591   | admin@sensores.com       | sensor_123    | Sensor |
+|Sensor\_123 2018         | 123456   | 43.361368, -5.853591   | admin@sensores.com       | sensor\_123   | Sensor |
 |Ministerio medioambiente | 123456   | 43.359486, -5.846986   | ambiente@ministerio.com  | medioambiente | Entity |
 |Space X sensor model A   | 123456   | 33.921209, -118.327940 | musk@spacex.com          | spacex        | Sensor |
 
