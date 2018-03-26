@@ -1,4 +1,3 @@
-
 # InciManager_e3b 
 
 [![Build Status](https://travis-ci.org/Arquisoft/InciManager_e3b.svg?branch=master)](https://travis-ci.org/Arquisoft/InciManager_e3b)

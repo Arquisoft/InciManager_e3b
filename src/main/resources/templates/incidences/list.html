@@ -3,13 +3,13 @@
 <head th:replace="fragments/head" />
 <body>
     <div th:replace="fragments/navbar"/>
-    <div class="login-clean">
-        <form method="post" class="addIncidence">
-            <h2 class="sr-only">Login Form</h2>
+    <div class="super-wrapper">
+        <div class="clean-wrapper">
+            <h2 class="sr-only">List incidences</h2>
             <div class="illustration">
                 <h1> <i class="fa fa-list-ul"></i> Mis incidencias</h1>
             </div>
-            <p>Agente: <span sec:authorize="isAuthenticated()" th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></p>
+            <p sec:authorize="isAuthenticated()">Agente: <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span></p>
             <div class="row">
                 <table class="table table-responsive table-hover">
                     <thead>
@@ -19,6 +19,7 @@
                             <th>Descripción</th>
                             <th>Localización</th>
                             <th>Etiquetas</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,7 +28,15 @@
                             <td th:text="${incidence.incidenceName}">Gotera en el techo</td>
                             <td th:text="${incidence.description}">Debido a una rotura de cañería</td>
                             <td th:text="${incidence.location}">43.6735, 58.2452</td>
-                            <td th:text="${incidence.labels}">gotera, agua</td>
+                            <td><span th:each="label : ${incidence.labels}">
+                                    <span th:text="${label}">gotera</span>,
+                                </span>
+                            </td>
+                            <td><form action="/incidences/view" method="post">
+                                <input type="hidden" name="id" th:value="${incidence.id}" />
+                                <input type="submit" class="btn btn-primary" value="Ver incidencia"/>
+                            </form>
+                            </td>
                         </tr>
                         <!--<tr>
                             <td>CERRADA</td>
@@ -39,7 +48,7 @@
                     </tbody>
                 </table>
             </div>
-        </form>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>

@@ -17,11 +17,12 @@ public class IncidenceREST {
     private HashMap<String, String> campos;     // campos con propiedad valor
     private Estado status;                      // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
     private Date expiration;                    // fecha de caducidad, ej: en caso de los sensores de temperatura
-
+    private boolean cacheable;					//Determina si se procesa o no la incidencia
+    
     public IncidenceREST() {
     }
 
-    public IncidenceREST(String username, String password, String incidenceName, String description, String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration) {
+    public IncidenceREST(String username, String password, String incidenceName, String description, String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration, boolean cacheable) {
         this.username = username;
         this.password = password;
         this.incidenceName = incidenceName;
@@ -31,7 +32,16 @@ public class IncidenceREST {
         this.campos = campos;
         this.status = status;
         this.expiration = expiration;
+        this.cacheable = cacheable;
     }
+    
+    public boolean isCacheable() {
+    			return cacheable;
+    		}
+    	
+    		public void setCacheable(boolean cacheable) {
+    			this.cacheable = cacheable;
+    		}
 
     public String getPassword() {
         return password;
