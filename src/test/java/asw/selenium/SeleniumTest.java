@@ -1,5 +1,6 @@
 package asw.selenium;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -40,6 +41,17 @@ public class SeleniumTest {
 		System.out.println("Using base URL: '" + baseUrl + "'");
 	}
 
+	// Página raiz disponible:
+		@Test
+		public void availableRootPageTest() throws Exception {
+			driver.navigate().to(baseUrl + "/");
+			try {
+				assertEquals("InciManager", driver.getTitle());
+			} catch (Error e) {
+				verificationErrors.append(e.toString());
+			}
+	}
+		
 	//Inicio de sesión con datos válidos.
 	@Test
 	public void testUnioviTest3() throws Exception {
