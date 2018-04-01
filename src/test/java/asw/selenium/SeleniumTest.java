@@ -1,40 +1,57 @@
 package asw.selenium;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import asw.InciManagerApplication;
 
-import static org.junit.Assert.assertTrue;
-
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {InciManagerApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SeleniumTest {
-	private WebDriver driver = new HtmlUnitDriver();
-	private String URL = "http://localhost:8091/login";
+	private WebDriver driver;
+	@Value("${local.server.port:8091}")
+	private int port;
+	private String baseUrl;
 	private StringBuffer verificationErrors = new StringBuffer();
 	private int timeout = 9;
 
 	@Before
 	public void setUp() {
-		driver.navigate().to(URL);
+		driver = new HtmlUnitDriver();	
+		baseUrl = "http://localhost:" + port;
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		System.out.println("Using base URL: '" + baseUrl + "'");
 	}
 
 	//Inicio de sesión con datos válidos.
 	@Test
 	public void testUnioviTest3() throws Exception {
+		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		try {
-			assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/home"));
 		} catch (Error e) {
 			verificationErrors.append(e.toString());
 		}
 	}
-
+		
 	/**
 	 * Método auxiliar para loguearse
 	 * 
@@ -115,4 +132,14 @@ public class SeleniumTest {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));
 		assertTrue("Texto " + texto + " no localizado!", list.size() > 0);
 	}
+	
+	@After
+	public void tearDown() throws Exception {
+		driver.quit();
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
+	}
+
 }
