@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,9 @@ import asw.InciManagerApplication;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {InciManagerApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SeleniumTest {
+	
+	private static final Logger logger = Logger.getLogger(SeleniumTest.class);
+	
 	private WebDriver driver;
 	@Value("${local.server.port:8091}")
 	private int port;
@@ -38,20 +42,20 @@ public class SeleniumTest {
 		driver = new HtmlUnitDriver();	
 		baseUrl = "http://localhost:" + port;
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-		System.out.println("Using base URL: '" + baseUrl + "'");
+		logger.info("Using base URL: '" + baseUrl + "'");
 	}
 
 	// Página raiz disponible:
-		@Test
-		public void availableRootPageTest() throws Exception {
-			driver.navigate().to(baseUrl + "/");
-			try {
-				assertEquals("InciManager", driver.getTitle());
-			} catch (Error e) {
-				verificationErrors.append(e.toString());
-			}
+	@Test
+	public void availableRootPageTest() throws Exception {
+		driver.navigate().to(baseUrl + "/");
+		try {
+			assertEquals("InciManager", driver.getTitle());
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
 	}
-		
+
 	//Inicio de sesión con datos válidos.
 	@Test
 	public void testUnioviTest3() throws Exception {
