@@ -7,8 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +19,6 @@ import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaREST;
 import asw.inci_manager.inci_manager_gest.services.AgentService;
 import asw.inci_manager.inci_manager_gest.services.IncidenceService;
-import asw.inci_manager.validators.SendIncidenceFormValidator;
 
 @Controller
 public class IncidenceController {
@@ -31,8 +28,6 @@ public class IncidenceController {
     @Autowired
     private AgentService agentService;
     
-    @Autowired
-    private SendIncidenceFormValidator sendIncidenceFormValidator;
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.GET)
     public String addForm() {
