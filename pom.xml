@@ -89,6 +89,21 @@
 			<artifactId>selenium-htmlunit-driver</artifactId>
 			<version>2.52.0</version>
  		</dependency>
+ 		
+ 		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>1.2.5</version>
+			<scope>test</scope>
+		</dependency>
+ 		
 	</dependencies>
 
 	<dependencyManagement>
@@ -131,8 +146,13 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-					</execution>
+					</execution>								
 				</executions>
+				<configuration>
+					<excludes>
+    					<exclude>**com.steadystate*</exclude>
+  					</excludes>
+  				</configuration>
 			</plugin>
 		</plugins>
 	</build>
