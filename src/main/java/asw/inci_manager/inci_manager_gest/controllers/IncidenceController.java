@@ -7,6 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +21,7 @@ import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaREST;
 import asw.inci_manager.inci_manager_gest.services.AgentService;
 import asw.inci_manager.inci_manager_gest.services.IncidenceService;
+import asw.inci_manager.validators.SendIncidenceFormValidator;
 
 @Controller
 public class IncidenceController {
@@ -26,19 +30,40 @@ public class IncidenceController {
     private IncidenceService incidenceService;
     @Autowired
     private AgentService agentService;
+    
+    @Autowired
+    private SendIncidenceFormValidator sendIncidenceFormValidator;
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.GET)
     public String addForm() {
         return "incidences/add";
     }
+    
+    @RequestMapping(value = "/incidences/{msg}", method = RequestMethod.GET)
+    public String error(Model model, @PathVariable String msg) {
+    	model.addAttribute("msg", msg);
+        return "incidences/errormsg";
+    }
 
     @RequestMapping(value = "/incidences/add", method = RequestMethod.POST)
     public String addIncidenceFormulario(@RequestParam(value = "incidenceName") String incidenceName,
-            @RequestParam(value = "description") String description,
-            @RequestParam(value = "location") String location,
-            @RequestParam(value = "labels") String labels,
-            @RequestParam(value = "others") String others,
-            @RequestParam(value = "fields") String fields) {
+    		@RequestParam(value = "description", required=false) String description,
+            @RequestParam(value = "location", required=false) String location,
+            @RequestParam(value = "labels", required=false) String labels,
+            @RequestParam(value = "others", required=false) String others,
+            @RequestParam(value = "fields", required=false) String fields) {
+    	
+    	
+    	if(incidenceName=="")
+    		return "redirect:/incidences/Es necesario dar un nombre a la incidencia";
+    	if(description=="")
+    		return "redirect:/incidences/La descripcion es demasiado breve";
+    	if(location=="")
+    		return "redirect:/incidences/Es necesario dar una localizacion a la incidencia";
+    	if(labels=="")
+    		return "redirect:/incidences/Es necesario especificar alguna etiqueta para la incidencia";
+    	
+    	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Agent activeAgent = agentService.getAgentByEmailFlexible(email);
@@ -46,7 +71,7 @@ public class IncidenceController {
 		Incidence i = new Incidence(activeAgent, incidenceName, description, location, incidenceService.labelsParser(labels));
 		i.setCacheable(true);
 		i.setOthers(incidenceService.labelsParser(others));
-		i.setFields(incidenceService.fielsParser(fields));
+		i.setFields(incidenceService.fielsParser(fields));		
 		
 		//Descomentar en caso de querer insertar en la base de datos.
 		//incidenceService.addIncidence(i);
