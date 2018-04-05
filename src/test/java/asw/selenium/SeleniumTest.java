@@ -1,35 +1,73 @@
 package asw.selenium;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.List;
-import org.junit.*;
-import static org.junit.Assert.*;
-import org.openqa.selenium.*;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import asw.InciManagerApplication;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {InciManagerApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SeleniumTest {
-	private WebDriver driver = new HtmlUnitDriver();
-	private String URL = "http://localhost:8091/login";
+	
+	private static final Logger logger = Logger.getLogger(SeleniumTest.class);
+	
+	private WebDriver driver;
+	@Value("${local.server.port:8091}")
+	private int port;
+	private String baseUrl;
 	private StringBuffer verificationErrors = new StringBuffer();
 	private int timeout = 9;
 
 	@Before
-	public void setUp() throws Exception {
-		driver.navigate().to(URL);
+	public void setUp() {
+		driver = new HtmlUnitDriver();	
+		baseUrl = "http://localhost:" + port;
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		logger.info("Using base URL: '" + baseUrl + "'");
 	}
 
-	// Inicio de sesión con datos válidos.
-	//@Test
-	//public void testUnioviTest3() throws Exception {
-	//	login("paco@gmail.com", "123456");
-	//	try {
-	//		assertTrue(driver.getCurrentUrl().equals("http://localhost:8091/home"));
-	//	} catch (Error e) {
-	//		verificationErrors.append(e.toString());
-	//	}
-	//}
+	// Página raiz disponible:
+	@Test
+	public void availableRootPageTest() throws Exception {
+		driver.navigate().to(baseUrl + "/");
+		try {
+			assertEquals("InciManager", driver.getTitle());
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
 
+	//Inicio de sesión con datos válidos.
+	@Test
+	public void testUnioviTest3() throws Exception {
+		driver.navigate().to(baseUrl);
+		login("paco@gmail.com", "123456");
+		try {
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/home"));
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+		
 	/**
 	 * Método auxiliar para loguearse
 	 * 
@@ -68,11 +106,8 @@ public class SeleniumTest {
 
 	/**
 	 * Método auxiliar para rellenar campos de formularios
-	 * 
-	 * @param campoID
-	 *            nombre del campo a rellenar
-	 * @param texto
-	 *            valor
+	 * @param nombre nombre del campo a rellenar
+	 * @param texto valor
 	 */
 	private void rellenarByName(String nombre, String texto) {
 		driver.findElement(By.name(nombre)).sendKeys(texto);
@@ -113,4 +148,14 @@ public class SeleniumTest {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + texto + "')]"));
 		assertTrue("Texto " + texto + " no localizado!", list.size() > 0);
 	}
+	
+	@After
+	public void tearDown() throws Exception {
+		driver.quit();
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
+	}
+
 }
