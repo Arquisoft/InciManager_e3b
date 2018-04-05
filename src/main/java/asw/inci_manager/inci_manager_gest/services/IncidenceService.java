@@ -118,6 +118,7 @@ public class IncidenceService {
 		String[] pares = fields.split(";");
 		for (String string : pares) {
 			String[] valores = string.split(":");
+			if(valores.length==2)
 			mapa.put(valores[0], valores[1]);
 		}
 		return mapa;
