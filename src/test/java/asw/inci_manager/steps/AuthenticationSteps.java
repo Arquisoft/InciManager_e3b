@@ -54,14 +54,14 @@ public class AuthenticationSteps {
 	}
 
 	@Dado("^un agente registrado en el sistema con el nombre de usuario \"([^\"]*)\" y la contraseña \"([^\"]*)\"$")
-	public void un_agente_registrado_en_el_sistema_con_el_nombre_de_usuario_y_la_contrasenia(String username,
+	public void unAgenteRegistradoEnElSistemaConElNombreDeUsuarioYLaContrasenia(String username,
 			String password) throws Throwable {
 		logger.info("Dado un agente registrado en el sistema con el nombre de usuario: '" + username
 				+ "' y la contraseña: '" + password + "'");
 	}
 
 	@Y("^una vez situado en la página de inicio de sesión \"([^\"]*)\"$")
-	public void una_vez_situado_en_la_pagina_de_incio_de_sesion(String loginRelativeUrl) throws Throwable {
+	public void unaVezSituadoEnLaPaginaDeIncioDeSesion(String loginRelativeUrl) throws Throwable {
 		logger.info("Y una vez situado en la página de inicio de sesión: '" + loginRelativeUrl + "'");
 		driver.navigate().to(baseUrl + loginRelativeUrl);
 		// ToDO: Wait for element
@@ -69,7 +69,7 @@ public class AuthenticationSteps {
 	}
 
 	@Cuando("^introduzco \"([^\"]*)\" y \"([^\"]*)\" en los campos \"([^\"]*)\" y \"([^\"]*)\"$")
-	public void introduzco_username_y_password_en_los_campos_username_y_password(String username, String password,
+	public void introduzcoUsernameYPasswordEnLosCamposUsernameYPassword(String username, String password,
 			String usernameElement, String passwordElement) throws Throwable {
 		logger.info("Cuando introduzco el nombre de usuario: '" + username + "' y la contraseña: '" + password
 				+ "' en los campos: '" + usernameElement + "' y '" + passwordElement + "'");
@@ -80,32 +80,32 @@ public class AuthenticationSteps {
 	}
 
 	@Cuando("^presiono el botón de confirmación \"([^\"]*)\"$")
-	public void presiono_el_boton(String buttonElement) throws Throwable {
+	public void presionoElBoton(String buttonElement) throws Throwable {
 		logger.info("Y presiono el botón de confirmación: '" + buttonElement + "'");
 		driver.findElement(By.id(buttonElement)).click();
 	}
 
 	@Entonces("^puedo procesar incidencias desde la página principal \"([^\"]*)\"$")
-	public void puedo_procesar_incidencias_desde_lap_pagina_principal(String homeRelativeUrl) throws Throwable {
+	public void puedoProcesarIncidenciasDesdeLaPaginaPrincipal(String homeRelativeUrl) throws Throwable {
 		logger.info("Entonces puedo procesar incidencias desde la página principal: '" + homeRelativeUrl + "'");
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl + homeRelativeUrl);
 	}
 
 	@Dado("^un agente no registrado en el sistema con el nombre de usuario \"([^\"]*)\" y la contraseña \"([^\"]*)\"$")
-	public void un_agente_no_registrado_en_el_sistema_con_el_nombre_de_usuario_y_la_contrasenia(String username,
+	public void unAgenteNoRegistradoEnElSistemaConElNombreDeUsuarioYLaContrasenia(String username,
 			String password) throws Throwable {
 		logger.info("Dado un agente no registrado en el sistema con el nombre de usuario: '" + username
 				+ "' y la contraseña: '" + password + "'");
 	}
 
 	@Entonces("^recibo una notificación de error de acceso \"([^\"]*)\"$")
-	public void recibo_una_notificacion_de_error_de_acceso(String loginRelativeUrlError) throws Throwable {
+	public void reciboUnaNotificacionDeErrorDeAcceso(String loginRelativeUrlError) throws Throwable {
 		logger.info("Entonces recibo una notifiación de error de acceso: '" + loginRelativeUrlError + "'");
 		assertThat(driver.getCurrentUrl()).isEqualTo(baseUrl + loginRelativeUrlError);
 	}
 
 	@Y("^no puedo procesar incidencias desde la página principal \"([^\"]*)\"$")
-	public void no_puedo_procesar_incidencias_desde_lap_pagina_principal(String homeRelativeUrl) throws Throwable {
+	public void noPuedoProcesarIncidenciasDesdeLaPaginaPrincipal(String homeRelativeUrl) throws Throwable {
 		logger.info("Y no puedo procesar incidencias desde la página principal: '" + homeRelativeUrl + "'");
 		driver.navigate().to(baseUrl + homeRelativeUrl);
 		assertThat(driver.getCurrentUrl()).isNotEqualTo(baseUrl + homeRelativeUrl);
