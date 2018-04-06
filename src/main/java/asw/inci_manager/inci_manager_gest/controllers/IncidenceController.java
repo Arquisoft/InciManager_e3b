@@ -34,9 +34,9 @@ public class IncidenceController {
         return "incidences/add";
     }
     
-    @RequestMapping(value = "/incidences/{msg}", method = RequestMethod.GET)
-    public String error(Model model, @PathVariable String msg) {
-    	model.addAttribute("msg", msg);
+    @RequestMapping(value = "/incidences/error", method = RequestMethod.GET)
+    public String error(Model model, @ModelAttribute("message") String errmsg) {
+    	model.addAttribute("msg", errmsg);
         return "incidences/errormsg";
     }
 
@@ -46,17 +46,23 @@ public class IncidenceController {
             @RequestParam(value = "location", required=false) String location,
             @RequestParam(value = "labels", required=false) String labels,
             @RequestParam(value = "others", required=false) String others,
-            @RequestParam(value = "fields", required=false) String fields) {
+            @RequestParam(value = "fields", required=false) String fields,
+            RedirectAttributes redirectAttrs) {
     	
     	
-    	if(incidenceName=="")
-    		return "redirect:/incidences/Es necesario dar un nombre a la incidencia";
-    	if(description=="")
-    		return "redirect:/incidences/La descripcion es demasiado breve";
-    	if(location=="")
-    		return "redirect:/incidences/Es necesario dar una localizacion a la incidencia";
-    	if(labels=="")
-    		return "redirect:/incidences/Es necesario especificar alguna etiqueta para la incidencia";
+    	if(incidenceName=="") {
+    		   redirectAttrs.addFlashAttribute("message", "Es necesario dar un nombre a la incidencia");
+    		   return "redirect:/incidences/error";
+    	}if(description=="") {
+ 		   redirectAttrs.addFlashAttribute("message", "La descripcion es demasiado breve");
+    		return "redirect:/incidences/error";
+    	}if(location=="") {
+  		   redirectAttrs.addFlashAttribute("message", "Es necesario dar una localizacion a la incidencia");
+    		return "redirect:/incidences/error";
+    	}if(labels=="") {
+   		   redirectAttrs.addFlashAttribute("message", "Es necesario especificar alguna etiqueta para la incidencia");
+    		return "redirect:/incidences/error";
+    	}
     	
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
