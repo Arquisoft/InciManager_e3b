@@ -83,10 +83,18 @@ mvn dependency:purge-local-repository clean install -U
 
 ### Configuración del servicio InciManager
 
-Configurar el puerto del servicio en el fichero: [resources/application.properties](src/main/resources/application.properties)
+Configurar los párametros necesarios en el fichero: [resources/application.properties](src/main/resources/application.properties)
 
 ~~~properties
+### Service port (default: 8091):
 server.port = 8091
+
+### Comma-separated list of host and port pairs that are the addresses of 
+### the Kafka brokers (default: localhost:9092):
+kafka.bootstrap-servers = localhost:9092
+
+### Kafka topic for incidences (default: incidence):
+kafka.topic = incidence
 ~~~
 
 ### Inicio del servicio Apache Kafka
