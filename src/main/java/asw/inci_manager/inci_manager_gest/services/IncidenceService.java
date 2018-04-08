@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
@@ -24,24 +25,25 @@ public class IncidenceService {
 
 	private static final Logger logger = Logger.getLogger(IncidenceService.class);
 
+	@Value("${kafka.topic:incidences}")
+	private String kafkaTopic;
+	
 	@Autowired
 	private KafkaProducer kafkaProducer;
 
 	@Autowired
 	private IncidenceRepository incidenceRepository;
 
-	public void send(Incidence incidence) {
-		// ToDO: Incorporar un campo topic dinámico o incluirlo como propertie:
-		kafkaProducer.send("topic", new Gson().toJson(incidence));
-		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + "topic" + "'");
+	public void send(Incidence incidence) {		
+		kafkaProducer.send(kafkaTopic, new Gson().toJson(incidence));
+		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 	}
 
 	public RespuestaREST send(IncidenceREST incidenceREST, Agent agent)
-		{
-			// ToDO: Incorporar un campo topic dinámico o incluirlo como propertie:
+		{			
 			if (agent != null && agent.getPassword().equals(incidenceREST.getPassword())&&incidenceREST.isCacheable()) {
-				kafkaProducer.send("topic", new Gson().toJson(incidenceREST));
-				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + "topic" + "'");
+				kafkaProducer.send(kafkaTopic, new Gson().toJson(incidenceREST));
+				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 			return new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(),
 					incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
 					incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),

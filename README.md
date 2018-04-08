@@ -93,8 +93,8 @@ server.port = 8091
 ### the Kafka brokers (default: localhost:9092):
 kafka.bootstrap-servers = localhost:9092
 
-### Kafka topic for incidences (default: incidence):
-kafka.topic = incidence
+### Kafka topic for incidences (default: incidences):
+kafka.topic = incidences
 ~~~
 
 ### Inicio del servicio Apache Kafka
@@ -197,7 +197,7 @@ La incidencias enviadas mediante Kafka pueden ser consultadas utilizando la cons
 
 ~~~batchfile
 REM Start Apache Kafka Consumer:
-start "Kafka Consumer" /D ".\bin\windows\" "kafka-console-consumer.bat" "--bootstrap-server" "localhost:9092" "--topic" "topic" "--from-beginning"
+start "Kafka Consumer" /D ".\bin\windows\" "kafka-console-consumer.bat" "--bootstrap-server" "localhost:9092" "--topic" "incidences" "--from-beginning"
 ~~~
 
 ## Como contribuir al proyecto
