@@ -67,6 +67,102 @@ public class SeleniumTest {
 			verificationErrors.append(e.toString());
 		}
 	}
+	
+	//Envio de incidencia valida.
+	@Test
+	public void testSendIncidence() throws Exception {
+		driver.navigate().to(baseUrl);
+		login("paco@gmail.com", "123456");
+		driver.navigate().to(baseUrl+"/incidences/add");
+		driver.findElement(By.name("incidenceName")).sendKeys("1");
+		driver.findElement(By.name("description")).sendKeys("1");
+		driver.findElement(By.name("location")).sendKeys("1");
+		driver.findElement(By.name("labels")).sendKeys("1");
+		driver.findElement(By.name("others")).sendKeys("1");
+		driver.findElement(By.name("fields")).sendKeys("1:2");
+		driver.findElement(By.cssSelector("button[class='btn btn-primary btn-block']")).click();
+		try {
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/incidences/list"));
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+	
+	//Envio de incidencia sin nombre.
+	@Test
+	public void testSendNoNamedIncidence() throws Exception {
+		driver.navigate().to(baseUrl);
+		login("paco@gmail.com", "123456");
+		driver.navigate().to(baseUrl+"/incidences/add");
+		driver.findElement(By.name("description")).sendKeys("1");
+		driver.findElement(By.name("location")).sendKeys("1");
+		driver.findElement(By.name("labels")).sendKeys("1");
+		driver.findElement(By.name("others")).sendKeys("1");
+		driver.findElement(By.name("fields")).sendKeys("1:2");
+		driver.findElement(By.cssSelector("button[class='btn btn-primary btn-block']")).click();
+		try {
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/incidences/error"));
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+	
+	//Envio de incidencia sin descripcion.
+	@Test
+	public void testSendNoDescriptedIncidence() throws Exception {
+		driver.navigate().to(baseUrl);
+		login("paco@gmail.com", "123456");
+		driver.navigate().to(baseUrl+"/incidences/add");
+		driver.findElement(By.name("incidenceName")).sendKeys("1");
+		driver.findElement(By.name("location")).sendKeys("1");
+		driver.findElement(By.name("labels")).sendKeys("1");
+		driver.findElement(By.name("others")).sendKeys("1");
+		driver.findElement(By.name("fields")).sendKeys("1:2");
+		driver.findElement(By.cssSelector("button[class='btn btn-primary btn-block']")).click();
+		try {
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/incidences/error"));
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+	
+	//Envio de incidencia sin localizacion.
+	@Test
+	public void testSendNoLocatedIncidence() throws Exception {
+		driver.navigate().to(baseUrl);
+		login("paco@gmail.com", "123456");
+		driver.navigate().to(baseUrl+"/incidences/add");
+		driver.findElement(By.name("description")).sendKeys("1");
+		driver.findElement(By.name("incidenceName")).sendKeys("1");
+		driver.findElement(By.name("labels")).sendKeys("1");
+		driver.findElement(By.name("others")).sendKeys("1");
+		driver.findElement(By.name("fields")).sendKeys("1:2");
+		driver.findElement(By.cssSelector("button[class='btn btn-primary btn-block']")).click();
+		try {
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/incidences/error"));
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+	
+	//Envio de incidencia sin etiquetas.
+	@Test
+	public void testSendNoLabeledIncidence() throws Exception {
+		driver.navigate().to(baseUrl);
+		login("paco@gmail.com", "123456");
+		driver.navigate().to(baseUrl+"/incidences/add");
+		driver.findElement(By.name("description")).sendKeys("1");
+		driver.findElement(By.name("location")).sendKeys("1");
+		driver.findElement(By.name("incidenceName")).sendKeys("1");
+		driver.findElement(By.name("others")).sendKeys("1");
+		driver.findElement(By.name("fields")).sendKeys("1:2");
+		driver.findElement(By.cssSelector("button[class='btn btn-primary btn-block']")).click();
+		try {
+			assertTrue(driver.getCurrentUrl().equals(baseUrl + "/incidences/error"));
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
 		
 	/**
 	 * Método auxiliar para loguearse
