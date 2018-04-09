@@ -23,12 +23,13 @@ Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectur
     - [Instalación de las dependencias](#instalaci-n-de-las-dependencias)	  
     - [Reinstalación de las dependencias](#reinstalaci-n-de-las-dependencias)	
 - [Como ejecutar el proyecto](#como-ejecutar-el-proyecto)
-    - [Requisitos para ejecutar el proyecto](#requisitos-para-ejecutar-el-proyecto)
+    - [Requisitos para ejecutar el proyecto](#requisitos-para-ejecutar-el-proyecto)    
     - [Configuración del servicio InciManager](#configuraci-n-del-servicio-incimanager)
-    - [Inicio del servicio Apache Kafka](#inicio-del-servicio-apache-kafka)
-         - [Inicio de Apache Kafka en MS-Windows](#inicio-de-apache-kafka-en-ms-windows)
-         - [Inicio de Apache Kafka en GNU/LiNUX](#inicio-de-apache-kafka-en-gnu-linux)
-    - [Inicio del servicio InciManager](#inicio-del-servicio-incimanager)
+    - [Despliegue automático de todos los servicios mediante contenedores Docker](#despliegue-autom-tico-de-todos-los-servicios-mediante-contenedores-docker)
+    - [Despliegue manual de servicios](#despliegue-manual-de-servicios)
+         - [Despliegue manual del servicio Apache Kafka en MS-Windows](#despliegue-manual-del-servicio-apache-kafka-en-ms-windows)
+         - [Despliegue manual del servicio Apache Kafka en GNU/LiNUX](#despliegue-manual-del-servicio-apache-kafka-en-gnu-linux)
+         - [Despliegue manual del servicio InciManager](#despliegue-manual-del-servicio-incimanager)
 - [Como probar el proyecto](#como-probar-el-proyecto)
      - [Ejecución de las pruebas unitarias](#ejecuci-n-de-las-pruebas-unitarias)
      - [Datos usuarios de prueba](#datos-usuarios-de-prueba)
@@ -77,9 +78,18 @@ mvn dependency:purge-local-repository clean install -U
 
 ### Requisitos para ejecutar el proyecto
 
+- [OpenJDK](http://openjdk.java.net) (versión: >= 1.6).
 - [Apache Maven](https://maven.apache.org) (versión: >= 3.5).
+- [Módulo Agents](https://github.com/Arquisoft/Agents_e3b) (versión: = e3b).
+
+Para el despliegue automático de los servicios mediante contenedores:
+
+- [Docker](https://docs.docker.com/install/)( versión: >= 18.03.0-ce).
+- [Docker Compose](https://docs.docker.com/compose/install/)( versión: >= 1.20.1).
+
+Para el despliegue manual de los servicios:
+
 - [Apache Kafka](https://kafka.apache.org) (versión: >= 1.0).
-- [Módulo Agents](https://github.com/Arquisoft/Agents_e3b) (versión: = e3b). 
 
 ### Configuración del servicio InciManager
 
@@ -97,11 +107,29 @@ kafka.bootstrap-servers = localhost:9092
 kafka.topic = incidences
 ~~~
 
-### Inicio del servicio Apache Kafka
+### Despliegue automático de todos los servicios mediante contenedores Docker
+
+Si se dispone de una instancia de [Docker](https://www.docker.com) ya instalada, es posible desplegar automáticamente todos los servicios necesarios utilizando la herramienta de orquestación de contenedores [Docker-Compose](https://docs.docker.com/compose/overview). Para ello, basta con situarse en el directorio raiz del proyecto (donde se encuentra el fichero [docker-compose.yml](docker-compose.yml)) y ejecutar en la consola:
+
+~~~batchfile
+docker-compose up
+~~~
+
+Una vez descargados los contenedores necesarios (el proceso es algo más lento la primera vez), cada servicio es iniciado y automáticamente publicado en el puerto correspondiente de la dirección pública del anfitrión Docker. A partir de entonces es posbile acceder al interfgaz web de servicio InciManager visitando la dirección: `http://localhost:8091`
+
+**IMPORTANTE:** En el caso de utilizar *Docker Compose* con *Docker Toolbox/Machine*  en *MS-Windows*,  es necesario establecer primero la variable de entorno `[COMPOSE_CONVERT_WINDOWS_PATHS=1](https://docs.docker.com/compose/reference/envvars/#compose_convert_windows_paths)`  antes de poder ejecutar con exito el fichero (*[breaking changes 1.9.0 (2016-11-16)](https://github.com/docker/compose/blob/master/CHANGELOG.md#190-2016-11-16))*. 
+
+Para detener la ejecución de todos los servicios y sus contenedores asociados es suficiente con ejecutar la orden:
+
+~~~batchfile
+docker-compose down
+~~~
+
+### Despliegue manual de servicios
 
 Si no se dispone de una instancia de Apache Kafka en ejecución, es posible descargar una versión ya compilada para Java desde su [página oficial](https://kafka.apache.org/quickstart) y lanzar el servicio manualmente (la distribución binaria de Apache Kafka requiere a su vez iniciar su propia instancia de Apache Zookeeper).
 
-#### Inicio de Apache Kafka en MS-Windows
+#### Despliegue manual del servicio Apache Kafka en MS-Windows
 
 Ejecutar el fichero: '[doc/examples/incimanager-kafka-server-start.bat](doc/examples/incimanager-kafka-server-start.bat)'
 
@@ -114,7 +142,7 @@ REM Start Apache Kafka server:
 start "Kafka" /D ".\bin\windows\" "kafka-server-start.bat" "..\..\config\server.properties"
 ~~~
 
-#### Inicio de Apache Kafka en GNU/LiNUX
+#### Despliegue manual del servicio Apache Kafka en GNU/LiNUX
 
 Ejecutar el fichero: '[doc/examples/incimanager-kafka-server-start.sh](doc/examples/incimanager-kafka-server-start.sh)'
 
@@ -127,7 +155,7 @@ sleep 10
 nohup bash -c "bin/kafka-server-start.sh config/server.properties &"
 ~~~
 
-### Inicio del servicio InciManager
+#### Despliegue manual del servicio InciManager
 
 Situarse en el directorio de instalación y ejecutar:
 
