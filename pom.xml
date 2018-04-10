@@ -170,9 +170,9 @@
 				</executions>
 				<configuration>
 					<repository>${docker.image.prefix}/${project.artifactId}</repository>
-					<tag>${project.version}</tag>
+					<tag>latest</tag>
 					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+						<JAR_FILE>target/${project.build.finalName}.${project.packaging}</JAR_FILE>
 					</buildArgs>
 				</configuration>
 			</plugin>

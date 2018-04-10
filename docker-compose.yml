@@ -23,6 +23,8 @@ services:
   incimanager:
     build:
       context: .
+      args:
+        JAR_FILE: /target/incimanager_e3b-0.0.1.jar
     image: arquisoft/incimanager_e3b
     ports:
       - "8091:8091"
@@ -39,6 +41,6 @@ services:
     command: /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic incidences --from-beginning
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
+    links:
       - kafka
 
