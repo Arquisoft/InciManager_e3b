@@ -20,6 +20,16 @@ services:
     links:
       - zookeeper
 
+  incimanager:
+    build:
+      context: .
+    image: arquisoft/incimanager_e3b
+    ports:
+      - "8091:8091"
+    links:
+      - zookeeper
+      - kafka
+
   ### Incidences consumer (InciDashboard mock):
   kafka-consumer:
     image: wurstmeister/kafka
