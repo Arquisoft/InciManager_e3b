@@ -17,7 +17,7 @@ import java.util.Map;
 @EnableKafka
 public class KafkaProducerFactory {
 
-	@Value("${kafka.bootstrap-servers:localhost:9092}")
+	@Value("${spring.cloud.stream.kafka.binder.brokers:localhost:9092}")
 	private String kafkaBootstrapServers;
 	
     @Bean
