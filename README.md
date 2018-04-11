@@ -123,7 +123,7 @@ docker-compose up
 
 Una vez descargados los contenedores necesarios (el proceso es algo más lento la primera vez), cada servicio es iniciado y automáticamente publicado en el puerto correspondiente de la dirección pública del anfitrión Docker. A partir de entonces es posbile acceder al interfgaz web de servicio InciManager visitando la dirección: `http://localhost:8091`
 
-**IMPORTANTE:** En el caso de utilizar *Docker Compose* con *Docker Toolbox/Machine*  en *MS-Windows*,  es necesario establecer primero la variable de entorno `[COMPOSE_CONVERT_WINDOWS_PATHS=1](https://docs.docker.com/compose/reference/envvars/#compose_convert_windows_paths)`  antes de poder ejecutar con exito el fichero (*[breaking changes 1.9.0 (2016-11-16)](https://github.com/docker/compose/blob/master/CHANGELOG.md#190-2016-11-16))*. 
+**IMPORTANTE:** En el caso de utilizar *Docker Compose* con *Docker Toolbox/Machine*  en *MS-Windows*,  es necesario establecer primero la variable de entorno [COMPOSE_CONVERT_WINDOWS_PATHS=1](https://docs.docker.com/compose/reference/envvars/#compose_convert_windows_paths) antes de poder ejecutar con exito el fichero (*[breaking changes 1.9.0 (2016-11-16)](https://github.com/docker/compose/blob/master/CHANGELOG.md#190-2016-11-16))*. 
 
 Para detener la ejecución de todos los servicios y sus contenedores asociados es suficiente con ejecutar la orden:
 
