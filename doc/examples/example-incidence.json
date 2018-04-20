@@ -4,7 +4,7 @@
   "kind": "Person", 
   "incidenceName": "Incidencia de prueba",
   "description": "Descripción de la incidencia de prueba",
-  "location": "43.3582617,-5.8531647,16",
+  "location": "43.3582617,-5.8531647",
   "labels": [ "prueba", "sensor" ],
   "others": [ "file:///image.png", "file:///video.mkv"],
   "fields": { "temperatura": "21", "humedad": "75" },

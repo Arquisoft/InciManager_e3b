@@ -18,28 +18,30 @@ Este proyecto ha sido desarrollado como práctica de la asignatura *[Arquitectur
 
 - [Descripción del proyecto](#incimanager_e3b)
 - [Como instalar el proyecto](#como-instalar-el-proyecto)
-    - [Requisitos de instalación](#requisitos-de-instalaci-n)	     
-    - [Obtención del código fuente](#obtenci-n-del-c-digo-fuente)	  
-    - [Instalación de las dependencias](#instalaci-n-de-las-dependencias)	  
-    - [Reinstalación de las dependencias](#reinstalaci-n-de-las-dependencias)	
+    - [Requisitos de instalación](#requisitos-de-instalación)	     
+    - [Obtención del código fuente](#obtención-del-código-fuente)	  
+    - [Instalación de las dependencias](#instalación-de-las-dependencias)	  
+    - [Reinstalación de las dependencias](#reinstalación-de-las-dependencias)	
 - [Como ejecutar el proyecto](#como-ejecutar-el-proyecto)
     - [Requisitos para ejecutar el proyecto](#requisitos-para-ejecutar-el-proyecto)
-    - [Configuración del servicio InciManager](#configuraci-n-del-servicio-incimanager)
+    - [Configuración del servicio InciManager](#configuración-del-servicio-incimanager)
     - [Inicio del servicio Apache Kafka](#inicio-del-servicio-apache-kafka)
          - [Inicio de Apache Kafka en MS-Windows](#inicio-de-apache-kafka-en-ms-windows)
          - [Inicio de Apache Kafka en GNU/LiNUX](#inicio-de-apache-kafka-en-gnu-linux)
     - [Inicio del servicio InciManager](#inicio-del-servicio-incimanager)
 - [Como probar el proyecto](#como-probar-el-proyecto)
-     - [Ejecución de las pruebas unitarias](#ejecuci-n-de-las-pruebas-unitarias)
+     - [Ejecución de las pruebas unitarias](#ejecución-de-las-pruebas-unitarias)
      - [Datos usuarios de prueba](#datos-usuarios-de-prueba)
      - [Ejemplo de incidencia en formato JSON](#ejemplo-de-incidencia-en-formato-json)
      - [Ejemplo de envio de incidencia utilizando el servicio REST](#ejemplo-de-envio-de-incidencia-utilizando-el-servicio-rest)
-     - [Como consultar las incidencias enviadas a través de Apache Kafka](#como-consultar-las-incidencias-enviadas-a-trav-s-de-apache-kafka)
+     - [Como consultar las incidencias enviadas a través de Apache Kafka](#como-consultar-las-incidencias-enviadas-a-través-de-apache-kafka)
 - [Como contribuir al proyecto](#como-contribuir-al-proyecto)
 - [Creditos del proyecto](#creditos-del-proyecto)
      - [Contribuidores](#contribuidores)
      - [Reconocimientos](#reconocimientos)
 - [Licencia del proyecto](#licencia-del-proyecto)
+
+
 
 ## Como instalar el proyecto
 
@@ -174,7 +176,7 @@ Disponible en el fichero: '[doc/examples/example-incidence.json](doc/examples/ex
   "kind": "Person", 
   "incidenceName": "Incidencia de prueba",
   "description": "Descripción de la incidencia de prueba",
-  "location": "43.3582617,-5.8531647,16",
+  "location": "43.3582617,-5.8531647",
   "labels": [ "prueba", "sensor" ],
   "others": [ "file:///image.png", "file:///video.mkv"],
   "fields": { "temperatura": "21", "humedad": "75" },
