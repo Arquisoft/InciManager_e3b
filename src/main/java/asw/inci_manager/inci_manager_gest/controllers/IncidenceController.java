@@ -1,5 +1,12 @@
 package asw.inci_manager.inci_manager_gest.controllers;
 
+import asw.inci_manager.inci_manager_gest.IncidenceOperations;
+import asw.inci_manager.inci_manager_gest.entities.Agent;
+import asw.inci_manager.inci_manager_gest.entities.Incidence;
+import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
+import asw.inci_manager.inci_manager_gest.responses.RespuestaREST;
+import asw.inci_manager.inci_manager_gest.services.AgentService;
+import asw.inci_manager.inci_manager_gest.services.IncidenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,22 +14,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import asw.inci_manager.inci_manager_gest.entities.Agent;
-import asw.inci_manager.inci_manager_gest.entities.Incidence;
-import asw.inci_manager.inci_manager_gest.request.IncidenceREST;
-import asw.inci_manager.inci_manager_gest.responses.RespuestaREST;
-import asw.inci_manager.inci_manager_gest.services.AgentService;
-import asw.inci_manager.inci_manager_gest.services.IncidenceService;
 
 @Controller
-public class IncidenceController {
+public class IncidenceController implements IncidenceOperations {
 
     @Autowired
     private IncidenceService incidenceService;
@@ -114,7 +110,6 @@ public class IncidenceController {
      */
 	@RequestMapping(value = "/addIncidence")
 	public ResponseEntity<RespuestaREST> addIncidence(@RequestBody IncidenceREST incidenceREST) {
-		// TODO: procesar la incidencia que se recibe
 		Agent agent = agentService.getAgentByEmailFlexible(incidenceREST.getUsername());
 		RespuestaREST res;
 		res = incidenceService.send(incidenceREST, agent);

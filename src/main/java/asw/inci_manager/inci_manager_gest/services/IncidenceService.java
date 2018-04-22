@@ -1,16 +1,6 @@
 package asw.inci_manager.inci_manager_gest.services;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import com.google.gson.Gson;
-
+import asw.inci_manager.inci_manager_gest.IncidenceServices;
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import asw.inci_manager.inci_manager_gest.repositories.IncidenceRepository;
@@ -19,9 +9,18 @@ import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaFailedREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaREST;
 import asw.inci_manager.kafka_manager.producers.KafkaProducer;
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
-public class IncidenceService {
+public class IncidenceService implements IncidenceServices {
 
 	private static final Logger logger = Logger.getLogger(IncidenceService.class);
 
