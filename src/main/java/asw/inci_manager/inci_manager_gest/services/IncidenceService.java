@@ -1,15 +1,6 @@
 package asw.inci_manager.inci_manager_gest.services;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.google.gson.Gson;
-
+import asw.inci_manager.inci_manager_gest.IncidenceServices;
 import asw.inci_manager.inci_manager_gest.entities.Agent;
 import asw.inci_manager.inci_manager_gest.entities.Incidence;
 import asw.inci_manager.inci_manager_gest.repositories.IncidenceRepository;
@@ -18,30 +9,40 @@ import asw.inci_manager.inci_manager_gest.responses.RespuestaAddIncidenceREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaFailedREST;
 import asw.inci_manager.inci_manager_gest.responses.RespuestaREST;
 import asw.inci_manager.kafka_manager.producers.KafkaProducer;
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
-public class IncidenceService {
+public class IncidenceService implements IncidenceServices {
 
 	private static final Logger logger = Logger.getLogger(IncidenceService.class);
 
+	@Value("${kafka.topic:incidences}")
+	private String kafkaTopic;
+	
 	@Autowired
 	private KafkaProducer kafkaProducer;
 
 	@Autowired
 	private IncidenceRepository incidenceRepository;
 
-	public void send(Incidence incidence) {
-		// ToDO: Incorporar un campo topic dinámico o incluirlo como propertie:
-		kafkaProducer.send("topic", new Gson().toJson(incidence));
-		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + "topic" + "'");
+	public void send(Incidence incidence) {		
+		kafkaProducer.send(kafkaTopic, new Gson().toJson(incidence));
+		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 	}
 
 	public RespuestaREST send(IncidenceREST incidenceREST, Agent agent)
-		{
-			// ToDO: Incorporar un campo topic dinámico o incluirlo como propertie:
+		{			
 			if (agent != null && agent.getPassword().equals(incidenceREST.getPassword())&&incidenceREST.isCacheable()) {
-				kafkaProducer.send("topic", new Gson().toJson(incidenceREST));
-				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + "topic" + "'");
+				kafkaProducer.send(kafkaTopic, new Gson().toJson(incidenceREST));
+				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 			return new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(),
 					incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
 					incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),
@@ -118,6 +119,7 @@ public class IncidenceService {
 		String[] pares = fields.split(";");
 		for (String string : pares) {
 			String[] valores = string.split(":");
+			if(valores.length==2)
 			mapa.put(valores[0], valores[1]);
 		}
 		return mapa;
