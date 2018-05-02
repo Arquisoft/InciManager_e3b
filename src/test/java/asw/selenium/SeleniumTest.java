@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import asw.InciManagerApplication;
+import es.uniovi.asw.e3b.InciManagerApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {InciManagerApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,7 +47,7 @@ public class SeleniumTest {
 
 	// Página raiz disponible:
 	@Test
-	public void availableRootPageTest() throws Exception {
+	public void availableRootPageTest() {
 		driver.navigate().to(baseUrl + "/");
 		try {
 			assertEquals("InciManager", driver.getTitle());
@@ -58,7 +58,7 @@ public class SeleniumTest {
 
 	//Inicio de sesión con datos válidos.
 	@Test
-	public void testUnioviTest3() throws Exception {
+	public void testUnioviTest3() {
 		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		try {
@@ -70,7 +70,7 @@ public class SeleniumTest {
 	
 	//Envio de incidencia valida.
 	@Test
-	public void testSendIncidence() throws Exception {
+	public void testSendIncidence() {
 		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		driver.navigate().to(baseUrl+"/incidences/add");
@@ -90,7 +90,7 @@ public class SeleniumTest {
 	
 	//Envio de incidencia sin nombre.
 	@Test
-	public void testSendNoNamedIncidence() throws Exception {
+	public void testSendNoNamedIncidence() {
 		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		driver.navigate().to(baseUrl+"/incidences/add");
@@ -109,7 +109,7 @@ public class SeleniumTest {
 	
 	//Envio de incidencia sin descripcion.
 	@Test
-	public void testSendNoDescriptedIncidence() throws Exception {
+	public void testSendNoDescriptedIncidence() {
 		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		driver.navigate().to(baseUrl+"/incidences/add");
@@ -128,7 +128,7 @@ public class SeleniumTest {
 	
 	//Envio de incidencia sin localizacion.
 	@Test
-	public void testSendNoLocatedIncidence() throws Exception {
+	public void testSendNoLocatedIncidence() {
 		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		driver.navigate().to(baseUrl+"/incidences/add");
@@ -147,7 +147,7 @@ public class SeleniumTest {
 	
 	//Envio de incidencia sin etiquetas.
 	@Test
-	public void testSendNoLabeledIncidence() throws Exception {
+	public void testSendNoLabeledIncidence() {
 		driver.navigate().to(baseUrl);
 		login("paco@gmail.com", "123456");
 		driver.navigate().to(baseUrl+"/incidences/add");
@@ -246,7 +246,7 @@ public class SeleniumTest {
 	}
 	
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		driver.quit();
 		String verificationErrorString = verificationErrors.toString();
 		if (!"".equals(verificationErrorString)) {
