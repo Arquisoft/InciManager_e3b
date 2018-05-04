@@ -3,13 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.uniovi</groupId>
-	<artifactId>InciManager</artifactId>
+	<groupId>es.uniovi.asw.e3b</groupId>
+	<artifactId>incimanager_e3b</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
-	<name>InciManager</name>
-	<description>Modulo InciManager de ASW</description>
+	<name>InciManager_e3b</name>
+	<description>Módulo de gestión y carga de incidencias</description>
+	<url>https://github.com/Arquisoft/InciManager_e3b/</url>
+	<organization>
+		<name>Escuela de Ingeniería Informática de la Universidad de Oviedo</name>
+		<url>https://ingenieriainformatica.uniovi.es/</url>
+	</organization>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -18,31 +22,50 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
+	<properties>
+		<encoding>UTF-8</encoding>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<project.resources.sourceEncoding>${encoding}</project.resources.sourceEncoding>
+		<maven.build.timestamp.format>yyyy-MM-dd-HH:mm</maven.build.timestamp.format>
+		<java.version>1.8</java.version>
+		<jdk.version>1.8</jdk.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-kafka</artifactId>
 		</dependency>
 
 		<dependency>
@@ -50,61 +73,37 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>0.7.8</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
-			<version>1.4.3.RELEASE</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-kafka</artifactId>
-		</dependency>
-
-		<dependency>
-    		<groupId>com.google.code.gson</groupId>
+			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-htmlunit-driver</artifactId>
 			<version>2.52.0</version>
- 		</dependency>
- 		
- 		<dependency>
+		</dependency>
+		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<version>1.2.5</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-spring</artifactId>
 			<version>1.2.5</version>
 			<scope>test</scope>
 		</dependency>
- 		
 	</dependencies>
 
 	<dependencyManagement>
@@ -118,12 +117,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
 
 	<build>
 		<plugins>
@@ -147,17 +140,16 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-					</execution>								
+					</execution>
 				</executions>
 				<configuration>
 					<excludes>
-    					<exclude>**com.steadystate*</exclude>
-  					</excludes>
-  				</configuration>
+						<exclude>**com.steadystate*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 
 	<reporting>
 		<plugins>
