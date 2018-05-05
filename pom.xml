@@ -50,6 +50,7 @@
 		<postgres.user>postgres</postgres.user>
 		<postgres.password>changeit</postgres.password>
 		<zookeeper.server.port>2181</zookeeper.server.port>
+		<kafka.server.port>9092</kafka.server.port>
 	</properties>
 
 	<dependencies>
@@ -204,6 +205,40 @@
 								</ports>
 								<wait>
 									<log>binding to port 0.0.0.0/0.0.0.0:${zookeeper.server.port}</log>
+									<time>30000</time>
+								</wait>
+								<log>
+									<enabled>true</enabled>
+									<prefix>%a [%C] |</prefix>
+									<color>blue</color>
+								</log>
+							</run>
+						</image>
+						<image>
+							<alias>kafka</alias>
+							<name>wurstmeister/kafka</name>
+							<run>
+								<env>
+									<KAFKA_LISTENERS>PLAINTEXT://:${kafka.server.port}</KAFKA_LISTENERS>
+									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://${docker.host.address}:${kafka.server.port}</KAFKA_ADVERTISED_LISTENERS>
+									<KAFKA_ZOOKEEPER_CONNECT>zookeeper:${zookeeper.server.port}</KAFKA_ZOOKEEPER_CONNECT>
+								</env>
+								<ports>
+									<port>${kafka.server.port}:${kafka.server.port}</port>
+								</ports>
+								<volumes>
+									<bind>
+										<volume>/var/run/docker.sock:/var/run/docker.sock</volume>
+									</bind>
+								</volumes>
+								<links>
+									<link>zookeeper</link>
+								</links>
+								<dependsOn>
+									<container>zookeeper</container>
+								</dependsOn>
+								<wait>
+									<log>started (kafka.server.KafkaServer)</log>
 									<time>30000</time>
 								</wait>
 								<log>
