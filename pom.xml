@@ -45,6 +45,11 @@
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
 		<maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
+		
+		<postgres.server.address>localhost</postgres.server.address>
+		<postgres.server.port>5432</postgres.server.port>
+		<postgres.user>postgres</postgres.user>
+		<postgres.password>changeit</postgres.password>
 	</properties>
 
 	<dependencies>
@@ -168,6 +173,28 @@
 					<userColor>true</userColor>
 					<showLogs>true</showLogs>
 					<images>
+						<image>
+							<alias>postgres</alias>
+							<name>postgres:alpine</name>
+							<run>
+								<env>
+									<POSTGRES_USER>${postgres.user}</POSTGRES_USER>
+									<POSTGRES_PASSWORD>${postgres.password}</POSTGRES_PASSWORD>
+								</env>
+								<ports>
+									<port>${postgres.server.port}:${postgres.server.port}</port>
+								</ports>
+								<wait>
+									<log>database system is ready to accept connections</log>
+									<time>30000</time>
+								</wait>
+								<log>
+									<enabled>true</enabled>
+									<prefix>%a [%C] |</prefix>
+									<color>blue</color>
+								</log>
+							</run>
+						</image>
 					</images>
 				</configuration>
 				<executions>
