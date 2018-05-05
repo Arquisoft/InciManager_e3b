@@ -37,6 +37,7 @@
 		<selenium-htmlunit-driver.version>2.52.0</selenium-htmlunit-driver.version>
 		<cucumber.version>2.3.0</cucumber.version>
 		<cucumber-reporting.version>3.14.0</cucumber-reporting.version>
+		<docker-maven-plugin-fabric8.version>0.24.0</docker-maven-plugin-fabric8.version>
 		<jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
 		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
 		<maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
@@ -156,6 +157,36 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker-maven-plugin-fabric8.version}</version>
+				<configuration>
+					<logDate>none</logDate>
+					<autoPull>true</autoPull>
+					<userColor>true</userColor>
+					<showLogs>true</showLogs>
+					<images>
+					</images>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
