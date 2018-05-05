@@ -45,11 +45,11 @@
 		<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
 		<maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
-		
-		<postgres.server.address>localhost</postgres.server.address>
+
 		<postgres.server.port>5432</postgres.server.port>
 		<postgres.user>postgres</postgres.user>
 		<postgres.password>changeit</postgres.password>
+		<zookeeper.server.port>2181</zookeeper.server.port>
 	</properties>
 
 	<dependencies>
@@ -186,6 +186,24 @@
 								</ports>
 								<wait>
 									<log>database system is ready to accept connections</log>
+									<time>30000</time>
+								</wait>
+								<log>
+									<enabled>true</enabled>
+									<prefix>%a [%C] |</prefix>
+									<color>blue</color>
+								</log>
+							</run>
+						</image>
+						<image>
+							<alias>zookeeper</alias>
+							<name>wurstmeister/zookeeper</name>
+							<run>
+								<ports>
+									<port>${zookeeper.server.port}:${zookeeper.server.port}</port>
+								</ports>
+								<wait>
+									<log>binding to port 0.0.0.0/0.0.0.0:${zookeeper.server.port}</log>
 									<time>30000</time>
 								</wait>
 								<log>
