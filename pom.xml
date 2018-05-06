@@ -53,6 +53,9 @@
 		<spring.datasource.url>jdbc:postgresql://postgres:${postgres.server.port}/postgres</spring.datasource.url>
 		<zookeeper.server.port>2181</zookeeper.server.port>
 		<kafka.server.port>9092</kafka.server.port>
+		<agents.docker.image>agents_e3b</agents.docker.image>
+		<agents.server.port>8090</agents.server.port>
+		<agents.url>http://${agents.docker.image}:${agents.server.port}</agents.url>
 		<incimanager.server.port>8091</incimanager.server.port>
 	</properties>
 
@@ -251,6 +254,35 @@
 							</run>
 						</image>
 						<image>
+							<alias>${agents.docker.image}</alias>
+							<name>${docker.registry.address}/${agents.docker.image}</name>
+							<run>
+								<volumes>
+									<bind>
+										<volume>/tmp</volume>
+									</bind>
+								</volumes>
+								<ports>
+									<port>${agents.server.port}:${agents.server.port}</port>
+								</ports>
+								<wait>
+									<url>http://${docker.host.address}:${agents.server.port}</url>
+									<time>30000</time>
+								</wait>
+								<links>
+									<link>postgres</link>
+								</links>
+								<dependsOn>
+									<container>postgres</container>
+								</dependsOn>
+								<log>
+									<enabled>true</enabled>
+									<prefix>%a [%C] |</prefix>
+									<color>cyan</color>
+								</log>
+							</run>
+						</image>
+						<image>
 							<alias>${project.artifactId}</alias>
 							<name>${docker.registry.address}/${project.artifactId}</name>
 							<build>
@@ -285,6 +317,7 @@
 									<arg>--spring.datasource.password=${postgres.password}</arg>
 									<arg>--spring.cloud.stream.kafka.binder.brokers=kafka:${kafka.server.port}</arg>
 									<arg>--spring.cloud.stream.kafka.binder.zkNodes=zookeeper:${zookeeper.server.port}</arg>
+									<arg>--agents.url=http://${agents.server.address}:${agents.server.port}</arg>
 								</entryPoint>
 							</build>
 							<run>
@@ -304,11 +337,13 @@
 									<link>postgres</link>
 									<link>zookeeper</link>
 									<link>kafka</link>
+									<link>${agents.docker.image}</link>
 								</links>
 								<dependsOn>
 									<container>postgres</container>
 									<container>zookeeper</container>
 									<container>kafka</container>
+									<container>${agents.docker.image}</container>
 								</dependsOn>
 								<log>
 									<enabled>true</enabled>
