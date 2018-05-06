@@ -46,11 +46,14 @@
 		<maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 
+		<docker.registry.address>arquisoft.ddns.net</docker.registry.address>
 		<postgres.server.port>5432</postgres.server.port>
 		<postgres.user>postgres</postgres.user>
 		<postgres.password>changeit</postgres.password>
+		<spring.datasource.url>jdbc:postgresql://postgres:${postgres.server.port}/postgres</spring.datasource.url>
 		<zookeeper.server.port>2181</zookeeper.server.port>
 		<kafka.server.port>9092</kafka.server.port>
+		<incimanager.server.port>8091</incimanager.server.port>
 	</properties>
 
 	<dependencies>
@@ -170,9 +173,8 @@
 				<version>${docker-maven-plugin-fabric8.version}</version>
 				<configuration>
 					<logDate>none</logDate>
-					<autoPull>true</autoPull>
 					<userColor>true</userColor>
-					<showLogs>true</showLogs>
+					<imagePullPolicy>IfNotPresent</imagePullPolicy>
 					<images>
 						<image>
 							<alias>postgres</alias>
@@ -186,7 +188,7 @@
 									<port>${postgres.server.port}:${postgres.server.port}</port>
 								</ports>
 								<wait>
-									<log>database system is ready to accept connections</log>
+									<log>^.*database system is ready to accept connections.*$</log>
 									<time>30000</time>
 								</wait>
 								<log>
@@ -204,7 +206,7 @@
 									<port>${zookeeper.server.port}:${zookeeper.server.port}</port>
 								</ports>
 								<wait>
-									<log>binding to port 0.0.0.0/0.0.0.0:${zookeeper.server.port}</log>
+									<log>^.*binding to port .*/.*:${zookeeper.server.port}.*$</log>
 									<time>30000</time>
 								</wait>
 								<log>
@@ -220,7 +222,7 @@
 							<run>
 								<env>
 									<KAFKA_LISTENERS>PLAINTEXT://:${kafka.server.port}</KAFKA_LISTENERS>
-									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://${docker.host.address}:${kafka.server.port}</KAFKA_ADVERTISED_LISTENERS>
+									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://kafka:${kafka.server.port}</KAFKA_ADVERTISED_LISTENERS>
 									<KAFKA_ZOOKEEPER_CONNECT>zookeeper:${zookeeper.server.port}</KAFKA_ZOOKEEPER_CONNECT>
 								</env>
 								<ports>
@@ -238,13 +240,80 @@
 									<container>zookeeper</container>
 								</dependsOn>
 								<wait>
-									<log>started (kafka.server.KafkaServer)</log>
+									<log>^.*started \(kafka.server.KafkaServer\).*$</log>
 									<time>30000</time>
 								</wait>
 								<log>
 									<enabled>true</enabled>
 									<prefix>%a [%C] |</prefix>
 									<color>blue</color>
+								</log>
+							</run>
+						</image>
+						<image>
+							<alias>${project.artifactId}</alias>
+							<name>${docker.registry.address}/${project.artifactId}</name>
+							<build>
+								<from>maven:3.5-jdk-8-alpine</from>
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+								<assembly>
+									<inline>
+										<fileSets>
+											<fileSet>
+												<directory>${project.build.directory}</directory>
+												<includes>
+													<include>*.jar</include>
+												</includes>
+												<outputDirectory>/usr/share/${project.artifactId}/</outputDirectory>
+											</fileSet>
+										</fileSets>
+									</inline>
+								</assembly>
+								<ports>
+									<port>${incimanager.server.port}</port>
+								</ports>
+								<entryPoint>
+									<arg>/usr/bin/java</arg>
+									<arg>-Djava.security.egd=file:/dev/./urandom</arg>
+									<arg>-jar</arg>
+									<arg>/maven/usr/share/${project.artifactId}/${project.artifactId}-${project.version}.${project.packaging}</arg>
+									<arg>--spring.datasource.url=${spring.datasource.url}</arg>
+									<arg>--spring.datasource.username=${postgres.user}</arg>
+									<arg>--spring.datasource.password=${postgres.password}</arg>
+									<arg>--spring.cloud.stream.kafka.binder.brokers=kafka:${kafka.server.port}</arg>
+									<arg>--spring.cloud.stream.kafka.binder.zkNodes=zookeeper:${zookeeper.server.port}</arg>
+								</entryPoint>
+							</build>
+							<run>
+								<ports>
+									<port>${incimanager.server.port}:${incimanager.server.port}</port>
+								</ports>
+								<volumes>
+									<bind>
+										<volume>/tmp</volume>
+									</bind>
+								</volumes>
+								<wait>
+									<url>http://${docker.host.address}:${incimanager.server.port}</url>
+									<time>120000</time>
+								</wait>
+								<links>
+									<link>postgres</link>
+									<link>zookeeper</link>
+									<link>kafka</link>
+								</links>
+								<dependsOn>
+									<container>postgres</container>
+									<container>zookeeper</container>
+									<container>kafka</container>
+								</dependsOn>
+								<log>
+									<enabled>true</enabled>
+									<prefix>%a [%C] |</prefix>
+									<color>cyan</color>
 								</log>
 							</run>
 						</image>
