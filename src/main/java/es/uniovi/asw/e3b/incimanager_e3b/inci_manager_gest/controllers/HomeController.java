@@ -32,7 +32,7 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         Agent activeUser = agentRepository.findByEmail(email);
-        model.addAttribute("user",activeUser.getNombre());
+        model.addAttribute("user",activeUser.getUsername());
         return "home";
     }
 

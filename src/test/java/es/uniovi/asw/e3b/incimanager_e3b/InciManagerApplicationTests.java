@@ -67,7 +67,7 @@ public class InciManagerApplicationTests {
 		assert pepe.getEmail().equals("pepe2@gmail.com");
 
 		// Test agente
-		assert paco.getNombre().equals("Paco");
+		assert paco.getUsername().equals("Paco");
 		assert paco.getPassword().equals("123456");
 		assert paco.getLocation().equals("");
 		assert paco.getIdent().equals("paco");
@@ -86,7 +86,7 @@ public class InciManagerApplicationTests {
 		i.getAgent().setEmail("paco@gmail.com");
 
 		// Test agente dentro de la incidencia
-		assert i.getAgent().getNombre().equals("Paco");
+		assert i.getAgent().getUsername().equals("Paco");
 		assert i.getAgent().getPassword().equals("pass");
 		assert i.getAgent().getLocation().equals("");
 		assert i.getAgent().getIdent().equals("paco");
