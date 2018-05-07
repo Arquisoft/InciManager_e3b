@@ -62,6 +62,8 @@
 		<agents.url>http://${agents.docker.alias}:${agents.server.port}</agents.url>
 		<incimanager.docker.alias>${project.artifactId}</incimanager.docker.alias>
 		<incimanager.server.port>8091</incimanager.server.port>
+
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
 	<dependencies>
