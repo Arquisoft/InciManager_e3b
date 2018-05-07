@@ -12,7 +12,7 @@ public class Agent {
 	private Long id;
 
 	// Atributos del agente
-	private String nombre;
+	private String username;
 	private String password;
 	private String location;
 	@Column(unique = true)
@@ -28,7 +28,7 @@ public class Agent {
 	}
 
     public Agent(String nombre, String password, String location, String email, String ident, String kind) {
-        this.nombre = nombre;
+        this.username = nombre;
         this.password = password;
         this.location = location;
         this.email = email;
@@ -40,8 +40,8 @@ public class Agent {
 		return id;
 	}
 
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -102,7 +102,7 @@ public class Agent {
     @Override
     public String toString() {
         return "Agent{" +
-                "nombre='" + nombre + '\'' +
+                "username='" + username + '\'' +
                 ", location='" + location + '\'' +
                 ", email='" + email + '\'' +
                 ", ident='" + ident + '\'' +
