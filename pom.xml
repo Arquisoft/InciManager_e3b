@@ -47,15 +47,20 @@
 		<cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
 
 		<docker.registry.address>arquisoft.ddns.net</docker.registry.address>
+		<docker.base.image>maven:3.5-jdk-8-alpine</docker.base.image>
+		<postgres.docker.alias>postgres</postgres.docker.alias>
 		<postgres.server.port>5432</postgres.server.port>
 		<postgres.user>postgres</postgres.user>
 		<postgres.password>changeit</postgres.password>
-		<spring.datasource.url>jdbc:postgresql://postgres:${postgres.server.port}/postgres</spring.datasource.url>
+		<spring.datasource.url>jdbc:postgresql://${postgres.docker.alias}:${postgres.server.port}/postgres</spring.datasource.url>
+		<zookeeper.docker.alias>zookeeper</zookeeper.docker.alias>
 		<zookeeper.server.port>2181</zookeeper.server.port>
+		<kafka.docker.alias>kafka</kafka.docker.alias>
 		<kafka.server.port>9092</kafka.server.port>
-		<agents.docker.image>agents_e3b</agents.docker.image>
+		<agents.docker.alias>agents_e3b</agents.docker.alias>
 		<agents.server.port>8090</agents.server.port>
-		<agents.url>http://${agents.docker.image}:${agents.server.port}</agents.url>
+		<agents.url>http://${agents.docker.alias}:${agents.server.port}</agents.url>
+		<incimanager.docker.alias>${project.artifactId}</incimanager.docker.alias>
 		<incimanager.server.port>8091</incimanager.server.port>
 	</properties>
 
@@ -180,8 +185,8 @@
 					<imagePullPolicy>IfNotPresent</imagePullPolicy>
 					<images>
 						<image>
-							<alias>postgres</alias>
-							<name>postgres:alpine</name>
+							<alias>${postgres.docker.alias}</alias>
+							<name>${postgres.docker.alias}:alpine</name>
 							<run>
 								<env>
 									<POSTGRES_USER>${postgres.user}</POSTGRES_USER>
@@ -202,8 +207,8 @@
 							</run>
 						</image>
 						<image>
-							<alias>zookeeper</alias>
-							<name>wurstmeister/zookeeper</name>
+							<alias>${zookeeper.docker.alias}</alias>
+							<name>wurstmeister/${zookeeper.docker.alias}</name>
 							<run>
 								<ports>
 									<port>${zookeeper.server.port}:${zookeeper.server.port}</port>
@@ -220,13 +225,13 @@
 							</run>
 						</image>
 						<image>
-							<alias>kafka</alias>
-							<name>wurstmeister/kafka</name>
+							<alias>${kafka.docker.alias}</alias>
+							<name>wurstmeister/${kafka.docker.alias}</name>
 							<run>
 								<env>
 									<KAFKA_LISTENERS>PLAINTEXT://:${kafka.server.port}</KAFKA_LISTENERS>
-									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://kafka:${kafka.server.port}</KAFKA_ADVERTISED_LISTENERS>
-									<KAFKA_ZOOKEEPER_CONNECT>zookeeper:${zookeeper.server.port}</KAFKA_ZOOKEEPER_CONNECT>
+									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://${kafka.docker.alias}:${kafka.server.port}</KAFKA_ADVERTISED_LISTENERS>
+									<KAFKA_ZOOKEEPER_CONNECT>${zookeeper.docker.alias}:${zookeeper.server.port}</KAFKA_ZOOKEEPER_CONNECT>
 								</env>
 								<ports>
 									<port>${kafka.server.port}:${kafka.server.port}</port>
@@ -237,10 +242,10 @@
 									</bind>
 								</volumes>
 								<links>
-									<link>zookeeper</link>
+									<link>${zookeeper.docker.alias}</link>
 								</links>
 								<dependsOn>
-									<container>zookeeper</container>
+									<container>${zookeeper.docker.alias}</container>
 								</dependsOn>
 								<wait>
 									<log>^.*started \(kafka.server.KafkaServer\).*$</log>
@@ -254,8 +259,8 @@
 							</run>
 						</image>
 						<image>
-							<alias>${agents.docker.image}</alias>
-							<name>${docker.registry.address}/${agents.docker.image}</name>
+							<alias>${agents.docker.alias}</alias>
+							<name>${docker.registry.address}/${agents.docker.alias}</name>
 							<run>
 								<volumes>
 									<bind>
@@ -270,10 +275,10 @@
 									<time>30000</time>
 								</wait>
 								<links>
-									<link>postgres</link>
+									<link>${postgres.docker.alias}</link>
 								</links>
 								<dependsOn>
-									<container>postgres</container>
+									<container>${postgres.docker.alias}</container>
 								</dependsOn>
 								<log>
 									<enabled>true</enabled>
@@ -283,10 +288,10 @@
 							</run>
 						</image>
 						<image>
-							<alias>${project.artifactId}</alias>
-							<name>${docker.registry.address}/${project.artifactId}</name>
+							<alias>${incimanager.docker.alias}</alias>
+							<name>${docker.registry.address}/${incimanager.docker.alias}</name>
 							<build>
-								<from>maven:3.5-jdk-8-alpine</from>
+								<from>${docker.base.image}</from>
 								<tags>
 									<tag>latest</tag>
 									<tag>${project.version}</tag>
@@ -297,7 +302,7 @@
 											<fileSet>
 												<directory>${project.build.directory}</directory>
 												<includes>
-													<include>*.jar</include>
+													<include>${project.artifactId}-${project.version}.${project.packaging}</include>
 												</includes>
 												<outputDirectory>/usr/share/${project.artifactId}/</outputDirectory>
 											</fileSet>
@@ -315,9 +320,9 @@
 									<arg>--spring.datasource.url=${spring.datasource.url}</arg>
 									<arg>--spring.datasource.username=${postgres.user}</arg>
 									<arg>--spring.datasource.password=${postgres.password}</arg>
-									<arg>--spring.cloud.stream.kafka.binder.brokers=kafka:${kafka.server.port}</arg>
-									<arg>--spring.cloud.stream.kafka.binder.zkNodes=zookeeper:${zookeeper.server.port}</arg>
-									<arg>--agents.url=http://${agents.server.address}:${agents.server.port}</arg>
+									<arg>--spring.cloud.stream.kafka.binder.brokers=${kafka.docker.alias}:${kafka.server.port}</arg>
+									<arg>--spring.cloud.stream.kafka.binder.zkNodes=${zookeeper.docker.alias}:${zookeeper.server.port}</arg>
+									<arg>--agents.url=${agents.url}</arg>
 								</entryPoint>
 							</build>
 							<run>
@@ -334,16 +339,16 @@
 									<time>120000</time>
 								</wait>
 								<links>
-									<link>postgres</link>
-									<link>zookeeper</link>
-									<link>kafka</link>
-									<link>${agents.docker.image}</link>
+									<link>${postgres.docker.alias}</link>
+									<link>${zookeeper.docker.alias}</link>
+									<link>${kafka.docker.alias}</link>
+									<link>${agents.docker.alias}</link>
 								</links>
 								<dependsOn>
-									<container>postgres</container>
-									<container>zookeeper</container>
-									<container>kafka</container>
-									<container>${agents.docker.image}</container>
+									<container>${postgres.docker.alias}</container>
+									<container>${zookeeper.docker.alias}</container>
+									<container>${kafka.docker.alias}</container>
+									<container>${agents.docker.alias}</container>
 								</dependsOn>
 								<log>
 									<enabled>true</enabled>
