@@ -306,7 +306,7 @@
 												<includes>
 													<include>${project.artifactId}-${project.version}.${project.packaging}</include>
 												</includes>
-												<outputDirectory>/usr/share/${project.artifactId}/</outputDirectory>
+												<outputDirectory>${pathseparator}usr${pathseparator}share${pathseparator}${project.artifactId}${pathseparator}</outputDirectory>
 											</fileSet>
 										</fileSets>
 									</inline>
