@@ -296,7 +296,7 @@
 								</dependsOn>
 								<wait>
 									<url>http://${docker.host.address}:${agents.server.port}</url>
-									<time>30000</time>
+									<time>90000</time>
 								</wait>
 								<log>
 									<enabled>true</enabled>
@@ -365,7 +365,7 @@
 								</dependsOn>
 								<wait>
 									<url>http://${docker.host.address}:${incimanager.server.port}</url>
-									<time>120000</time>
+									<time>90000</time>
 								</wait>
 								<log>
 									<enabled>true</enabled>
