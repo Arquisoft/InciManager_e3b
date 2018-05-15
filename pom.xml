@@ -255,17 +255,14 @@
 									<name>${docker.backend.network.name}</name>
 									<alias>${kafka.docker.alias}</alias>
 								</network>
+								<dependsOn>
+									<container>${zookeeper.docker.alias}</container>
+								</dependsOn>
 								<volumes>
 									<bind>
 										<volume>/var/run/docker.sock:/var/run/docker.sock</volume>
 									</bind>
 								</volumes>
-								<links>
-									<link>${zookeeper.docker.alias}</link>
-								</links>
-								<dependsOn>
-									<container>${zookeeper.docker.alias}</container>
-								</dependsOn>
 								<wait>
 									<log>^.*started \(kafka.server.KafkaServer\).*$</log>
 									<time>30000</time>
@@ -294,16 +291,13 @@
 									<name>${docker.backend.network.name}</name>
 									<alias>${agents.docker.alias}</alias>
 								</network>
+								<dependsOn>
+									<container>${postgres.docker.alias}</container>
+								</dependsOn>
 								<wait>
 									<url>http://${docker.host.address}:${agents.server.port}</url>
 									<time>30000</time>
 								</wait>
-								<links>
-									<link>${postgres.docker.alias}</link>
-								</links>
-								<dependsOn>
-									<container>${postgres.docker.alias}</container>
-								</dependsOn>
 								<log>
 									<enabled>true</enabled>
 									<prefix>%a [%C] |</prefix>
@@ -363,22 +357,16 @@
 										<volume>/tmp</volume>
 									</bind>
 								</volumes>
-								<wait>
-									<url>http://${docker.host.address}:${incimanager.server.port}</url>
-									<time>120000</time>
-								</wait>
-								<links>
-									<link>${postgres.docker.alias}</link>
-									<link>${zookeeper.docker.alias}</link>
-									<link>${kafka.docker.alias}</link>
-									<link>${agents.docker.alias}</link>
-								</links>
 								<dependsOn>
 									<container>${postgres.docker.alias}</container>
 									<container>${zookeeper.docker.alias}</container>
 									<container>${kafka.docker.alias}</container>
 									<container>${agents.docker.alias}</container>
 								</dependsOn>
+								<wait>
+									<url>http://${docker.host.address}:${incimanager.server.port}</url>
+									<time>120000</time>
+								</wait>
 								<log>
 									<enabled>true</enabled>
 									<prefix>%a [%C] |</prefix>
