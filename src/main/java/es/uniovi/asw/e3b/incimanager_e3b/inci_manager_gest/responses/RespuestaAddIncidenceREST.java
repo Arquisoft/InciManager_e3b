@@ -24,7 +24,7 @@ public class RespuestaAddIncidenceREST implements RespuestaREST{
 	}
 
 	public RespuestaAddIncidenceREST(String username, String password, String kind, String incidenceName, String description,
-			String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration,
+			String location, List<String> labels, HashMap<String, String> campos, Estado status, String expiration,
 			boolean cacheable) {
 		this.username = username;
 		this.password = password;
