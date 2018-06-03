@@ -63,14 +63,6 @@ public class RespuestaAddIncidenceREST implements RespuestaREST{
 		this.cacheable = cacheable;
 	}
 
-	public String getIdIncidencia() {
-		return idIncidencia;
-	}
-
-	public void setIdIncidencia(String idIncidencia) {
-		this.idIncidencia = idIncidencia;
-	}
-
 	public String getUsername() {
 		return username;
 	}
