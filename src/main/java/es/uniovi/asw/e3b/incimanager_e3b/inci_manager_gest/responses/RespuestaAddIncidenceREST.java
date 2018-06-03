@@ -17,17 +17,18 @@ public class RespuestaAddIncidenceREST implements RespuestaREST{
 	private List<String> labels; // etiquetas de la incidencia
 	private HashMap<String, String> campos; // campos con propiedad valor
 	private Estado status; // Ver Enum: "Estado". Ej: ABIERTA, EN_PROCESO, CERRADA, ANULADA
-	private Date expiration; // fecha de caducidad, ej: en caso de los sensores de temperatura
+	private String expiration; // fecha de caducidad, ej: en caso de los sensores de temperatura
 	private boolean cacheable;
 
 	public RespuestaAddIncidenceREST() {
 	}
 
-	public RespuestaAddIncidenceREST(String username, String password, String incidenceName, String description,
+	public RespuestaAddIncidenceREST(String username, String password, String kind, String incidenceName, String description,
 			String location, List<String> labels, HashMap<String, String> campos, Estado status, Date expiration,
 			boolean cacheable) {
 		this.username = username;
 		this.password = password;
+		this.kind = kind;
 		this.incidenceName = incidenceName;
 		this.description = description;
 		this.location = location;
@@ -126,11 +127,11 @@ public class RespuestaAddIncidenceREST implements RespuestaREST{
 		this.status = status;
 	}
 
-	public Date getExpiration() {
+	public String getExpiration() {
 		return expiration;
 	}
 
-	public void setExpiration(Date expiration) {
+	public void setExpiration(String expiration) {
 		this.expiration = expiration;
 	}
 }
