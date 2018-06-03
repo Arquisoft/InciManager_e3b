@@ -36,11 +36,10 @@ public class IncidenceService implements IncidenceServices {
 	private IncidenceRepository incidenceRepository;
 
 	public void send(Incidence incidence) {		
-		RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), agent.getKind(), 
+		RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), "1",
 					incidence.getIncidenceName(), incidence.getDescription(), incidence.getLocation(),
 					incidence.getLabels(), incidence.getFields(), incidence.getStatus(),
 					incidence.getExpiration(), incidence.isCacheable());
-		response.setKind("1");
 		kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
 		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 	}
