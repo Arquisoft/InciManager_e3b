@@ -8,9 +8,9 @@ import es.uniovi.asw.e3b.incimanager_e3b.util.Estado;
 
 public class RespuestaAddIncidenceREST implements RespuestaREST{
 
-	private String idIncidencia; // id de la incidencia
 	private String username; // nombre de usuario del agente
 	private String password; // para autenticación en la petición REST
+	private String kind;  //Tipo del agente
 	private String incidenceName;
 	private String description;
 	private String location; // formato de la localización: "45.67, 32.86"
@@ -36,6 +36,14 @@ public class RespuestaAddIncidenceREST implements RespuestaREST{
 		this.status = status;
 		this.expiration = expiration;
 		this.cacheable = cacheable;
+	}
+	
+	public void setKind(String kind){
+		this.kind = kind;
+	}
+	
+	public String getKind(){
+		return kind;
 	}
 
 	public String getPassword() {
