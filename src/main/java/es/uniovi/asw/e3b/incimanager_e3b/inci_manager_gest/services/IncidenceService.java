@@ -36,19 +36,26 @@ public class IncidenceService implements IncidenceServices {
 	private IncidenceRepository incidenceRepository;
 
 	public void send(Incidence incidence) {		
-		kafkaProducer.send(kafkaTopic, new Gson().toJson(incidence));
+		RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), agent.getKind(), 
+					incidence.getIncidenceName(), incidence.getDescription(), incidence.getLocation(),
+					incidence.getLabels(), incidence.getFields(), incidence.getStatus(),
+					incidence.getExpiration(), incidence.isCacheable());
+		response.setKind("1");
+		kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
 		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 	}
 
 	public RespuestaREST send(IncidenceREST incidenceREST, Agent agent)
 		{			
 			if (agent != null && agent.getPassword().equals(incidenceREST.getPassword())&&incidenceREST.isCacheable()) {
-				kafkaProducer.send(kafkaTopic, new Gson().toJson(incidenceREST));
-				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
-			return new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(),
+				RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(), agent.getKind(), 
 					incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
 					incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),
 					incidenceREST.getExpiration(), incidenceREST.isCacheable());
+				
+				kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
+				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
+				return response;
 			} else if (incidenceREST.isCacheable()){
 				logger.info("Wrong authentication, incidence not sending");
 				return new RespuestaFailedREST("Wrong authentication, incidence not sending");
