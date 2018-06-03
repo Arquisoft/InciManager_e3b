@@ -36,21 +36,29 @@ public class IncidenceService implements IncidenceServices {
 	private IncidenceRepository incidenceRepository;
 
 	public void send(Incidence incidence) {		
+	SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+		
+	List<String> labels = new ArrayList();
+	labels.addAll(incidence.getLabels());
+
 		RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), "1",
 					incidence.getIncidenceName(), incidence.getDescription(), incidence.getLocation(),
-					incidence.getLabels(), incidence.getFields(), incidence.getStatus(),
-					incidence.getExpiration(), incidence.isCacheable());
+					labels, incidence.getFields(), incidence.getStatus(),
+					formateador.format(incidence.getExpiration()), incidence.isCacheable());
 		kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
 		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 	}
 
 	public RespuestaREST send(IncidenceREST incidenceREST, Agent agent)
 		{			
+		SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+
 			if (agent != null && agent.getPassword().equals(incidenceREST.getPassword())&&incidenceREST.isCacheable()) {
+								
 				RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(), agent.getKind(), 
 					incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
 					incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),
-					incidenceREST.getExpiration(), incidenceREST.isCacheable());
+					formateador.format(incidenceREST.getExpiration()), incidenceREST.isCacheable());
 				
 				kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
 				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
