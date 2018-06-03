@@ -44,7 +44,7 @@ public class IncidenceService implements IncidenceServices {
 	List<String> labels = new ArrayList();
 	labels.addAll(incidence.getLabels());
 
-		RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), "1",
+		RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), "Person",
 					incidence.getIncidenceName(), incidence.getDescription(), incidence.getLocation(),
 					labels, incidence.getFields(), incidence.getStatus(),
 					formateador.format(incidence.getExpiration()), incidence.isCacheable());
