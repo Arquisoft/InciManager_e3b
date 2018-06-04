@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class IncidenceService implements IncidenceServices {
@@ -36,19 +39,40 @@ public class IncidenceService implements IncidenceServices {
 	private IncidenceRepository incidenceRepository;
 
 	public void send(Incidence incidence) {		
-		kafkaProducer.send(kafkaTopic, new Gson().toJson(incidence));
-		logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
+	SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+		
+	List<String> labels = new ArrayList();
+	labels.addAll(incidence.getLabels());
+
+	String date = null;
+	if(incidence.getExpiration()!=null)
+			date = formateador.format(incidence.getExpiration());
+	RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidence.getAgent().getUsername(), incidence.getAgent().getPassword(), "Person",
+				incidence.getIncidenceName(), incidence.getDescription(), incidence.getLocation(),
+				labels, incidence.getFields(), incidence.getStatus(),
+				date, incidence.isCacheable());
+		
+	kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
+	logger.info("Sending incidence \"" + incidence.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
 	}
 
 	public RespuestaREST send(IncidenceREST incidenceREST, Agent agent)
 		{			
+		SimpleDateFormat formateador = new SimpleDateFormat("yyyy/MM/dd");
+
 			if (agent != null && agent.getPassword().equals(incidenceREST.getPassword())&&incidenceREST.isCacheable()) {
-				kafkaProducer.send(kafkaTopic, new Gson().toJson(incidenceREST));
-				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
-			return new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(),
+							
+				String date = null;
+				if(incidenceREST.getExpiration()!=null)
+					date = formateador.format(incidenceREST.getExpiration());
+				RespuestaAddIncidenceREST response = new RespuestaAddIncidenceREST(incidenceREST.getUsername(), incidenceREST.getPassword(), agent.getKind(), 
 					incidenceREST.getIncidenceName(), incidenceREST.getDescription(), incidenceREST.getLocation(),
 					incidenceREST.getLabels(), incidenceREST.getCampos(), incidenceREST.getStatus(),
-					incidenceREST.getExpiration(), incidenceREST.isCacheable());
+					date, incidenceREST.isCacheable());
+				
+				kafkaProducer.send(kafkaTopic, new Gson().toJson(response));
+				logger.info("Sending incidence \"" + incidenceREST.getIncidenceName() + "\" to topic '" + kafkaTopic + "'");
+				return response;
 			} else if (incidenceREST.isCacheable()){
 				logger.info("Wrong authentication, incidence not sending");
 				return new RespuestaFailedREST("Wrong authentication, incidence not sending");
