@@ -22,6 +22,6 @@ public interface AgentRepository extends JpaRepository<Agent, Long> {
      * @param email
      * @return
      */
-    @Query("select u from Agent u where (LOWER(u.email) like lower(?1))")
+    @Query("${sql.Manager.findByEmailFlexible}")
     Agent findByEmailFlexible(String email);
 }
