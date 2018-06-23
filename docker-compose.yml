@@ -1,0 +1,89 @@
+version: '3.6'
+
+networks:
+  backend_network:
+    external:
+      name: backend_network
+
+services:
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeit
+    ports:
+      - "5432:5432"
+    networks:
+      - backend_network
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - backend_network
+
+  kafka:
+    image: wurstmeister/kafka
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: incidences:1:1
+    ports:
+      - "9092:9092"
+    networks:
+      - backend_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+
+  agents_e3b:
+    image: arquisoft.ddns.net/agents_e3b
+    environment:
+      SERVER_PORT: 8090
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: changeit
+      SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      CSV_FILEPATHNAME: tipo_agentes.csv
+    ports:
+      - "8090:8090"
+    networks:
+      - backend_network
+    volumes:
+      - /tmp
+    depends_on:
+      - postgres
+
+  incimanager_e3b:
+    build:
+      context: .
+    image: arquisoft.ddns.net/incimanager_e3b
+    environment:
+      SERVER_PORT: 8091
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: changeit
+      SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES: zookeeper:2181
+      SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS: kafka:9092
+      KAFKA_TOPIC: incidences
+      AGENTS_SERVER_URL: http://agents_e3b:8090
+    ports:
+      - "8091:8091"
+    networks:
+      - backend_network
+    volumes:
+      - /tmp
+    depends_on:
+      - postgres
+      - zookeeper
+      - kafka
+      - agents_e3b
+
