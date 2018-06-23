@@ -1,0 +1,29 @@
+version: '3.6'
+
+networks:
+  backend_network:
+    external:
+      name: backend_network
+
+services:
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: container@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: changeit
+      PGADMIN_SERVER_NAME: pgadmin4
+    ports:
+      - "5433:80"
+    networks:
+      - backend_network
+
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: zookeeper:2181
+      APPLICATION_SECRET: changeit
+      KM_ARGS: -Djava.net.preferIPv4Stack=true
+    networks:
+      - backend_network
