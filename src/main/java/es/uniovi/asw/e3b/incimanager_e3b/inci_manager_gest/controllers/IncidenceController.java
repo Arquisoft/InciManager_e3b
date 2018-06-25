@@ -48,16 +48,16 @@ public class IncidenceController implements IncidenceOperations {
             RedirectAttributes redirectAttrs) {
     	
     	
-    	if(incidenceName=="") {
+    	if(incidenceName.equals("")) {
     		   redirectAttrs.addFlashAttribute("message", "Es necesario dar un nombre a la incidencia");
     		   return "redirect:/incidences/error";
-    	}if(description=="") {
+    	}if(description.equals("")) {
  		   redirectAttrs.addFlashAttribute("message", "La descripcion es demasiado breve");
     		return "redirect:/incidences/error";
-    	}if(location=="") {
+    	}if(location.equals("")) {
   		   redirectAttrs.addFlashAttribute("message", "Es necesario dar una localizacion a la incidencia");
     		return "redirect:/incidences/error";
-    	}if(labels=="") {
+    	}if(labels.equals("")) {
    		   redirectAttrs.addFlashAttribute("message", "Es necesario especificar alguna etiqueta para la incidencia");
     		return "redirect:/incidences/error";
     	}
