@@ -44,21 +44,25 @@ public class InciManagerapplicationTestLogueado {
 
 	private MockMvc mvc;
 	
-	
+	@SuppressWarnings("unused")
 	private static KafkaLocalServer kafkaLocalServer;
     private static final String DEFAULT_KAFKA_LOG_DIR = "/tmp/test/kafka_embedded";
+    @SuppressWarnings("unused")
     private static final String TEST_TOPIC = "test_topic";
     private static final int BROKER_ID = 0;
     private static final int BROKER_PORT = 9092;
+    @SuppressWarnings("unused")
     private static final String LOCALHOST_BROKER = String.format("localhost:%d", BROKER_PORT);
 
     private static final String DEFAULT_ZOOKEEPER_LOG_DIR = "/tmp/test/zookeeper";
     private static final int ZOOKEEPER_PORT = 2181;
     private static final String ZOOKEEPER_HOST = String.format("localhost:%d", ZOOKEEPER_PORT);
-
+    @SuppressWarnings("unused")
     private static final String groupId = "groupID";
 
+    
     private Charset charset = Charset.forName("UTF-8");
+    @SuppressWarnings("unused")
     private CharsetDecoder decoder = charset.newDecoder();
 	
 	
