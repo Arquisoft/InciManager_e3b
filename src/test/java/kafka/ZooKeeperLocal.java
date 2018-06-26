@@ -1,18 +1,18 @@
 package kafka;
 
-import org.apache.zookeeper.server.ServerConfig;
-import org.apache.zookeeper.server.ZooKeeperServerMain;
-import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.zookeeper.server.ServerConfig;
+import org.apache.zookeeper.server.ZooKeeperServerMain;
+import org.apache.zookeeper.server.quorum.QuorumPeerConfig;
+
 public class ZooKeeperLocal {
 
-    ZooKeeperServerMain zooKeeperServer;
+    protected ZooKeeperServerMain zooKeeperServer;
 
-    public ZooKeeperLocal(Properties zkProperties) throws FileNotFoundException, IOException {
+    public ZooKeeperLocal(Properties zkProperties) throws FileNotFoundException, IOException, RuntimeException {
         QuorumPeerConfig quorumConfiguration = new QuorumPeerConfig();
         try {
             quorumConfiguration.parseProperties(zkProperties);
