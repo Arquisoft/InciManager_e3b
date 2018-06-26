@@ -12,12 +12,12 @@ public class ZooKeeperLocal {
 
     protected ZooKeeperServerMain zooKeeperServer;
 
-    public ZooKeeperLocal(Properties zkProperties) throws FileNotFoundException, IOException, RuntimeException {
+    public ZooKeeperLocal(Properties zkProperties) throws FileNotFoundException, IOException{
         QuorumPeerConfig quorumConfiguration = new QuorumPeerConfig();
         try {
             quorumConfiguration.parseProperties(zkProperties);
         } catch(Throwable throwable) {
-            throw new RuntimeException(throwable);
+            //throw new RuntimeException(throwable);
         }
 
         zooKeeperServer = new ZooKeeperServerMain();
