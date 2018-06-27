@@ -48,21 +48,44 @@
 
 		<docker.registry.address>arquisoft.ddns.net</docker.registry.address>
 		<docker.base.image>maven:3.5-jdk-8-alpine</docker.base.image>
-		<docker.backend.network.name>backend</docker.backend.network.name>
+		<docker.backend.network.name>backend_network</docker.backend.network.name>
+
 		<postgres.docker.alias>postgres</postgres.docker.alias>
+		<postgres.docker.image>${postgres.docker.alias}:alpine</postgres.docker.image>
 		<postgres.server.port>5432</postgres.server.port>
 		<postgres.user>postgres</postgres.user>
 		<postgres.password>changeit</postgres.password>
-		<spring.datasource.url>jdbc:postgresql://${postgres.docker.alias}:${postgres.server.port}/postgres</spring.datasource.url>
+		<postgres.db>${postgres.user}</postgres.db>
+
 		<zookeeper.docker.alias>zookeeper</zookeeper.docker.alias>
+		<zookeeper.docker.image>wurstmeister/${zookeeper.docker.alias}</zookeeper.docker.image>
 		<zookeeper.server.port>2181</zookeeper.server.port>
+
 		<kafka.docker.alias>kafka</kafka.docker.alias>
+		<kafka.docker.image>wurstmeister/${kafka.docker.alias}</kafka.docker.image>
 		<kafka.server.port>9092</kafka.server.port>
+		<kafka.server.topic>incidences</kafka.server.topic>
+
 		<agents.docker.alias>agents_e3b</agents.docker.alias>
+		<agents.docker.image>${docker.registry.address}/${agents.docker.alias}</agents.docker.image>
 		<agents.server.port>8090</agents.server.port>
-		<agents.url>http://${agents.docker.alias}:${agents.server.port}</agents.url>
+		<agents.cvs.filepathname>tipo_agentes.csv</agents.cvs.filepathname>
+
 		<incimanager.docker.alias>${project.artifactId}</incimanager.docker.alias>
+		<incimanager.docker.image>${docker.registry.address}/${incimanager.docker.alias}</incimanager.docker.image>
 		<incimanager.server.port>8091</incimanager.server.port>
+
+		<server.port>${incimanager.server.port}</server.port>
+		<spring.datasource.url>jdbc:postgresql://${postgres.docker.alias}:${postgres.server.port}/${postgres.db}</spring.datasource.url>
+		<spring.datasource.username>${postgres.user}</spring.datasource.username>
+		<spring.datasource.password>${postgres.password}</spring.datasource.password>
+		<spring.datasource.driverClassName>org.postgresql.Driver</spring.datasource.driverClassName>
+		<spring.jpa.database-platform>org.hibernate.dialect.PostgreSQLDialect</spring.jpa.database-platform>
+		<spring.jpa.hibernate.ddl-auto>create-drop</spring.jpa.hibernate.ddl-auto>
+		<spring.cloud.stream.kafka.binder.zkNodes>${zookeeper.docker.alias}:${zookeeper.server.port}</spring.cloud.stream.kafka.binder.zkNodes>
+		<spring.cloud.stream.kafka.binder.brokers>${kafka.docker.alias}:${kafka.server.port}</spring.cloud.stream.kafka.binder.brokers>
+		<kafka.topic>${kafka.server.topic}</kafka.topic>
+		<agents.server.url>http://${agents.docker.alias}:${agents.server.port}</agents.server.url>
 
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
@@ -149,6 +172,12 @@
 			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -190,11 +219,12 @@
 					<images>
 						<image>
 							<alias>${postgres.docker.alias}</alias>
-							<name>${postgres.docker.alias}:alpine</name>
+							<name>${postgres.docker.image}</name>
 							<run>
 								<env>
 									<POSTGRES_USER>${postgres.user}</POSTGRES_USER>
 									<POSTGRES_PASSWORD>${postgres.password}</POSTGRES_PASSWORD>
+									<POSTGRES_DB>${postgres.db}</POSTGRES_DB>
 								</env>
 								<ports>
 									<port>${postgres.server.port}:${postgres.server.port}</port>
@@ -217,7 +247,7 @@
 						</image>
 						<image>
 							<alias>${zookeeper.docker.alias}</alias>
-							<name>wurstmeister/${zookeeper.docker.alias}</name>
+							<name>${zookeeper.docker.image}</name>
 							<run>
 								<ports>
 									<port>${zookeeper.server.port}:${zookeeper.server.port}</port>
@@ -240,12 +270,13 @@
 						</image>
 						<image>
 							<alias>${kafka.docker.alias}</alias>
-							<name>wurstmeister/${kafka.docker.alias}</name>
+							<name>${kafka.docker.image}</name>
 							<run>
 								<env>
 									<KAFKA_LISTENERS>PLAINTEXT://:${kafka.server.port}</KAFKA_LISTENERS>
 									<KAFKA_ADVERTISED_LISTENERS>PLAINTEXT://${kafka.docker.alias}:${kafka.server.port}</KAFKA_ADVERTISED_LISTENERS>
 									<KAFKA_ZOOKEEPER_CONNECT>${zookeeper.docker.alias}:${zookeeper.server.port}</KAFKA_ZOOKEEPER_CONNECT>
+									<KAFKA_CREATE_TOPICS>${kafka.server.topic}:1:1</KAFKA_CREATE_TOPICS>
 								</env>
 								<ports>
 									<port>${kafka.server.port}:${kafka.server.port}</port>
@@ -276,13 +307,18 @@
 						</image>
 						<image>
 							<alias>${agents.docker.alias}</alias>
-							<name>${docker.registry.address}/${agents.docker.alias}</name>
+							<name>${agents.docker.image}</name>
 							<run>
-								<volumes>
-									<bind>
-										<volume>/tmp</volume>
-									</bind>
-								</volumes>
+								<env>
+									<SERVER_PORT>${agents.server.port}</SERVER_PORT>
+									<SPRING_DATASOURCE_URL>${spring.datasource.url}</SPRING_DATASOURCE_URL>
+									<SPRING_DATASOURCE_USERNAME>${spring.datasource.username}</SPRING_DATASOURCE_USERNAME>
+									<SPRING_DATASOURCE_PASSWORD>${spring.datasource.password}</SPRING_DATASOURCE_PASSWORD>
+									<SPRING_DATASOURCE_DRIVERCLASSNAME>${spring.datasource.driverClassName}</SPRING_DATASOURCE_DRIVERCLASSNAME>
+									<SPRING_JPA_DATABASE_PLATFORM>${spring.jpa.database-platform}</SPRING_JPA_DATABASE_PLATFORM>
+									<SPRING_JPA_HIBERNATE_DDL_AUTO>${spring.jpa.hibernate.ddl-auto}</SPRING_JPA_HIBERNATE_DDL_AUTO>
+									<CSV_FILEPATHNAME>${agents.cvs.filepathname}</CSV_FILEPATHNAME>
+								</env>
 								<ports>
 									<port>${agents.server.port}:${agents.server.port}</port>
 								</ports>
@@ -291,6 +327,11 @@
 									<name>${docker.backend.network.name}</name>
 									<alias>${agents.docker.alias}</alias>
 								</network>
+								<volumes>
+									<bind>
+										<volume>/tmp</volume>
+									</bind>
+								</volumes>
 								<dependsOn>
 									<container>${postgres.docker.alias}</container>
 								</dependsOn>
@@ -307,7 +348,7 @@
 						</image>
 						<image>
 							<alias>${incimanager.docker.alias}</alias>
-							<name>${docker.registry.address}/${incimanager.docker.alias}</name>
+							<name>${incimanager.docker.image}</name>
 							<build>
 								<from>${docker.base.image}</from>
 								<tags>
@@ -335,15 +376,22 @@
 									<arg>-Djava.security.egd=file:/dev/./urandom</arg>
 									<arg>-jar</arg>
 									<arg>/maven/usr/share/${project.artifactId}/${project.artifactId}-${project.version}.${project.packaging}</arg>
-									<arg>--spring.datasource.url=${spring.datasource.url}</arg>
-									<arg>--spring.datasource.username=${postgres.user}</arg>
-									<arg>--spring.datasource.password=${postgres.password}</arg>
-									<arg>--spring.cloud.stream.kafka.binder.brokers=${kafka.docker.alias}:${kafka.server.port}</arg>
-									<arg>--spring.cloud.stream.kafka.binder.zkNodes=${zookeeper.docker.alias}:${zookeeper.server.port}</arg>
-									<arg>--agents.url=${agents.url}</arg>
 								</entryPoint>
 							</build>
 							<run>
+								<env>
+									<SERVER_PORT>${incimanager.server.port}</SERVER_PORT>
+									<SPRING_DATASOURCE_URL>${spring.datasource.url}</SPRING_DATASOURCE_URL>
+									<SPRING_DATASOURCE_USERNAME>${spring.datasource.username}</SPRING_DATASOURCE_USERNAME>
+									<SPRING_DATASOURCE_PASSWORD>${spring.datasource.password}</SPRING_DATASOURCE_PASSWORD>
+									<SPRING_DATASOURCE_DRIVERCLASSNAME>${spring.datasource.driverClassName}</SPRING_DATASOURCE_DRIVERCLASSNAME>
+									<SPRING_JPA_DATABASE_PLATFORM>${spring.jpa.database-platform}</SPRING_JPA_DATABASE_PLATFORM>
+									<SPRING_JPA_HIBERNATE_DDL_AUTO>${spring.jpa.hibernate.ddl-auto}</SPRING_JPA_HIBERNATE_DDL_AUTO>
+									<SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES>${spring.cloud.stream.kafka.binder.zkNodes}</SPRING_CLOUD_STREAM_KAFKA_BINDER_ZKNODES>
+									<SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS>${spring.cloud.stream.kafka.binder.brokers}</SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS>
+									<KAFKA_TOPIC>${kafka.topic}</KAFKA_TOPIC>
+									<AGENTS_SERVER_URL>${agents.server.url}</AGENTS_SERVER_URL>
+								</env>
 								<ports>
 									<port>${incimanager.server.port}:${incimanager.server.port}</port>
 								</ports>
@@ -506,6 +554,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven-project-info-reports-plugin.version}</version>
 				<configuration>
 					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
 					<dependencyDetailsEnabled>false</dependencyDetailsEnabled>
@@ -529,12 +578,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${maven-pmd-plugin}</version>
+				<version>${maven-pmd-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${cobertura-maven-plugin}</version>
+				<version>${cobertura-maven-plugin.version}</version>
 				<configuration>
 					<formats>
 						<format>html</format>
