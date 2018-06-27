@@ -22,7 +22,7 @@
 }
 
 .navigation-clean .navbar-brand:hover {
-  color:#7e47f4;
+  color:#4753f4;
 }
 
 .navigation-clean .navbar-toggler {
@@ -58,7 +58,7 @@
 }
 
 .navigation-clean.navbar-light .navbar-nav .nav-link:focus, .navigation-clean.navbar-light .navbar-nav .nav-link:hover {
-  color:#4c1ab7;
+  color: #291fb7;
   background-color:transparent;
 }
 
@@ -80,10 +80,10 @@
 }
 
 .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
-  color:#7e47f4;
+  color: #5963f4;
 }
 
 .navbar-light .navbar-brand {
-  color:#4c1ab7;
+  color:#4753f4;
 }
 

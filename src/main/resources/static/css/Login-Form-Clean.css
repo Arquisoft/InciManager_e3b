@@ -1,5 +1,5 @@
 .login-clean {
-  background:#f1f7fc;
+  /*background:#f1f7fc;*/
   padding:55px 0 25px 0;
 }
 
@@ -18,7 +18,7 @@
   text-align:center;
   padding:0 0 20px;
   font-size:100px;
-  color:#7e47f4;
+  color:#4753f4;
 }
 
 .login-clean form .form-control {
@@ -34,7 +34,7 @@
 }
 
 .login-clean form .btn-primary {
-  background:#7e47f4;
+  background:#4753f4;
   border:none;
   border-radius:4px;
   padding:11px;
@@ -44,7 +44,7 @@
 }
 
 .login-clean form .btn-primary:hover, .login-clean form .btn-primary:active {
-  background:#743cee;
+  background: #424edf;
 }
 
 .login-clean form .btn-primary:active {
@@ -66,7 +66,7 @@
 }
 
 .incidence {
- background:#f1f7fc;
+ /*background:#f1f7fc;*/
  padding:55px 0 25px 0;
 }
 
@@ -84,7 +84,7 @@
   text-align:center;
   padding:0 0 20px;
   font-size:100px;
-  color:#7e47f4;
+  color:#4753f4;
 }
 
 .incidence form .form-control {
@@ -100,7 +100,7 @@
 }
 
 .incidence form .btn-primary {
-  background:#7e47f4;
+  background:#4753f4;
   border:none;
   border-radius:4px;
   padding:11px;
@@ -110,7 +110,7 @@
 }
 
 .incidence form .btn-primary:hover, .incidence form .btn-primary:active {
-  background:#743cee;
+  background: #4652d9;
 }
 
 .incidence form .btn-primary:active {

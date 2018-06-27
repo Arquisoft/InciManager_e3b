@@ -1,5 +1,6 @@
 package es.uniovi.asw.e3b.incimanager_e3b;
 
+<<<<<<< HEAD
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.nio.charset.Charset;
@@ -8,6 +9,8 @@ import java.util.Properties;
 
 import javax.servlet.Filter;
 
+=======
+>>>>>>> ejecucion-manual
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -19,10 +22,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+<<<<<<< HEAD
 import kafka.KafkaLocalServer;
+=======
+import javax.servlet.Filter;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+>>>>>>> ejecucion-manual
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = InciManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -94,17 +104,20 @@ public class InciManagerapplicationTestLogueado {
 
 	@Test
 	public void testHomeLogueado() throws Exception {
-		mvc.perform(get("/"));
+		ResultActions result = mvc.perform(get("/"));
+		assert result != null;
 	}
 
 	@Test
 	public void testHomeMockup() throws Exception {
-		mvc.perform(get("/home"));
+		ResultActions result = mvc.perform(get("/home"));
+		assert result != null;
 	}
 
 	@Test
 	public void testLoginMockup() throws Exception {
-		mvc.perform(get("/login"));
+		ResultActions result = mvc.perform(get("/login"));
+		assert result != null;
 	}
 	
 	private static Properties getKafkaProperties(String logDir, int port, int brokerId) {
