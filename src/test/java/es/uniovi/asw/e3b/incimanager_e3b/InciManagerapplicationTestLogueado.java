@@ -1,6 +1,5 @@
 package es.uniovi.asw.e3b.incimanager_e3b;
 
-<<<<<<< HEAD
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.nio.charset.Charset;
@@ -9,8 +8,6 @@ import java.util.Properties;
 
 import javax.servlet.Filter;
 
-=======
->>>>>>> ejecucion-manual
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -26,13 +23,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-<<<<<<< HEAD
 import kafka.KafkaLocalServer;
-=======
-import javax.servlet.Filter;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
->>>>>>> ejecucion-manual
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = InciManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
