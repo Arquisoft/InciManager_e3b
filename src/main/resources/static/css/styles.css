@@ -6,14 +6,16 @@ body {
   line-height:1.5;
   color:#212529;
   text-align:left;
-  background-color:#f1f7fc;
+  background: url("/img/background1.jpg") #f1f7fc;
+  background-size: cover;
+  /*background-color:#f1f7fc;*/
 }
 
 .clean-wrapper {
   max-width: 100%;
   width: 90%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.87);
   padding: 40px;
   border-radius: 4px;
   color: #505e6c;
@@ -21,7 +23,7 @@ body {
 }
 
 .super-wrapper{
-  background: #f1f7fc;
+  /*background: #f1f7fc;*/
   padding: 55px 0 25px 0;
 }
 
@@ -29,5 +31,5 @@ body {
   text-align: center;
   padding: 0 0 20px;
   font-size: 100px;
-  color: #7e47f4;
+  color: #4753f4;
 }
