@@ -77,6 +77,9 @@ mvn dependency:purge-local-repository clean install -U
 
 ## Como ejecutar el proyecto
 
+![incimanager_captura0](https://user-images.githubusercontent.com/17082987/41882285-66f3a7ee-78e8-11e8-9ab7-2af5c295cee2.PNG)
+Captura de pantalla de la página de login ([ver más sobre el diseño web en esta wiki](https://github.com/Arquisoft/Inci_e3b_modules/wiki/Interfaz-de-usuario---capturas-de-pantalla)):
+
 ### Requisitos para ejecutar el proyecto
 
 - [Apache Maven](https://maven.apache.org) (versión: >= 3.5).
